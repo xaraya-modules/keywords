@@ -1,0 +1,21 @@
+{# @keywords/admin/new.html.twig #}
+
+{% block new %}
+{{ include('@keywords/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>New Keyword Assignment</h2><br />
+        <div style="margin: auto;">
+            Note : you should modify the original module item if you want to use new keywords or avoid duplicates !
+            <form method="post">
+                <table border="0" cellpadding="5">
+                    <input type="hidden" name="authid" id="authid" value="{{ authid }}" />
+                    {{ xar_data_form({object: object}) }}
+                    <tr><td colspan="2">
+                      {{ hooks }}
+                    </td></tr>
+                    <tr><td colspan="2" align="center"><input type="submit" name="confirm" value="{{ confirm }}" /></td></tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

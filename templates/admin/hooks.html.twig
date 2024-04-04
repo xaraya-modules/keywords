@@ -1,0 +1,10 @@
+{# @keywords/admin/hooks.html.twig #}
+
+{% block hooks %}
+{{ include('@keywords/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Configure Keywords Hooks</h2>
+        {% set url = xar_moduleurl('keywords','admin','hooks') %}
+        {{ xar_guifunc("modules", "admin", "hooks", {main: "false", curhook: "keywords", return_url: url}) }}
+    </div>
+{% endblock %}

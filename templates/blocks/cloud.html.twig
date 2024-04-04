@@ -1,0 +1,16 @@
+{# @keywords/blocks/cloud.html.twig #}
+
+{% block cloud %}
+{% if tags %}
+        {% set max = max(tags) %}
+        <div style="text-align: center; background-color: {{ background }}">
+            {% for keyword, count in tags %}
+                {# <!-- checkme: where does $count come from? --> #}
+                {% set ratio = round(70+80*count/max) %}
+                <a href="{{ xar_moduleurl('keywords','user','view',{'keyword': keyword}) }}" style="color: {{ color }};font-size:{{ ratio }}%; text-decoration: none" title="{{ count }} items">{{ keyword }}</a>&#160;
+            {% endfor %}
+        </div>
+    {% else %}
+        No tags currently available
+    {% endif %}
+{% endblock %}

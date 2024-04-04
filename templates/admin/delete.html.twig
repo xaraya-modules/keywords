@@ -1,0 +1,88 @@
+{# @keywords/admin/delete.html.twig #}
+
+{% block delete %}
+{{ include('@keywords/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <div class="xar-mod-page-head">
+            <h2>Manage Keyword Associations</h2>
+            {{ include('@keywords/includes/admin-module-tabs.html.twig') }}
+        </div>
+        <div class="xar-mod-page-body">
+            <h3>Delete Item Associations</h3>
+            <form method="post" action="{{ xar_moduleurl('keywords', 'admin', 'delete') }}">
+                <fieldset>
+                    <legend>Item Info</legend>
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            Module
+                        </div>
+                        <div class="xar-col">
+                            {{ modules[modname]['displayname'] }}
+                        </div>
+                    </div>
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            Itemtype
+                        </div>
+                        <div class="xar-col">
+                            {% if itemtype %}
+                                {{ modules[modname]['itemtypes'][itemtype]['label'] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            Item ID
+                        </div>
+                        <div class="xar-col">
+                            {{ itemid }}
+                        </div>
+                    </div>
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            Item
+                        </div>
+                        <div class="xar-col">
+                            <a href="{{ item['url'] }}" title="{{ item['title'] }}">{{ item['label'] }}</a>
+                        </div>
+                    </div>
+                    {% if display_hook %}
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            Keywords
+                        </div>
+                        <div class="xar-col">
+                            {{ display_hook }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </fieldset>
+                <fieldset>
+                    <legend>Delete Item Keywords</legend>
+                    <p class="xar-alert">Please confirm that you want to delete all associations with this item</p>
+                    <p class="xar-note">Once associations are deleted the item will no longer be listed in the keywords statistics</p>
+                </fieldset>
+                {% set submitLabel = 'Confirm Delete' %}
+                {% if submitLabel %}
+                    <fieldset>
+                        <div class="xar-align-center">
+                            <input type="hidden" name="phase" id="phase" value="confirm"/>
+                            <input type="hidden" name="module_id" id="module_id" value="{{ module_id }}"/>
+                            <input type="hidden" name="itemtype" id="itemtype" value="{{ itemtype }}"/>
+                            <input type="hidden" name="itemid" id="itemid" value="{{ itemid }}"/>
+                            <input type="hidden" name="authid" id="authid" value="{{ xar_coremethod('xarSec', 'genAuthKey') }}"/>
+                            <input type="hidden" name="return_url" id="return_url" value="{{ return_url }}"/>
+                            <input type="submit" value="{{ submitLabel }}"/>
+                            &#160;
+                            &#160;
+                            {% set cancelLabel = 'Cancel' %}
+                            <input type="submit" name="cancel" value="{{ cancelLabel }}"/>
+                        </div>
+                    </fieldset>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{# @keywords/includes/admin-hook-tabs.html.twig #}
+
+{% block admin_hook_tabs %}
+{{ xar_style({scope: "module", module: "base", file: "navtabs"}) }}
+        <div>
+            <ul class="xar-tabs xar-alt xar-norm-outline">
+                <li class="xar-tabs-label help" title="{{ xar_translate('Choose a module to view keywords for') }}">Configure:</li>
+                {% set activetab = 'xar-tab-active' %}
+                {% set activelink = 'xar-accent xar-accent-outline' %}
+                {% set inactivetab = 'xar-tab' %}
+                {% set inactivelink = 'xar-norm xar-norm-outline' %}
+
+                {% set tabclass = (not modname or modname == 'keywords') ? activetab : inactivetab %}
+                {% set linkclass = (not modname or modname == 'keywords') ? activelink : inactivelink %}
+                <li class="{{ tabclass }}">
+                    <a href="{{ xar_currenturl({'module_id': null, 'itemtype': null}) }}" title="{{ xar_translate('Module Configuration') }}" class="{{ linkclass }}">
+                    Defaults</a>
+                </li>
+                {% if subjects %}
+                    {% for hookedto, modinfo in subjects %}
+                        {% set tabclass = modname==hookedto?activetab.inactivetab %}
+                        {% set linkclass = modname==hookedto?activelink.inactivelink %}
+                        <li class="{{ tabclass }}">
+                            <a href="{{ xar_currenturl({'module_id': modinfo['regid'], 'itemtype': null}) }}" title="{{ xar_translate('View module keywords') }}" class="{{ linkclass }}">
+                            {{ modinfo['displayname'] }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        {% if modname != 'keywords' %}
+        <div>
+            <ul class="xar-tabs xar-alt xar-norm-outline">
+                <li class="xar-tabs-label help" title="{{ xar_translate('Choose a module itemtype to view keywords for') }}">Itemtype:</li>
+
+                {% set tabclass = not itemtype?activetab.inactivetab %}
+                {% set linkclass = not itemtype?activelink.inactivelink %}
+                <li class="{{ tabclass }}">
+                    <a href="{{ xar_currenturl({'itemtype': null}) }}" title="{{ xar_translate('View all keywords for current module selection') }}" class="{{ linkclass }}">
+                    All</a>
+                </li>
+                {% if subjects[modname]['itemtypes'] %}
+                    {% for typeid, typeinfo in subjects[modname]['itemtypes'] %}
+                        {% set tabclass = itemtype==typeid?activetab.inactivetab %}
+                        {% set linkclass = itemtype==typeid?activelink.inactivelink %}
+                        <li class="{{ tabclass }}">
+                            <a href="{{ xar_currenturl({'itemtype': typeid}) }}" title="{{ xar_translate('View module itemtype keywords') }}" class="{{ linkclass }}">
+                            {{ typeinfo['label'] }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+{% endblock %}

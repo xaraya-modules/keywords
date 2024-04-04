@@ -1,0 +1,21 @@
+{# @keywords/displayhook.html.twig #}
+
+{% extends '@keywords/base.html.twig' %}
+
+{% block modulespace %}
+{#   License: GPL http://www.gnu.org/copyleft/gpl.html  #}
+{% if keywords %}
+    <div class="xar-keywords-list">
+        {% if showlabel %}
+        Keywords:&#160;
+        {% endif %}
+        {% for loop_key1, loop_item1 in keywords %}{% set loop_index1 = loop.index %}
+            <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'keyword': loop_item1}) }}">{{ loop_item1 }}</a>
+            {% if loop_index1 < keywords|length %},&#160;{% endif %}
+        {% endfor %}
+    </div>
+    {% if meta_keywords and meta_content %}
+        <xar:meta type="name" value="keywords" content="$meta_content" lang="$meta_lang" append="$meta_append" />
+    {% endif %}
+{% endif %}
+{% endblock %}

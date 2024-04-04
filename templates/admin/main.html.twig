@@ -1,0 +1,60 @@
+{# @keywords/admin/main.html.twig #}
+
+{% block main %}
+{{ include('@keywords/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        {% set label = 'Official Icon' %}
+        <img src="{{ xar_imageurl('module-generic.png', 'base') }}" alt="{{ label }}" width="96" height="96" class="xar-module-icon" />
+        <h2>
+            Overview
+        </h2>
+        <h3>
+                What is it?
+        </h3>
+            <p><em>Keywords is a Xaraya Utility Module.</em>
+            The Keywords module allows you to assign keywords to module items (taxonomy) and to look up items by keyword.
+            To use keywords in your content items you must
+            <a href="{{ xar_moduleurl('keywords', 'admin', 'hooks') }}">hook the Keywords module</a> to any module or itemtype where where you want to use it.
+            </p>
+            <h3>
+                How to use it?
+           </h3>
+             <p>After enabling the keywords hooks for a particular module and itemtype, you'll see an input box when entering content in the module item. Here you can fill in relevant keywords whenever you create or modify a module item.
+             When viewing an item that has keywords associated, you can retrieve a list of other items having the same keyword(s).</p>
+             <p>You can also restrict keywords to a predefined set of words. Further you can make them specific for each hooked module and itemtype.
+             </p>
+             <p>In the future this module may try to extract keywords
+             automatically from other fields on create/update. Contributions in that or other directions are welcome :-)</p>
+             <h3>
+                Included Blocks
+            </h3>
+               <p>
+               There are no included blocks at this time. However you can use Keywords in your Meta Block. The keywords from your Keyword module for any given item (eg an article) are inserted into your webpage page keyword metatag.
+               </p>
+            <h3>
+                Included Hooks
+        </h3>
+            <p>
+                <ul>
+                    <li>new/create/modify/update/delete -- Allows you to create/update keywords</li>
+                    <li>display/search -- Allows you to display/search keywords</li>
+                </ul>
+            </p>
+      <h3>
+        Further Information
+      </h3>
+      <p>
+        Further information on the Keywords module can be found at
+      </p>
+      <ul>
+        <li>Keywords Extension page at <a title="{{ xar_translate('Keywords Module - Xaraya Extension 187') }}" href="http://www.xaraya.com/index.php/release/187.html">Xaraya Extension and Releases</a>.
+           Click on Version History tab at the bottom to get the latest release information.
+        </li>
+        <li>Related tutorials and documentation on Keywords found at <a href="http://www.xaraya.com/index.php/keywords/keywords/" title="{{ xar_translate('Related documentation on Keywords') }}">Xaraya Documentation.</a>
+        </li>
+      </ul>
+      <p class="xar-sub">
+        <strong>&#160;Keywords Module Overview</strong><br />&#160;Version 1.0.0&#160; 2006-04-09
+      </p>
+    </div>
+{% endblock %}

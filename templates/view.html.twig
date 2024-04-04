@@ -1,0 +1,114 @@
+{# @keywords/view.html.twig #}
+
+{% extends '@keywords/base.html.twig' %}
+
+{% block modulespace %}
+{{ include('@keywords/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        {% if keyword %}
+            {% set displaylabel = 'Display' %}
+            {% set displaytitle = 'Display item' %}
+            {% if use_icons %}
+                {% set displayicon = xar_imageurl('icons/display.png','theme') %}
+            {% endif %}
+            <h2>Keywords: {{ keyword }}</h2>
+            {{ xar_pager({startnum: startnum, itemsperpage: items_per_page, total: total}) }}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th class="xar-align-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if items %}
+                        {% for item in items %}
+                            <tr>
+                                <td>
+                                    {{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['label'] }}
+                                </td>
+                                <td class="xar-align-right">
+                                    {% if not use_icons %}
+                                        <a href="{{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['url'] }}" title="{{ displaytitle }}: {{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['title'] }}">{{ displaylabel }}</a>
+                                    {% else %}
+                                        <a href="{{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['url'] }}" title="{{ displaytitle }}: {{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['title'] }}" class="xar-icon"><img src="{{ displayicon }}" alt="{{ displaylabel }}" class="xar-icon"/></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="2"><p class="xar-note">No items associated with this word</p></td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {{ xar_pager({startnum: startnum, itemsperpage: items_per_page, total: total}) }}
+            <div class="xar-row">
+                <div class="xar-col">
+                </div>
+                <div class="xar-col">
+                    {% if xar_coremethod('xarController', 'isLocalReferer') %}
+                        {% set label = 'Go back' %}
+                        {{- xar_button({type: "cancel", label: label}) -}}
+                    {% else %}
+                        {% set label = 'View keywords' %}
+                        {% set target = xar_moduleurl('keywords', 'user', 'view') %}
+                        {{- xar_button({type: "link", label: label, target: target}) -}}
+                    {% endif %}
+                </div>
+            </div>
+
+        {% else %}
+            {% if user_layout == 'list' %}
+                <h2>Keywords List</h2>
+                <fieldset>
+                    <div class="keywords-list">
+                        {% if items %}
+                            {{ xar_pager({startnum: startnum, itemsperpage: items_per_page, total: total}) }}
+                            {% set colwidth = (95/cols_per_page)|round(2) %}
+                            {% set itemcount = items|length %}
+                            {% set itemspercol = (itemcount/cols_per_page)|round %}
+                            {% set nextindex = 0 %}
+                            {% for i in range(0, cols_per_page - 1) %}
+                                {% set j = 0 %}
+                                <div style="width: {{ colwidth }}%;" class="xar-floatleft">
+                                    <ul>
+                                        {# @todo <xar:for start="$k=$nextindex" test="$j lt $itemspercol and isset($items[$k])" iter="$k++"> #}
+                                        {#
+                                        {% for k in range(nextindex, itemspercol) if items[k] is not null %}
+                                            <li>
+                                                <a href="{{ xar_moduleurl('keywords', 'user', 'view', {'keyword': items[k]['keyword']}) }}">{{ items[k]['keyword'] }}</a>
+                                            </li>
+                                            {% set j = j+1 %}
+                                        {% endfor %}
+                                        #}
+                                        {% set k = k + 1 %}
+                                        {% set nextindex = k %}
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                            <br class="xar-clearboth"/>
+                            {{ xar_pager({startnum: startnum, itemsperpage: items_per_page, total: total}) }}
+                        {% else %}
+                            <p class="xar-note">No keywords to display</p>
+                        {% endif %}
+                    </div>
+                </fieldset>
+            {% elseif user_layout == 'cloud' %}
+                <h2>Keywords Cloud</h2>
+                <fieldset>
+                    {% if items %}
+                        <div class="keywords-cloud">
+                            {% for item in items %}
+                                <a href="{{ xar_moduleurl('keywords', 'user', 'view', {'keyword': item['keyword']}) }}" style="font-size: {{ item['weight'] }}{{ unit }};">{{ item['keyword'] }}</a>&#160;
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="xar-note">No keywords to display</p>
+                    {% endif %}
+                </fieldset>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

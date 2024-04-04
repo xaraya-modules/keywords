@@ -1,0 +1,27 @@
+{# @keywords/blocks/keywordscategories.html.twig #}
+
+{% block keywordscategories %}
+{# <!-- License: GPL http://www.gnu.org/copyleft/gpl.html
+Global variables : itemid, itemtype, modid
+Available variables for each related categories (items) :
+$item['keyword'],$item['modid'],$item['itemtype'],$item['itemid'],
+$item['name'],$item['description'],$item['image'],$item['parent'],$item['left'],$item['right'],
+--> #}
+
+{% if items %}
+    <br />
+
+    <div class="xar-block-title">Keywords related categories:</div>
+    {% for item in items %}
+        &#149;{{ xar_prep_display(item['name']) }}&#160;
+        {% if item['image'] %}
+            {{ item['image'] }}<br />
+        {% endif %}
+        {% if item['description'] %}
+            {{ xar_prep_display(item['description']) }}<br />
+        {% endif %}
+    <a href="{{ item['link'] }}">Read More</a>
+    <br /><br />
+    {% endfor %}
+{% endif %}
+{% endblock %}

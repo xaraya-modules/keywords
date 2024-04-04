@@ -1,0 +1,88 @@
+{# @keywords/includes/navtabs.html.twig #}
+
+{% block navtabs %}
+{{ xar_style({scope: "module", module: "base", file: "navtabs"}) }}
+    <dl class="xar-tabs">
+        <dt class="help" title="{{ xar_translate('Click on a tab to filter the keywords to be selected') }}">
+            Filter:
+        </dt>
+        {% if tab == 0 %}
+            <dd class="active">
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '0'}) }}">
+                    All
+                </a>
+            </dd>
+        {% else %}
+            <dd>
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '0'}) }}">
+                    All
+                </a>
+            </dd>
+        {% endif %}
+        {% if tab == 1 %}
+            <dd class="active">
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '1'}) }}">
+                    a - f
+                </a>
+            </dd>
+        {% else %}
+            <dd>
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '1'}) }}">
+                    a - f
+                </a>
+            </dd>
+        {% endif %}
+        {% if tab == 2 %}
+            <dd class="active">
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '2'}) }}">
+                    g - l
+                </a>
+            </dd>
+        {% else %}
+            <dd>
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '2'}) }}">
+                    g - l
+                </a>
+            </dd>
+        {% endif %}
+        {% if tab == 3 %}
+            <dd class="active">
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '3'}) }}">
+                    m - r
+                </a>
+            </dd>
+        {% else %}
+            <dd>
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '3'}) }}">
+                    m - r
+                </a>
+            </dd>
+        {% endif %}
+        {% if tab == 4 %}
+            <dd class="active">
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '4'}) }}">
+                    s - z
+                </a>
+            </dd>
+        {% else %}
+            <dd>
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '4'}) }}">
+                    s - z
+                </a>
+            </dd>
+        {% endif %}
+        {% if tab == 5 %}
+            <dd class="active">
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '5'}) }}">
+                    other
+                </a>
+            </dd>
+        {% else %}
+            <dd>
+                <a href="{{ xar_moduleurl('keywords', 'user', 'main', {'tab': '5'}) }}">
+                     other
+                </a>
+            </dd>
+        {% endif %}
+    </dl>
+{% endblock %}

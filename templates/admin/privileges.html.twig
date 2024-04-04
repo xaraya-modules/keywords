@@ -1,0 +1,86 @@
+{# @keywords/admin/privileges.html.twig #}
+
+{% block privileges %}
+{{ include('@keywords/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Select Module Items for Privilege {{ extname }}</h2>
+        <form method="post" action="{{ xar_moduleurl('keywords', 'admin', 'privileges') }}">
+            <input type="hidden" name="extpid" id="extpid" value="{{ extpid }}" />
+            <input type="hidden" name="extname" id="extname" value="{{ extname }}" />
+            <input type="hidden" name="extrealm" id="extrealm" value="{{ extrealm }}" />
+            <input type="hidden" name="extmodule" id="extmodule" value="{{ extmodule }}" />
+            <input type="hidden" name="extcomponent" id="extcomponent" value="{{ extcomponent }}" />
+            <input type="hidden" name="pparentid" id="pparentid" value="{{ pparentid }}"/>
+            <fieldset>
+                <div class="xar-row">
+                    <div class="xar-col">
+                        <label for="keywords_moduleid">Module</label>
+                    </div>
+                    <div class="xar-col">
+                        {% set firstline = {'id': 0, 'name': 'All'} %}
+                        {{ xar_data_input({type: "dropdown", name: "moduleid", id: "keywords_moduleid", value: moduleid, options: modlist, firstline: firstline, onchange: "this.form.submit();return false;"}) }}
+                        {% if not modlist %}
+                            <p class="xar-note">Keywords does not appear to be hooked to an modules</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="xar-row">
+                    <div class="xar-col">
+                        <label for="keywords_itemtype">Itemtype</label>
+                    </div>
+                    <div class="xar-col">
+                        {% if typelist %}
+                            {% set firstline = {'id': 0, 'name': 'All'} %}
+                            {{ xar_data_input({type: "dropdown", name: "itemtype", id: "keywords_itemtype_select", value: itemtype, options: typelist, firstline: firstline, onchange: "this.form.submit();return false;"}) }}
+                        {% else %}
+                            {{ xar_data_input({type: "integerbox", name: "itemtype", id: "keywords_itemtype", value: itemtype, size: "10"}) }}&#160; (0 = All Itemtypes)
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="xar-row">
+                    <div class="xar-col">
+                        <label for="keywords_itemid">Item ID</label>
+                    </div>
+                    <div class="xar-col">
+                        {% if itemlist %}
+                            {% set firstline = {'id': 0, 'name': 'All'} %}
+                            {{ xar_data_input({type: "dropdown", name: "itemid", id: "keywords_itemid_select", value: itemid, options: itemlist, firstline: firstline, onchange: "this.form.submit();return false;"}) }}
+                        {% else %}
+                            {{ xar_data_input({type: "integerbox", name: "itemid", id: "keywords_itemid", value: itemid, size: "10"}) }}&#160; (0 = All Items)
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="xar-row">
+                    <div class="xar-col">
+                        <label for="keywords_extlevel">Access Level</label>
+                    </div>
+                    <div class="xar-col">
+                        {{ xar_data_input({type: "dropdown", name: "extlevel", id: "keywords_extlevel", value: extlevel, options: extlevels}) }}
+                    </div>
+                </div>
+                <div class="xar-align-center">
+                    {% set refreshLabel = 'Refresh Selection' %}
+                    <input type="submit" value="{{ refreshLabel }}"/>
+                </div>
+            </fieldset>
+            <fieldset>
+                <p>Instance Definition {{ extinstance }}</p>
+                <p class="xar-note">There are {{ numitems }} entries matching these selection criteria at the moment</p>
+
+                <div class="xar-align-center">
+                    {% set submitLabel = 'Finish and Apply to Privilege' %}
+                    <input type="submit" name="apply" value="{{ submitLabel }}"/>
+                </div>
+            </fieldset>
+        </form>
+        Some examples :  (assuming your users have read access by default)<br /><br />
+        - In order to allow 'Friends' to view the keywords for articles, define a privilege 'ReadArticleKeywords'
+        (or whatever name you prefer), and choose the module "Articles" (instance 151:All:All) and access level "Read" above.
+        Press "Finish and Apply to Privilege", and then assign that privilege to the 'Friends' role.
+        <br /><br />
+        - ...
+        <br /><br />
+
+    </div>
+
+{% endblock %}

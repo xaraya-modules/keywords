@@ -1,0 +1,18 @@
+{# @keywords/blocks/search.html.twig #}
+
+{% block search %}
+<form action="{{ xar_moduleurl('keywords','user','search') }}" method="post" class="xar-margin-none">
+        {% set itemtypeid = 'itemtypeid'._bl_block_id %}
+        <input type="hidden" name="itemtype" id="{{ itemtypeid }}" value="{{ itemtype }}"/>
+        {% set module_idid = 'module_id'._bl_block_id %}
+        <input type="hidden" name="module_id" id="{{ module_idid }}" value="{{ module_id }}"/>
+	    <div>
+            {% set label = 'Search for keywords' %}
+            {% set searchid = 'uname'._bl_block_id %}
+            <label for="{{ searchid }}" title="{{ label }}">Keywords:</label>
+            {{ xar_data_input({type: "textarea", class: "xar-fullwidth", name: "search", id: searchid}) }}
+	        {% set label = 'Search' %}
+            {{- xar_button({type: "submit", label: label}) -}}
+	    </div>
+    </form>
+{% endblock %}

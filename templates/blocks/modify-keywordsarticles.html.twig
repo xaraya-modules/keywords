@@ -1,0 +1,77 @@
+{# @keywords/blocks/modify-keywordsarticles.html.twig #}
+
+{% block modify_keywordsarticles %}
+<input type="hidden" value="1" name="refreshrandom" />
+
+<div style="clear: both; padding-top: 10px;">
+    <span style="float: left; width: 20%; text-align: right;">
+        {# <!-- block configuration options --> #}
+        <span class="help" title="{{ xar_translate('Choose the publication type for the featured items.') }}">
+            <label for="pubtypeid{{ blockid }}">Publication Type:</label>
+        </span>
+    </span>
+
+    <span style="float: right; width: 78%; text-align: left;">
+        <select name="ptid" id="pubtypeid{{ blockid }}">
+            <option value="0">All</option>
+            {% for pubid, pubtype in pubtypes %}
+                {% if ptid and ptid == pubid %}
+                    <option value="{{ pubid }}" selected="selected">{{ pubtype['descr'] }}</option>
+                {% else %}
+                    <option value="{{ pubid }}">{{ pubtype['descr'] }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </span>
+</div>
+
+{# <!-- TODO
+                <div style="clear: both; padding-top: 10px;">
+                <span style="float: left; width: 20%; text-align: right;">
+                        <span class="help" title="{{ xar_translate('Choose the category for the featured items.') }}"><label for="catfilter{{ blockid }}">Category</label>:</span>
+                </span>
+                <span style="float: right; width: 78%; text-align: left;">
+                        <select name="cid" id="catfilter{{ blockid }}">
+                                <option value="0">All</option>
+                                {% for catlistx in categorylist %}
+                                        {% if cid and cid == catlistx['cid'] %}
+                                                <option value="{{ catlistx['cid'] }}" selected="selected">{{ catlistx['name'] }}</option>
+                                        {% else %}
+                                                <option value="{{ catlistx['cid'] }}">{{ catlistx['name'] }}</option>
+                                        {% endif %}
+                                {% endfor %}
+                        </select>
+                </span>
+                </div>
+--> #}
+
+<div style="clear: both; padding-top: 10px;">
+    <span style="float: left; width: 20%; text-align: right;">
+        <span class="help" title="{{ xar_translate('Choose the status (e.g. Approved, Front Page) }} for the featured items.') }}">
+            <label for="status{{ blockid }}">Status:</label>
+        </span>
+    </span>
+    <span style="float: right; width: 78%; text-align: left;">
+        <select name="status" id="status{{ blockid }}" size="1">
+                {% for statusoption in statusoptions %}
+                        {% if status and status == statusoption['id'] %}
+                                <option value="{{ statusoption['id'] }}" selected="selected">{{ statusoption['name'] }}</option>
+                        {% else %}
+                                <option value="{{ statusoption['id'] }}">{{ statusoption['name'] }}</option>
+                        {% endif %}
+                {% endfor %}
+        </select>
+    </span>
+</div>
+
+<div style="clear: both; padding-top: 10px;">
+    <span style="float: left; width: 20%; text-align: right;">
+        <span class="help" title="{{ xar_translate('How many minutes to wait before updating this block.') }}">
+            <label for="refreshtime{{ blockid }}">Time to refresh block (minutes):</label>
+        </span>
+    </span>
+    <span style="float: right; width: 78%; text-align: left;">
+        <input type="text" name="refreshtime" id="refreshtime{{ blockid }}" value="{{ refreshtime }}" size="7" maxlength="6" />
+    </span>
+</div>
+{% endblock %}

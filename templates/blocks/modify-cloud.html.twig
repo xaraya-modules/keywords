@@ -1,0 +1,76 @@
+{# @keywords/blocks/modify-cloud.html.twig #}
+
+{% block modify_cloud %}
+<div class="xar-row">
+        <div class="xar-col">
+            {% set idvalue = 'color' .blockid %}
+            <label for="{{ idvalue }}" class="xar-form-label" title="{{ xar_translate('Light Row (add in hexadecimal format ex. F0F0F0) }}') }}">
+                Text color:
+            </label>
+        </div>
+        <div class="xar-col">
+            {{ xar_data_input({type: "tcolorpicker", name: "color", id: idvalue, value: color, maxlength: "6", class: "xar-form-textshort"}) }}
+        </div>
+    </div>
+    <div class="xar-row">
+        <div class="xar-col">
+            {% set idvalue = 'background' .blockid %}
+            <label for="{{ idvalue }}" class="xar-form-label" title="{{ xar_translate('Dark Row (add in hexadecimal format ex. F0F0F0) }}') }}">
+                Background color:
+            </label>
+        </div>
+        <div class="xar-col">
+            {{ xar_data_input({type: "tcolorpicker", name: "background", id: idvalue, value: background, maxlength: "6", class: "xar-form-textshort"}) }}
+        </div>
+    </div>
+    <div class="xar-row">
+        <div class="xar-col">
+            <label for="cloudtype" title="{{ xar_translate('What type of cloud to show in the block') }}" class="xar-form-label">
+                {{ xar_translate('Cloud Type:') }}
+            </label>
+        </div>
+        <div class="xar-col">
+            {% set options = [
+                    {'id': 1, 'name': 'Category items'},
+                    {'id': 2, 'name': 'Number of hits'},
+                    {'id': 3, 'name': 'Keywords'}
+                ] %}
+            {{ xar_data_input({type: "dropdown", name: "cloudtype", options: options, value: cloudtype}) }}
+        </div>
+    </div>
+    <div class="xar-row">
+        <div class="xar-col">
+            {% set idvalue = 'module_id' .blockid %}
+            <label for="{{ idvalue }}" class="xar-form-label" title="{{ xar_translate('Choose the module for this block') }}">
+                Module:
+            </label>
+        </div>
+        <div class="xar-col">
+            {% set firstline = 'All' %}
+            {% set firstline = "0,firstline" %}
+            {{ xar_data_input({type: "module", name: "module_id", id: idvalue, value: module_id, firstline: firstline, maxlength: "6", class: "xar-form-textshort"}) }}
+        </div>
+    </div>
+    <div class="xar-row">
+        <div class="xar-col">
+            {% set idvalue = 'itemtype' .blockid %}
+            <label for="{{ idvalue }}" class="xar-form-label" title="{{ xar_translate('Choose the itemtype for this block') }}">
+                Itemtype:
+            </label>
+        </div>
+        <div class="xar-col">
+            {{ xar_data_input({type: "integerbox", name: "itemtype", id: idvalue, value: itemtype, maxlength: "6", class: "xar-form-textshort"}) }}
+            &#160; (Empty field or zero means 'All')
+        </div>
+    </div>
+    <div class="xar-row">
+        <div class="xar-col">
+            &#160;
+        </div>
+        <div class="xar-col">
+            {% if status == 'not_available' %}
+                <span class="xar-alert">The required module is not installed</span>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

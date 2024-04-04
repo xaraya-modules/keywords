@@ -1,0 +1,83 @@
+{# @keywords/objects/showform-module_settings.html.twig #}
+
+{% block showform_module_settings %}
+{% if properties['items_per_page'] is not null %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set label = 'The number of items to show on each page.' %}
+                    <label for="items_per_page" title="{{ label }}" size="3" class="xar-form-label">List items per page:</label>
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({property: properties['items_per_page'], class: "xar-form-textauto"}) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if properties['enable_short_urls'] is not null %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set label = 'Enable short URLs for this module' %}
+                    <label for="enable_short_urls" class="xar-form-label"  title="{{ label }}">Enable Short URLs</label>
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({property: properties['enable_short_urls']}) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if properties['use_module_alias'] is not null %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set label = 'Use an alias instead of the module name' %}
+                    <label for="use_module_alias" class="xar-form-label" title="{{ label }}">Enable module alias(es)</label>
+                   </div>
+                <div class="xar-col">
+                    {{ xar_data_input({id: "use_module_alias", property: properties['use_module_alias'], onchange: "toggle(\'aliaslink\',\'aliascheckbox\')"}) }}&#160;
+                    {% set info = xarController..request.getInfo() %}
+                    <a href="{{ xar_moduleurl('modules','admin','aliases',{'name': info[0]}) }}">Manage Aliases</a>
+                </div>
+            </div>
+        {% endif %}
+        {% if properties['use_module_icons'] is not null %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set label = 'Display icons instead of text' %}
+                    <label for="use_module_icons" class="xar-form-label" title="{{ label }}">Use Icons</label>
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({id: "use_module_icons", property: properties['use_module_icons']}) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if properties['enable_user_menu'] is not null %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set label = 'Enable the user settings for this module in Roles User Account.' %}
+                    <label for="enable_user_menu" class="xar-form-label" title="{{ label }}">Enable User Settings</label>
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({id: "enable_user_menu", property: properties['enable_user_menu']}) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if properties['user_menu_link'] is not null %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set label = 'Hide the link to this module's user functions in the Base module User Menu Block.' %}
+                    <label for="user_menu_link" class="xar-form-label" title="{{ label }}">Hide link in User Menu</label>
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({id: "user_menu_link", property: properties['user_menu_link']}) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if properties['admin_menu_link'] is not null %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set label = 'Hide the link to this module's admin functions in the Base module Admin Menu Block.' %}
+                    <label for="admin_menu_link" class="xar-form-label" title="{{ label }}">Hide link in Admin Menu</label>
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({id: "admin_menu_link", property: properties['admin_menu_link']}) }}
+                </div>
+            </div>
+        {% endif %}
+{% endblock %}

@@ -1,0 +1,116 @@
+{# @keywords/hooks/modulemodifyconfig.html.twig #}
+
+{% block modulemodifyconfig %}
+{# <!-- show form in the following $config_state conditions
+         1) (default) per module config disabled and this is the keywords module
+         2) (module) per itemtype config disabled and no itemtype
+         3) (itemtype) per itemtype config enabled 
+    --> #}
+    {% if (config_state == 'default' and module == 'keywords') or
+        (config_state == 'module' and not itemtype) or
+        (config_state == 'itemtype') %}
+        {% if not delimiters %}
+            {% set delimiters = ',' %}
+        {% endif %}
+        {% if not itemtype %}
+            {# <!-- no itemtype, we're displaying the defaults for a module --> #}
+            {% if module == 'keywords' %}
+                {# <!-- if it's the keywords module, show the per module checkbox --> #}
+                {% set global_label = 'Disable Per Module Configuration' %}
+                {% set global_note = 'Check this if you want to use the settings below for all modules' %}
+            {% elseif config_state == 'module' and not itemtype %}
+                {# <!-- config for some other module, show the per itemtype checkbox --> #}
+                {% set global_label = 'Disable Per Itemtype Configuration' %}
+                {% set global_note = 'Check this if you want to use the settings below for all module itemtypes' %}
+            {% else %}
+                {# <!-- not the keywords module, and per module config disabled --> #}
+            {% endif %}
+            {% if global_label %}
+                <div class="xar-row">
+                    <div class="xar-col">
+                        <label for="keywords_settings_global_config">{{ global_label }}</label>
+                    </div>
+                    <div class="xar-col">
+                        {{ xar_data_input({type: "checkbox", name: "keywords_settings[global_config]", id: "keywords_settings_global_config", checked: global_config}) }}
+                        &#160;<span class="xar-note">{{ global_note }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {% set delTitle = 'Allowed keyword delimiters' %}
+                <label for="delimiters" title="{{ delTitle }}">Word delimiters</label>
+            </div>
+            <div class="xar-col">
+                <strong>{{ delimiters }}</strong>
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                <label for="keywords_settings_auto_tag_create">New Item Keywords</label>
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({type: "textbox", name: "keywords_settings[auto_tag_create]", id: "keywords_settings_auto_tag_create", value: auto_tag_create, class: "xar-form-textxxlong"}) }}
+                <p class="xar-note">Enter a list of keywords to automatically attach to new items</p>
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                <label for="keywords_settings_auto_tag_persist">Persist New Item Keywords?</label>
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({type: "checkbox", name: "keywords_settings[auto_tag_persist]", id: "keywords_settings_auto_tag_persist", checked: auto_tag_persist}) }}
+                &#160;<span class="xar-note">Check this if you want to prevent removal of new item keywords</span>
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {% set metaTitle = 'Dynamically add/replace keywords meta tag data when an item is displayed' %}
+                <label for="keywords_settings_meta_keywords" title="{{ metaTitle }}">Use Item Keywords in Meta Tag?</label>
+            </div>
+            <div class="xar-col">
+                
+                {{ xar_data_input({type: "dropdown", name: "keywords_settings[meta_keywords]", id: "keywords_settings_meta_keywords", value: meta_keywords, options: meta_options}) }}
+                {% if meta_keywords > 0 and meta_langs %}
+                    {% set firstline = {'id': 0, 'name': 'n/a'} %}
+                    &#160;<label for="keywords_settings_meta_lang">lang</label> =
+                    {{ xar_data_input({type: "dropdown", name: "keywords_settings[meta_lang]", id: "keywords_settings_meta_lang", value: meta_lang, options: meta_langs, firstline: firstline}) }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="xar-row">
+            <div class="xar-col">
+                <label for="keywords_settings_restrict_words">Restrict Words</label>
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({type: "checkbox", name: "keywords_settings[restrict_words]", id: "keywords_settings_restrict_words", checked: restrict_words}) }}
+            </div>
+        </div>
+        {% if restrict_words %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    <label for="keywords_settings_restrict_words">Restricted Words List</label>
+                </div>
+                <div class="xar-col">
+                    <textarea name="keywords_settings[restricted_list]" id="keywords_settings_restricted_list" cols="40" rows="5">{{ restricted_list }}</textarea>
+                </div>
+            </div>
+
+            <div class="xar-row">
+                <div class="xar-col">
+                    {% set addTitle = 'Allow managers to add to restricted list when creating/modifying items' %}
+                    <label for="keywords_settings_allow_manager_add" title="{{ addTitle }}">Managers can Add Keywords?</label>
+                </div>
+                <div class="xar-col">
+                    {{ xar_data_input({type: "checkbox", name: "keywords_settings[allow_manager_add]", id: "keywords_settings_allow_manager_add", checked: allow_manager_add}) }}
+                    &#160;<span class="xar-note">{{ addTitle }}</span>                    
+                </div>
+            </div>
+        {% endif %}
+        <input type="hidden" name="keywords_settings[index_id]" id="keywords_settings_index_id" value="{{ index_id }}"/>
+        <input type="hidden" name="keywords_settings[module]" id="keywords_settings_module" value="{{ module }}"/>
+        <input type="hidden" name="keywords_settings[itemtype]" id="keywords_settings_itemtype" value="{{ itemtype }}"/>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,111 @@
+{# @keywords/admin/view.html.twig #}
+
+{% block view %}
+{{ include('@keywords/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <div class="xar-mod-page-head">
+            <h2>Overview of Keyword Associations</h2>
+            {{ include('@keywords/includes/admin-module-tabs.html.twig') }}
+            <form method="get" action="{{ xar_currenturl() }}">
+                <input type="hidden" name="module" id="module_name" value="keywords"/>
+                <input type="hidden" name="type" id="module_type" value="admin"/>
+                <input type="hidden" name="func" id="func" value="view"/>
+                <input type="hidden" name="module_id" id="module_id" value="{{ module_id }}"/>
+                <input type="hidden" name="itemtype" id="itemtype" value="{{ itemtype }}"/>
+                <div class="xar-row">
+                    <div class="xar-col">
+                        {% set filterTitle = 'Optionally filter items by keyword(s)' %}
+                        <label for="keyword" title="{{ filterTitle }}">Filter items by keyword(s)*</label>
+                    </div>
+                    <div class="xar-col">
+                        <input type="text" name="keyword" id="keyword" value="{{ keyword }}"/>
+                        &#160;
+                        {% set filterLabel = 'Apply Filter' %}
+                        <input type="submit" value="{{ filterLabel }}"/>
+                        &#160;( *delimiters: <strong>{{ delimiters }}</strong> )
+                    </div>
+            </div>
+            </form>
+        </div>
+        <div class="xar-mod-page-body">
+
+            {% set modifylabel = 'Modify' %}
+            {% set modifytitle = 'Modify associations with this item' %}
+            {% set deletelabel = 'Delete' %}
+            {% set deletetitle = 'Delete all associations with this item' %}
+            {% set displaylabel = 'Display' %}
+            {% set displaytitle = 'Display module item' %}
+            {% if use_icons %}
+                {% set modifyicon = xar_imageurl('icons/modify.png','theme') %}
+                {% set deleteicon = xar_imageurl('icons/delete.png','theme') %}
+                {% set displayicon = xar_imageurl('icons/display.png','theme') %}
+            {% endif %}
+
+            {{ xar_pager({startnum: startnum, itemsperpage: items_per_page, total: total}) }}
+            <table class="xar-fullwidth">
+                <caption class="xar-align-left">
+                    {% if not modname %}
+                        All
+                    {% else %}
+                        {{ modules[modname]['displayname'] }}
+                        {% if itemtype %}
+                            {{ modules[modname]['itemtypes'][itemtype]['label'] }}
+                        {% endif %}
+                    {% endif %}
+                    Associations
+                </caption>
+                <thead>
+                    <tr>
+                        {% if not modname %}
+                            <th>Module</th>
+                        {% endif %}
+                        {% if not itemtype %}
+                            <th>Itemtype</th>
+                        {% endif %}
+                        <th>Item</th>
+                        <th class="xar-align-center">Words</th>
+                        <th class="xar-align-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if items %}
+                        {% for item in items %}
+                            <tr>
+                                {% if not modname %}
+                                    <td>
+                                        {# <!-- {{ modules[item['module']]['displayname'] }} --> #}
+                                        {{ item['module'] }}
+                                    </td>
+                                {% endif %}
+                                {% if not itemtype %}
+                                    <td>
+                                        {{ item['itemtype'] }} - {{ modules[item['module']]['itemtypes'][item['itemtype']]['label'] }}
+                                    </td>
+                                {% endif %}
+                                <td>
+                                    {{ item['itemid'] }} - {{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['label'] }}
+                                </td>
+                                <td class="xar-align-center">
+                                    {{ item['numwords'] }}
+                                </td>
+                                <td class="xar-align-right">
+                                    {% set return_url = xar_currenturl() %}
+                                    {% if not use_icons %}
+                                    <a href="{{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['url'] }}" title="{{ displaytitle }}: {{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['title'] }}">{{ displaylabel }}</a>&#160;
+                                    <a href="{{ xar_moduleurl('keywords', 'admin', 'modify', {'module_id': item['module_id'], 'itemtype': item['itemtype'], 'itemid': item['itemid'], 'return_url': return_url}) }}" title="{{ modifytitle }}">{{ modifylabel }}</a>&#160;
+                                    <a href="{{ xar_moduleurl('keywords', 'admin', 'delete', {'module_id': item['module_id'], 'itemtype': item['itemtype'], 'itemid': item['itemid'], 'return_url': return_url}) }}" title="{{ deletetitle }}">{{ deletelabel }}</a>
+                                    {% else %}
+                                    <a href="{{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['url'] }}" title="{{ displaytitle }}: {{ modules[item['module']]['itemlinks'][item['itemtype']][item['itemid']]['title'] }}" class="xar-icon"><img src="{{ displayicon }}" alt="{{ displaylabel }}" class="xar-icon"/></a>&#160;
+                                    <a href="{{ xar_moduleurl('keywords', 'admin', 'modify', {'module_id': item['module_id'], 'itemtype': item['itemtype'], 'itemid': item['itemid'], 'return_url': return_url}) }}" class="xar-icon" title="{{ modifytitle }}"><img src="{{ modifyicon }}" alt="{{ modifylabel }}" class="xar-icon"/></a>&#160;
+                                    <a href="{{ xar_moduleurl('keywords', 'admin', 'delete', {'module_id': item['module_id'], 'itemtype': item['itemtype'], 'itemid': item['itemid'], 'return_url': return_url}) }}" class="xar-icon" title="{{ deletetitle }}"><img src="{{ deleteicon }}" alt="{{ deletelabel }}" class="xar-icon"/></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            {{ xar_pager({startnum: startnum, itemsperpage: items_per_page, total: total}) }}
+        </div>
+    </div>
+{% endblock %}

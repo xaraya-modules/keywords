@@ -1,0 +1,161 @@
+{# @keywords/admin/modifyconfig.html.twig #}
+
+{% block modifyconfig %}
+{{ include('@keywords/includes/admin-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <div class="xar-mod-page-head">
+            <h2>Modify Configuration</h2>
+            {{ include('@keywords/includes/admin-hook-tabs.html.twig') }}
+        </div>
+        <div class="xar-mod-page-body">
+            <form name="post" id="post" action="{{ xar_moduleurl('keywords', 'admin', 'modifyconfig') }}" method="post" enctype="application/x-www-form-urlencoded">
+                {% if module_settings %}
+                    <fieldset>
+                        <legend>Module Settings</legend>
+                        {{ xar_data_form({object: module_settings}) }}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Admin Settings</legend>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                {% set sppTitle = 'Number of items to show when displaying statistics listings' %}
+                                <label for="stats_per_page" title="{{ sppTitle }}">Stats per page</label>
+                            </div>
+                            <div class="xar-col">
+                                {{ xar_data_input({type: "integerbox", name: "stats_per_page", id: "stats_per_page", value: stats_per_page}) }}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>User Settings</legend>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                {% set ippTitle = 'Number of items to show when displaying items by keyword' %}
+                                <label for="items_per_page" title="{{ ippTitle }}">Items per page</label>
+                            </div>
+                            <div class="xar-col">
+                                {{ xar_data_input({type: "integerbox", name: "items_per_page", id: "items_per_page", value: items_per_page}) }}
+                            </div>
+                        </div>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                {% set ulTitle = 'Layout to use when displaying keywords listings to users' %}
+                                <label for="user_layout" title="{{ ulTitle }}">User Layout</label>
+                            </div>
+                            <div class="xar-col">
+                                {{ xar_data_input({type: "dropdown", name: "user_layout", id: "user_layout", options: user_layouts, value: user_layout, onchange: "this.form.submit();return false;"}) }}
+                            </div>
+                        </div>
+                        {% if user_layout == 'list' %}
+                            <div class="xar-row">
+                                <div class="xar-col">
+                                    {% set cppTitle = 'Number of columns to use when displaying keywords list' %}
+                                    <label for="cols_per_page" title="{{ cppTitle }}">List columns per page</label>
+                                </div>
+                                <div class="xar-col">
+                                    {{ xar_data_input({type: "integerbox", name: "cols_per_page", id: "cols_per_page", value: cols_per_page}) }}
+                                </div>
+                            </div>
+                            <div class="xar-row">
+                                <div class="xar-col">
+                                    {% set wppTitle = 'Number of words per page when displaying keywords list' %}
+                                    <label for="words_per_page" title="{{ wppTitle }}">List words per page</label>
+                                </div>
+                                <div class="xar-col">
+                                    {{ xar_data_input({type: "integerbox", name: "words_per_page", id: "words_per_page", value: words_per_page}) }}
+                                </div>
+                            </div>
+                {# <!-- not implemented yet
+                            <div class="xar-row">
+                                <div class="xar-col">
+                                    {% set sortTitle = 'Allow keywords to be filtered alphabetically' %}
+                                    <label for="showsort" title="{{ sortTitle }}">Show sort filter</label>
+                                </div>
+                                <div class="xar-col">
+                                    {{ xar_data_input({type: "checkbox", name: "showsort", id: "showsort", checked: showsort}) }}
+                                </div>
+                            </div>
+                --> #}
+                        {% else %}
+                            <div class="xar-row">
+                                <div class="xar-col">
+                                    {% set fminTitle = 'Minimum font size to use' %}
+                                    <label for="cloud_font_min" title="{{ fminTitle }}">Cloud minimum font size</label>
+                                </div>
+                                <div class="xar-col">
+                                    {{ xar_data_input({type: "integerbox", name: "cloud_font_min", id: "cloud_font_min", value: cloud_font_min}) }}
+                                </div>
+                            </div>
+                            <div class="xar-row">
+                                <div class="xar-col">
+                                    {% set fmaxTitle = 'Maximum font size to use' %}
+                                    <label for="cloud_font_max" title="{{ fmaxTitle }}">Cloud maximum font size</label>
+                                </div>
+                                <div class="xar-col">
+                                    {{ xar_data_input({type: "integerbox", name: "cloud_font_max", id: "cloud_font_max", value: cloud_font_max}) }}
+                                </div>
+                            </div>
+                            <div class="xar-row">
+                                <div class="xar-col">
+                                    {% set fsTitle = 'The font size units to use' %}
+                                    <label for="cloud_font_unit" title="{{ fsTitle }}">Cloud font size units</label>
+                                </div>
+                                <div class="xar-col">
+                                    {{ xar_data_input({type: "dropdown", name: "cloud_font_unit", id: "cloud_font_unit", value: cloud_font_unit, options: font_units}) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Keyword Settings</legend>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                {% set delTitle = 'Define permitted keyword delimiters (no spaces)' %}
+                                <label for="delimiters" title="{{ delTitle }}">Word delimiters</label>
+                            </div>
+                            <div class="xar-col">
+                                <input type="text" name="delimiters" id="delimiters" value="{{ delimiters }}" class="xar-form-textshort"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                    {% set submitLabel = 'Update Config' %}
+                {% endif %}
+
+                <fieldset>
+                    <legend>
+                        {% if modname == 'keywords' %}
+                            Default
+                        {% else %}
+                            {{ modname }}
+                            {% if itemtype %}
+                                {% if subjects[modname]['itemtypes'][itemtype] is not null %}
+                                    {{ subjects[modname]['itemtypes'][itemtype]['label'] }}
+                                {% else %}
+                                    Itemtype {{ itemtype }}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        Hook Settings
+                    </legend>
+                    {% if hook_config %}
+                        {{ hook_config }}
+                        {% set submitLabel = 'Update Config' %}
+                    {% else %}
+                        <p class="xar-note">Using settings from
+                            {% if itemtype %}
+                                {{ modname }}
+                            {% endif %}
+                            default configuration
+                        </p>
+                    {% endif %}
+                </fieldset>
+
+                {% if submitLabel %}
+                    <input type="hidden" name="module_id" id="module_id" value="{{ module_id }}"/>
+                    <input type="hidden" name="itemtype" id="itemtype" value="{{ itemtype }}"/>
+                    {{ include('@base/includes/update-button.html.twig') }}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

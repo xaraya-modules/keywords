@@ -1,0 +1,23 @@
+{# @keywords/display.html.twig #}
+
+{% extends '@keywords/base.html.twig' %}
+
+{% block modulespace %}
+{{ include('@keywords/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Display Keyword Assignment</h2>
+        {% if id and id is numeric %}
+            {{ xar_data_display({module: "keywords", itemid: id}) }}
+            {% if url %}
+                <br />
+                {% if label %}
+                    This entry refers to [{{ modname }}] <a href="{{ url }}">{{ label }}</a>
+                {% else %}
+                    This entry refers to [{{ modname }}] <a href="{{ url }}">item {{ itemid }}</a>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            Unable to find corresponding item
+        {% endif %}
+    </div>
+{% endblock %}

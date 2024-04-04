@@ -1,0 +1,24 @@
+{# @keywords/blocks/keywordsarticles.html.twig #}
+
+{% block keywordsarticles %}
+{# <!-- License: GPL http://www.gnu.org/copyleft/gpl.html
+Global variables : itemid, itemtype, modid
+Available variables for each related articles (items) :
+$item['keyword'],$item['modid'],$item['itemtype'],$item['itemid'],
+$item['title'],$item['summary'],$item['authorid'],$item['pubdate'],$item['pubtypeid'],$item['status'],
+--> #}
+{% if items %}
+    <br />
+
+    <div class="xar-block-title">Keywords related articles:</div>
+    {% for item in items %}
+        &#149;{{ xar_prep_display(item['title']) }}&#160;
+        {% if item['pubdate'] %}({{ xar_localedate(item['pubdate'], 'medium', '') }}){% endif %}<br />
+        {% if item['summary'] %}
+            {{ xar_prep_display(item['summary']) }}<br />
+        {% endif %}
+    <a href="{{ item['link'] }}">Read More</a>
+    <br /><br />
+    {% endfor %}
+{% endif %}
+{% endblock %}

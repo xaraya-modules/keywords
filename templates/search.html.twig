@@ -1,0 +1,24 @@
+{# @keywords/search.html.twig #}
+
+{% extends '@keywords/base.html.twig' %}
+
+{% block modulespace %}
+{{ include('@keywords/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <h2>Search in Keywords</h2>
+        {% if keys and (keys|length > 0) %}
+            <fieldset>
+                <legend>Keywords Found</legend>
+                <ul>
+                    {% for id, item in keys %}
+                        <li><a href="{{ xar_moduleurl('keywords', 'user', 'view', {'keyword': item['keyword']}) }}">{{ item['keyword'] }}</a> ({{ item['count'] }})</li>
+                    {% endfor %}
+                </ul>
+            </fieldset>
+        {% else %}
+            <p>
+                {{ xar_translate('No keywords found that matched "#(1)"') }}
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

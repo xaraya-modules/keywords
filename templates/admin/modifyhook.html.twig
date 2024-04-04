@@ -1,0 +1,51 @@
+{# @keywords/admin/modifyhook.html.twig #}
+
+{% block modifyhook %}
+{% if restrict_words == 0 %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {% set keywordsTitle = xar_translate('Use one of the delimiters #(1) to separate multiple keywords. Use SPACE to delete the keywords for this item.', delimiters) %}
+                <label for="keywords" title="{{ keywordsTitle }}">Keywords:</label>
+            </div>
+            <div class="xar-col">
+                <input type="text" name="keywords" id="keywords_string" value="{{ keywords }}" class="xar-form-textxxlong" maxlength="254" />
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                <label for="keywords">Allowed delimiters:</label>
+            </div>
+            <div class="xar-col">
+                {{ delimiters }}
+            </div>
+        </div>
+    {% else %}
+        <div class="xar-row">
+            <div class="xar-col">
+                {% set keywordsTitle = 'Select the keywords for this item.' %}
+                <label for="keywords" title="{{ keywordsTitle }}">Keywords:</label>
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({type: "multiselect", name: "keywords", id: "keywords_multi", options: restricted_list, value: keywords, size: "10", layout: "combo"}) }}
+            </div>
+        </div>
+        {% if is_manager and allow_manager_add %}
+            <div class="xar-row">
+                <div class="xar-col">
+                    <label for="">Additional Keywords</label>
+                </div>
+                <div class="xar-col">
+                    <input type="text" name="restricted_extra" id="restricted_extra" value="{{ restricted_extra }}" class="xar-form-textxxlong" maxlength="254" />
+                </div>
+            </div>
+            <div class="xar-row">
+                <div class="xar-col">
+                    <label for="keywords">Allowed delimiters:</label>
+                </div>
+                <div class="xar-col">
+                    {{ delimiters }}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
