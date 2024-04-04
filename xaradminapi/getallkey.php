@@ -15,9 +15,7 @@
  * get entries for a module item
  *
  * @param $args['modid'] module id
- * @returns array
  * @return array of keywords
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
  */
 function keywords_adminapi_getallkey($args)
 {

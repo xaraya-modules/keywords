@@ -16,9 +16,7 @@
  * @param int $args['objectid'] ID of the object
  * @param array $args['extrainfo']
  * @param string $args['extrainfo']['keywords'] or 'keywords' from input (optional)
- * @returns string
- * @return hook output in HTML
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return string hook output in HTML
  */
 function keywords_admin_modifyhook($args)
 {
