@@ -16,7 +16,7 @@
  * @author mikespub
  * @return array containing the menulinks for the main menu items (empty for user)
  */
-function keywords_userapi_getmenulinks()
+function keywords_userapi_getmenulinks(array $args = [], $context = null)
 {
     $menulinks = [];
 

@@ -15,10 +15,9 @@
  *
  * @param $args['objectid'] ID of the object (must be the module name here !!)
  * @param $args['extrainfo'] extra information
- * @return bool true on success, false on failure
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return bool|void true on success, false on failure
  */
-function keywords_adminapi_removehook($args)
+function keywords_adminapi_removehook(array $args = [], $context = null)
 {
     extract($args);
 

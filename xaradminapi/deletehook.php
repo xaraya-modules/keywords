@@ -18,7 +18,7 @@
  * @param $args['extrainfo'] extra information
  * @return bool true on success, false on failure
  */
-function keywords_adminapi_deletehook($args)
+function keywords_adminapi_deletehook(array $args = [], $context = null)
 {
     extract($args);
 

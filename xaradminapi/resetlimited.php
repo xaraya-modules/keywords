@@ -14,17 +14,17 @@
  * @todo MichelV what is this?
  * @todo ? inserire controllo sicurezza
  */
-function keywords_adminapi_resetlimited($args)
+function keywords_adminapi_resetlimited(array $args = [], $context = null)
 {
     //if (!xarSecurity::check('AdminKeywords')) return;
     if (!xarSecurity::check('AddKeywords')) {
         return;
     }
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $keywordstable = $xartable['keywords_restr'];
     $query = "DELETE FROM $keywordstable";
-    $result =& $dbconn->Execute($query);
+    $result = & $dbconn->Execute($query);
     if (!$result) {
         return;
     }

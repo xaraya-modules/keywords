@@ -15,7 +15,7 @@
  * display keywords entries
  * @return mixed bool and redirect to url
  */
-function keywords_user_main($args=[])
+function keywords_user_main(array $args = [], $context = null)
 {
     // Xaraya security
     if (!xarSecurity::check('ReadKeywords')) {
@@ -25,10 +25,10 @@ function keywords_user_main($args=[])
     $redirect = xarModVars::get('keywords', 'frontend_page');
     if (!empty($redirect)) {
         $truecurrenturl = xarServer::getCurrentURL([], false);
-        $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url'=> $redirect,'truecurrenturl'=>$truecurrenturl]);
-        xarController::redirect($urldata['redirecturl']);
+        $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
+        xarController::redirect($urldata['redirecturl'], null, $context);
     } else {
-        xarController::redirect(xarController::URL('keywords', 'user', 'view', $args));
+        xarController::redirect(xarController::URL('keywords', 'user', 'view', $args), null, $context);
     }
     return true;
 }

@@ -17,10 +17,9 @@
  * @param int $args['modid'] module id
  * @param int $args['itemtype'] item type
  * @param int $args['objectids'] item id
- * @return array of keywords
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return array|void of keywords
  */
-function keywords_userapi_getmultiplewords($args)
+function keywords_userapi_getmultiplewords(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords')) {
         return;
@@ -30,17 +29,15 @@ function keywords_userapi_getmultiplewords($args)
 
     if (!isset($modid) || !is_numeric($modid)) {
         $msg = xarML('Invalid Parameters');
-        xarErrorSet(XAR_USER_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
+        throw new BadParameterException(null, $msg);
     }
     if (!is_array($objectids)) {
         $msg = xarML('Invalid Parameters');
-        xarErrorSet(XAR_USER_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
+        throw new BadParameterException(null, $msg);
     }
     $keywords = [];
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $keywordstable = $xartable['keywords'];
 
     foreach ($objectids as $item) {
@@ -54,7 +51,7 @@ function keywords_userapi_getmultiplewords($args)
             $query .= " AND itemtype = $itemtype";
         }
         $bindvars = [$modid, $item];
-        $result =& $dbconn->Execute($query, $bindvars);
+        $result = & $dbconn->Execute($query, $bindvars);
         if (!$result) {
             return;
         }

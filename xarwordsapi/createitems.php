@@ -1,6 +1,6 @@
 <?php
 
-function keywords_wordsapi_createitems(array $args=[])
+function keywords_wordsapi_createitems(array $args = [], $context = null)
 {
     extract($args);
 
@@ -35,7 +35,7 @@ function keywords_wordsapi_createitems(array $args=[])
     }
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $wordstable = $tables['keywords'];
 
     $values = [];

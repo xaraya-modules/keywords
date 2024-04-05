@@ -1,6 +1,6 @@
 <?php
 
-function keywords_hooks_modulemodifyconfig(array $args=[])
+function keywords_hooks_modulemodifyconfig(array $args = [], $context = null)
 {
     extract($args);
 

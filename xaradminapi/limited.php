@@ -15,7 +15,7 @@
  * Remark: gestire errore su inserted
  * @todo MichelV <1> Keep this file?
  */
-function keywords_adminapi_limited($args)
+function keywords_adminapi_limited(array $args = [], $context = null)
 {
     extract($args);
     if (!xarSecurity::check('AdminKeywords')) {
@@ -39,12 +39,7 @@ function keywords_adminapi_limited($args)
             'update limited',
             'Keywords'
         );
-        xarErrorSet(
-            XAR_SYSTEM_EXCEPTION,
-            'BAD_PARAM',
-            new SystemException($msg)
-        );
-        return;
+        throw new BadParameterException(null, $msg);
     }
 
     $key = xarMod::apiFunc(
@@ -58,7 +53,7 @@ function keywords_adminapi_limited($args)
         $keyres = trim($keyres);
 
         $dbconn = xarDB::getConn();
-        $xartable =& xarDB::getTables();
+        $xartable = & xarDB::getTables();
         $keywordstable = $xartable['keywords_restr'];
         $nextId = $dbconn->GenId($keywordstable);
         $query = "INSERT INTO $keywordstable (
@@ -71,7 +66,7 @@ function keywords_adminapi_limited($args)
               ?,
               ?,
               ?)";
-        $result =& $dbconn->Execute($query, [$nextId, $keyres, $moduleid, $itemtype]);
+        $result = & $dbconn->Execute($query, [$nextId, $keyres, $moduleid, $itemtype]);
         if (!$result) {
             return;
         }

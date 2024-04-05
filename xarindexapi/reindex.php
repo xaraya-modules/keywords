@@ -1,6 +1,6 @@
 <?php
 
-function indexer_indexapi_reindex(array $args=[])
+function indexer_indexapi_reindex(array $args = [], $context = null)
 {
     extract($args);
 

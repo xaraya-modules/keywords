@@ -19,11 +19,10 @@
  * @access public
  * @param int $restricted 1 for pregiven keyword list, 0 for free input
  * @param int $useitemtype 1 for itemtype specific keyword lists
- * @return true on success or void on failure
- * @throws no exceptions
+ * @return bool|string|void on success or void on failure
  * @todo nothing
  */
-function keywords_admin_modifyconfig()
+function keywords_admin_modifyconfig(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminKeywords')) {
         return;
@@ -59,7 +58,7 @@ function keywords_admin_modifyconfig()
 
     if ($phase == 'update') {
         if (!xarSec::confirmAuthKey()) {
-            return xarTpl::module('privileges', 'user', 'errors', ['layout' => 'bad_author']);
+            return xarController::badRequest('bad_author', $context);
         }
         if ($modname == 'keywords') {
             $isvalid = $data['module_settings']->checkInput();
@@ -129,7 +128,7 @@ function keywords_admin_modifyconfig()
                 ]
             );
         }
-        xarController::redirect($return_url);
+        xarController::redirect($return_url, null, $context);
     }
 
     // form phase

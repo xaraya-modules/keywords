@@ -27,9 +27,9 @@ function keywords_init()
         $prefix = xarDB::getPrefix();
 
         # --------------------------------------------------------
-#
+        #
         # Table structures
-#
+        #
         $query = "DROP TABLE IF EXISTS " . $prefix . "_keywords_index";
         if (!$q->run($query)) {
             return;
@@ -159,7 +159,7 @@ function keywords_init()
 function keywords_upgrade($oldversion)
 {
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $prefix = xarDB::getPrefix();
 
     // Upgrade dependent on old version number
@@ -171,7 +171,7 @@ function keywords_upgrade($oldversion)
             xarModVars::set('keywords', 'default', 'xaraya');
 
             $dbconn = xarDB::getConn();
-            $xartable =& xarDB::getTables();
+            $xartable = & xarDB::getTables();
             $query = xarTableDDL::createTable(
                 $xartable['keywords_restr'],
                 ['id'         => ['type'        => 'integer',
@@ -215,7 +215,7 @@ function keywords_upgrade($oldversion)
             //Alter table restr to add itemtype
             // Get database information
             $dbconn = xarDB::getConn();
-            $xartable =& xarDB::getTables();
+            $xartable = & xarDB::getTables();
 
             // Add column 'itemtype' to table
             $query = xarTableDDL::alterTable(
@@ -237,7 +237,7 @@ function keywords_upgrade($oldversion)
                 'admin',
                 'register_block_type',
                 ['modName'  => 'keywords',
-                            'blockType'=> 'keywordsarticles', ]
+                            'blockType' => 'keywordsarticles', ]
             )) {
                 return;
             }
@@ -246,7 +246,7 @@ function keywords_upgrade($oldversion)
                 'admin',
                 'register_block_type',
                 ['modName'  => 'keywords',
-                            'blockType'=> 'keywordscategories', ]
+                            'blockType' => 'keywordscategories', ]
             )) {
                 return;
             }
@@ -284,7 +284,7 @@ function keywords_delete()
     // blocks are removed automatically
     sys::import('xaraya.structures.query');
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $indextable = $tables['keywords_index'];
     $keywordstable = $tables['keywords'];
 
@@ -311,7 +311,7 @@ function keywords_upgrade_200()
     // upgrade to 2.0.0, normalise tables
     sys::import('xaraya.structures.query');
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $prefix = xarDB::getPrefix();
     $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
     $indextable = $tables['keywords_index'];
@@ -349,7 +349,7 @@ function keywords_upgrade_200()
         // Create indices
         // unique entries
         $index = [
-            'name'   => 'i_'.$prefix.'_keywords_index',
+            'name'   => 'i_' . $prefix . '_keywords_index',
             'fields' => ['module_id', 'itemtype', 'itemid'],
             'unique' => true,
         ];
@@ -470,14 +470,14 @@ function keywords_upgrade_200()
 
         // Create indices
         $index = [
-            'name'   => 'i_'.$prefix.'_keywords_keyword',
+            'name'   => 'i_' . $prefix . '_keywords_keyword',
             'fields' => ['keyword'],
             'unique' => false,
         ];
         $query = xarTableDDL::createIndex($keywordstable, $index);
         $dbconn->Execute($query);
         $index = [
-            'name'   => 'i_'.$prefix.'_keywords_index_id',
+            'name'   => 'i_' . $prefix . '_keywords_index_id',
             'fields' => ['index_id'],
             'unique' => false,
         ];

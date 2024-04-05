@@ -1,6 +1,6 @@
 <?php
 
-function keywords_indexapi_createitem(array $args=[])
+function keywords_indexapi_createitem(array $args = [], $context = null)
 {
     extract($args);
 
@@ -45,7 +45,7 @@ function keywords_indexapi_createitem(array $args=[])
     }
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $idxtable = $tables['keywords_index'];
 
     // Insert item

@@ -1,6 +1,6 @@
 <?php
 
-function keywords_indexapi_countitems(array $args=[])
+function keywords_indexapi_countitems(array $args = [], $context = null)
 {
     extract($args);
 
@@ -30,7 +30,7 @@ function keywords_indexapi_countitems(array $args=[])
     }
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $idxtable = $tables['keywords_index'];
 
     $select = [];

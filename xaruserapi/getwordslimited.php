@@ -16,10 +16,9 @@
  * This function gets the restricted keywords for one module
  *
  * @param int $args['moduleid'] module id
- * @return array of keywords, sorted ASC
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return array|void of keywords, sorted ASC
  */
-function keywords_userapi_getwordslimited($args)
+function keywords_userapi_getwordslimited(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords')) {
         return;
@@ -35,18 +34,12 @@ function keywords_userapi_getwordslimited($args)
             'getwordslimited',
             'keywords'
         );
-
-        xarErrorSet(
-            XAR_USER_EXCEPTION,
-            'BAD_PARAM',
-            new SystemException($msg)
-        );
-        return;
+        throw new BadParameterException(null, $msg);
     }
 
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $keywordstable = $xartable['keywords_restr'];
     $bindvars = [];
 
@@ -67,7 +60,7 @@ function keywords_userapi_getwordslimited($args)
     }
 
 
-    $result =& $dbconn->Execute($query, $bindvars);
+    $result = & $dbconn->Execute($query, $bindvars);
     if (!$result) {
         return;
     }

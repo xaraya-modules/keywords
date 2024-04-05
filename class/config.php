@@ -16,7 +16,7 @@ class KeywordsConfig extends ObjectDescriptor
 
     public $config_state = '';
 
-    public function __construct($module, $itemtype=0, $args=[])
+    public function __construct($module, $itemtype = 0, $args = [])
     {
         parent::__construct($args);
         parent::refresh($this);

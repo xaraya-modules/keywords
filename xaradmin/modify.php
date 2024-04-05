@@ -21,7 +21,7 @@
  * @return mixed array of template data in form phase or bool redirected in update phase
  * @throws EmptyParameterException
  */
-function keywords_admin_modify($args)
+function keywords_admin_modify(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageKeywords')) {
         return;
@@ -93,7 +93,7 @@ function keywords_admin_modify($args)
 
     if ($phase == 'update') {
         if (!xarSec::confirmAuthKey()) {
-            return xarTpl::module('privileges', 'user', 'errors', ['layout' => 'bad_author']);
+            return xarController::badRequest('bad_author', $context);
         }
         // check for keywords empty and redirect to delete confirm
         if (!xarVar::fetch(
@@ -116,7 +116,7 @@ function keywords_admin_modify($args)
                     'itemid' => $itemid,
                ]
             );
-            xarController::redirect($delete_url);
+            xarController::redirect($delete_url, null, $context);
         }
         xarMod::apiFunc(
             'keywords',
@@ -139,7 +139,7 @@ function keywords_admin_modify($args)
                 ]
             );
         }
-        xarController::redirect($return_url);
+        xarController::redirect($return_url, null, $context);
     }
 
     try {
@@ -147,10 +147,8 @@ function keywords_admin_modify($args)
             $modname,
             'user',
             'getitemlinks',
-            [
-                'itemtype' => $itemtype,
-                'itemids' => [$itemid],
-            ]
+            ['itemtype' => $itemtype,
+            'itemids' => [$itemid]]
         );
         $item = reset($item);
     } catch (Exception $e) {

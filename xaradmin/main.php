@@ -17,11 +17,9 @@
  *
  * @author mikespub
  * @access public
- * @param no $ parameters
- * @return bool true on success or void on falure
- * @throws XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION'
+ * @return bool|void true on success or void on falure
  */
-function keywords_admin_main()
+function keywords_admin_main(array $args = [], $context = null)
 {
     // Security Check
     if (!xarSecurity::check('EditKeywords')) {
@@ -34,10 +32,10 @@ function keywords_admin_main()
         $redirect = xarModVars::get('keywords', 'defaultbackpage');
         if (!empty($redirect)) {
             $truecurrenturl = xarServer::getCurrentURL([], false);
-            $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url'=> $redirect,'truecurrenturl'=>$truecurrenturl]);
-            xarController::redirect($urldata['redirecturl']);
+            $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
+            xarController::redirect($urldata['redirecturl'], null, $context);
         } else {
-            xarController::redirect(xarController::URL('keywords', 'admin', 'view'));
+            xarController::redirect(xarController::URL('keywords', 'admin', 'view'), null, $context);
         }
     }
     return true;

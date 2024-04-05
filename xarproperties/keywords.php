@@ -101,7 +101,7 @@ class KeywordsProperty extends TextAreaProperty
         // Make sure we have the keywords table
         xarMod::apiLoad('keywords');
 
-        $table =& xarDB::getTables();
+        $table = & xarDB::getTables();
         $q = new Query('SELECT');
         $q->addtable($table['keywords'], 'k');
         $q->addtable($table['keywords_index'], 'i');
@@ -116,13 +116,13 @@ class KeywordsProperty extends TextAreaProperty
         }
         $q->eq('i.itemid', $data['itemid']);
         $q->addorder('keyword', 'ASC');
-//        $q->qecho();
+        //        $q->qecho();
         $q->run();
         $words = $q->output();
         return $words;
     }
 
-    public function createValue($itemid=0)
+    public function createValue($itemid = 0)
     {
         $words = $this->value;
         $keyword_ids = $this->updateKeywords($words);
@@ -130,12 +130,12 @@ class KeywordsProperty extends TextAreaProperty
         return $itemid;
     }
 
-    public function updateValue($itemid=0)
+    public function updateValue($itemid = 0)
     {
         return $this->createValue($itemid);
     }
 
-    public function deleteValue($itemid=0)
+    public function deleteValue($itemid = 0)
     {
         $associations = $this->getAssociations($itemid);
         $this->deleteAssociations($itemid, array_keys($associations));
@@ -144,7 +144,7 @@ class KeywordsProperty extends TextAreaProperty
 
     #----------------------------------------------------------------
     # Check if we have the words in the database and add those missing
-#
+    #
     private function updateKeywords($words)
     {
         if (empty($words)) {
@@ -154,7 +154,7 @@ class KeywordsProperty extends TextAreaProperty
         // Make sure we have the keywords table
         xarMod::apiLoad('keywords');
 
-        $table =& xarDB::getTables();
+        $table = & xarDB::getTables();
         $q = new Query('SELECT', $table['keywords']);
         $q->in('keyword', $words);
         $q->run();
@@ -188,8 +188,8 @@ class KeywordsProperty extends TextAreaProperty
 
     #----------------------------------------------------------------
     # After saving one or more keyword entries, update the associations table
-#
-    private function updateAssociations($itemid, $keyword_ids=[])
+    #
+    private function updateAssociations($itemid, $keyword_ids = [])
     {
         // Check if we are in an object or not
         $moduleid = $this->objectref->moduleid ?? null;
@@ -203,7 +203,7 @@ class KeywordsProperty extends TextAreaProperty
 
     #----------------------------------------------------------------
     # Get the associations of this item
-#
+    #
     private function getAssociations($itemid)
     {
         $associations = [];
@@ -215,7 +215,7 @@ class KeywordsProperty extends TextAreaProperty
             $args = [
                     'module_id'    => $moduleid,
                     'itemtype'     => $this->objectref->itemtype,
-                    'property_id'  => (int)$this->id,
+                    'property_id'  => (int) $this->id,
                     'itemid'       => $itemid,
             ];
             $associations = $association->get_associations($args);
@@ -265,8 +265,8 @@ class KeywordsProperty extends TextAreaProperty
 
     #----------------------------------------------------------------
     # After creating a keyword entry, add the required association
-#
-    private function addAssociation($itemid, $keyword_id=0)
+    #
+    private function addAssociation($itemid, $keyword_id = 0)
     {
         // Check if we are in an object or not
         $moduleid = $this->objectref->moduleid ?? null;
@@ -277,7 +277,7 @@ class KeywordsProperty extends TextAreaProperty
                     'keyword_id'  => $keyword_id,
                     'module_id'    => $moduleid,
                     'itemtype'     => $this->objectref->itemtype,
-                    'property_id'  => (int)$this->id,
+                    'property_id'  => (int) $this->id,
                     'itemid'       => $itemid,
             ];
             $association->add_association($args);

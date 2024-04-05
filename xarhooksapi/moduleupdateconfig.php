@@ -4,7 +4,7 @@
  *
  * Updates subject module (+itemtype) keywords configuration
 **/
-function keywords_hooksapi_moduleupdateconfig($args)
+function keywords_hooksapi_moduleupdateconfig(array $args = [], $context = null)
 {
     extract($args);
 

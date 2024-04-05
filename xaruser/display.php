@@ -15,10 +15,9 @@
  *
  * @param $args['itemid'] item id of the keywords entry
  * @checkme: this appears to display a link to a display of an item, why is this needed?
- * @return array Item
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return array|void Item
  */
-function keywords_user_display($args)
+function keywords_user_display(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords')) {
         return;
@@ -55,14 +54,11 @@ function keywords_user_display($args)
 
     if (!empty($item['itemtype'])) {
         // Get the list of all item types for this module (if any)
-        $mytypes = xarMod::apiFunc(
-            $modinfo['name'],
-            'user',
-            'getitemtypes',
-            // don't throw an exception if this function doesn't exist
-            [],
-            0
-        );
+        try {
+            $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+        } catch (Exception $e) {
+            $mytypes = [];
+        }
         if (isset($mytypes) && isset($mytypes[$item['itemtype']])) {
             $item['modname'] = $mytypes[$item['itemtype']]['label'];
         } else {
@@ -72,14 +68,17 @@ function keywords_user_display($args)
         $item['modname'] = ucwords($modinfo['name']);
     }
 
-    $itemlinks = xarMod::apiFunc(
-        $modinfo['name'],
-        'user',
-        'getitemlinks',
-        ['itemtype' => $item['itemtype'],
-                                     'itemids' => [$item['itemid']], ],
-        0
-    );
+    try {
+        $itemlinks = xarMod::apiFunc(
+            $modinfo['name'],
+            'user',
+            'getitemlinks',
+            ['itemtype' => $item['itemtype'],
+            'itemids' => [$item['itemid']]]
+        );
+    } catch (Exception $e) {
+        $itemlinks = [];
+    }
 
     if (isset($itemlinks[$item['itemid']]) && !empty($itemlinks[$item['itemid']]['url'])) {
         // normally we should have url, title and label here

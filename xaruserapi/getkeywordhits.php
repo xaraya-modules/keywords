@@ -11,7 +11,7 @@
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 
-function keywords_userapi_getkeywordhits($args)
+function keywords_userapi_getkeywordhits(array $args = [], $context = null)
 {
     if (!isset($args['cloudtype'])) {
         $args['cloudtype'] = 3;
@@ -25,7 +25,7 @@ function keywords_userapi_getkeywordhits($args)
     sys::import('xaraya.structures.query');
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
 
     $q = new Query('SELECT');
     $q->addtable($xartable['keywords_index'], 'i');
@@ -36,7 +36,7 @@ function keywords_userapi_getkeywordhits($args)
 
     if ($args['cloudtype'] == 2) {
         xarMod::apiLoad('hitcount');
-        $xartable =& xarDB::getTables();
+        $xartable = & xarDB::getTables();
         $q->addtable($xartable['hitcount'], 'h');
         $q->join('k.module_id', 'h.module_id');
         $q->join('k.itemtype', 'h.itemtype');

@@ -13,7 +13,7 @@
 /**
  * delete existing keywords assignment
  */
-function keywords_admin_delete($args)
+function keywords_admin_delete(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageKeywords')) {
         return;
@@ -106,10 +106,10 @@ function keywords_admin_delete($args)
             return;
         }
         if ($cancel) {
-            xarController::redirect($return_url);
+            xarController::redirect($return_url, null, $context);
         }
         if (!xarSec::confirmAuthKey()) {
-            return xarTpl::module('privileges', 'user', 'errors', ['layout' => 'bad_author']);
+            return xarController::badRequest('bad_author', $context);
         }
         // get the index_id for this module/itemtype/item
         $index_id = xarMod::apiFunc(
@@ -134,7 +134,7 @@ function keywords_admin_delete($args)
         )) {
             return;
         }
-        xarController::redirect($return_url);
+        xarController::redirect($return_url, null, $context);
     }
 
     try {
@@ -142,10 +142,8 @@ function keywords_admin_delete($args)
             $modname,
             'user',
             'getitemlinks',
-            [
-                'itemtype' => $itemtype,
-                'itemids' => [$itemid],
-            ]
+            ['itemtype' => $itemtype,
+            'itemids' => [$itemid]]
         );
         $item = reset($item);
     } catch (Exception $e) {

@@ -1,6 +1,6 @@
 <?php
 
-function keywords_wordsapi_getwords(array $args=[])
+function keywords_wordsapi_getwords(array $args = [], $context = null)
 {
     $items = xarMod::apiFunc('keywords', 'words', 'getitems', $args);
     if (empty($items)) {

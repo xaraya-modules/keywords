@@ -6,9 +6,7 @@ class Keywords extends xarObject
     protected static $instance;
     protected static $configs = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function getInstance()
     {
@@ -19,7 +17,7 @@ class Keywords extends xarObject
         return self::$instance;
     }
 
-    public static function getConfig($module, $itemtype=0, $args=[])
+    public static function getConfig($module, $itemtype = 0, $args = [])
     {
         sys::import('modules.keywords.class.config');
         $hash = "$module:$itemtype";
@@ -30,7 +28,7 @@ class Keywords extends xarObject
             $config = self::$configs[$hash];
         }
         if (empty($config) && !empty($itemtype)) { // try for module itemtype specific settings
-            $config = @unserialize(xarModVars::get($module, self::CONFIG_MODVAR.'_'.$itemtype));
+            $config = @unserialize(xarModVars::get($module, self::CONFIG_MODVAR . '_' . $itemtype));
         }
         if (empty($config)) { // fall back on module specific defaults
             $config =  @unserialize(xarModVars::get($module, self::CONFIG_MODVAR));
@@ -56,7 +54,7 @@ class Keywords extends xarObject
         return self::$configs[$hash] = $config;
     }
 
-    public static function setConfig($module, $itemtype=0, $args=[])
+    public static function setConfig($module, $itemtype = 0, $args = [])
     {
         $config = self::getConfig($module, $itemtype);
         if (!empty($args)) {
@@ -64,7 +62,7 @@ class Keywords extends xarObject
             $config->refresh($config);
         }
         if ($config->config_state == 'itemtype' && !empty($itemtype)) {
-            $modvar = self::CONFIG_MODVAR.'_'.$itemtype;
+            $modvar = self::CONFIG_MODVAR . '_' . $itemtype;
         } else {
             $modvar = self::CONFIG_MODVAR;
         }

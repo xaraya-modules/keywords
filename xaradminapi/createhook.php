@@ -16,10 +16,9 @@
  *
  * @param $args['objectid'] ID of the object
  * @param $args['extrainfo'] extra information
- * @return array Extrainfo array
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return array|void Extrainfo array
  */
-function keywords_adminapi_createhook($args)
+function keywords_adminapi_createhook(array $args = [], $context = null)
 {
     extract($args);
 

@@ -18,7 +18,7 @@
  *    a specific letter range (1=[A-F]; 2=[G-L]; etc...)
  * @return array of found keywords
  */
-function keywords_userapi_getlist($args)
+function keywords_userapi_getlist(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords')) {
         return;
@@ -27,35 +27,35 @@ function keywords_userapi_getlist($args)
     extract($args);
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $keywordstable = $xartable['keywords'];
 
     if (!isset($tab)) {
-        $tab='0';
+        $tab = '0';
     }
 
     if ($tab == '0') {
         $where = null;
     } elseif ($tab == '1') {
         $where = " WHERE ("
-        ."'A' <= ".$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) AND "
-        .$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) <= 'F')";
+        . "'A' <= " . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) AND "
+        . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) <= 'F')";
     } elseif ($tab == '2') {
         $where = " WHERE ("
-        ."'G' <= ".$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) AND "
-        .$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) <= 'L')";
+        . "'G' <= " . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) AND "
+        . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) <= 'L')";
     } elseif ($tab == '3') {
         $where = " WHERE ("
-        ."'M' <= ".$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) AND "
-        .$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) <= 'R')";
+        . "'M' <= " . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) AND "
+        . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) <= 'R')";
     } elseif ($tab == '4') {
         $where = " WHERE ("
-        ."'S' <= ".$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) AND "
-        .$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) <= 'Z')";
+        . "'S' <= " . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) AND "
+        . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) <= 'Z')";
     } elseif ($tab == '5') {
         $where = " WHERE ("
-        .$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) < 'A' OR "
-        .$dbconn->substr."(".$dbconn->upperCase."(keyword),1,1) > 'Z')";
+        . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) < 'A' OR "
+        . $dbconn->substr . "(" . $dbconn->upperCase . "(keyword),1,1) > 'Z')";
     }
 
 
@@ -65,7 +65,7 @@ function keywords_userapi_getlist($args)
                   FROM $keywordstable $where
                   GROUP BY keyword
                   ORDER BY keyword ASC";
-        $result =& $dbconn->Execute($query);
+        $result = & $dbconn->Execute($query);
         if (!$result) {
             return;
         }
@@ -88,7 +88,7 @@ function keywords_userapi_getlist($args)
     $query = "SELECT DISTINCT keyword
               FROM $keywordstable  $where
               ORDER BY keyword ASC";
-    $result =& $dbconn->Execute($query);
+    $result = & $dbconn->Execute($query);
     if (!$result) {
         return;
     }

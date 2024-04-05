@@ -1,6 +1,6 @@
 <?php
 
-function keywords_hooksapi_getsubjects(array $args=[])
+function keywords_hooksapi_getsubjects(array $args = [], $context = null)
 {
     extract($args);
 

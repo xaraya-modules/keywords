@@ -18,11 +18,10 @@
  * @param int $args['itemid'] item id
  * @param int $args['numitems'] number of entries to retrieve (optional)
  * @param int $args['startnum'] starting number (optional)
- * @return array of keywords
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return array|void of keywords
  * @todo This is so similar to getitems, that they could be merged. It is only the format of the results that differs.
  */
-function keywords_userapi_getwords($args)
+function keywords_userapi_getwords(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords')) {
         return;
@@ -41,7 +40,7 @@ function keywords_userapi_getwords($args)
         return;
     }
 
-    $table =& xarDB::getTables();
+    $table = & xarDB::getTables();
     $q = new Query('SELECT');
     $q->addtable($table['keywords'], 'k');
     $q->addtable($table['keywords_index'], 'i');
@@ -54,11 +53,11 @@ function keywords_userapi_getwords($args)
         if (is_array($itemtype)) {
             $q->in('i.itemtype', $itemtype);
         } else {
-            $q->eq('i.itemtype', (int)$itemtype);
+            $q->eq('i.itemtype', (int) $itemtype);
         }
     }
     $q->addorder('keyword', 'ASC');
-//    $q->qecho();
+    //    $q->qecho();
     $q->run();
     $words = $q->output();
 

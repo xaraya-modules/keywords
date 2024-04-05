@@ -15,10 +15,9 @@
  *
  * @param $args['objectid'] ID of the object
  * @param $args['extrainfo'] extra information
- * @return mixed Array with information for the template that is called.
- * @throws BAD_PARAM, NO_PERMISSION
+ * @return mixed|void Array with information for the template that is called.
  */
-function keywords_user_displayhook($args)
+function keywords_user_displayhook(array $args = [], $context = null)
 {
     extract($args);
 

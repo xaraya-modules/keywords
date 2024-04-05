@@ -1,6 +1,6 @@
 <?php
 
-function keywords_indexapi_deleteitem(array $args=[])
+function keywords_indexapi_deleteitem(array $args = [], $context = null)
 {
     if (empty($args['id']) || !is_numeric($args['id'])) {
         $invalid[] = 'id';

@@ -1,6 +1,6 @@
 <?php
 
-function keywords_wordsapi_countwords(array $args=[])
+function keywords_wordsapi_countwords(array $args = [], $context = null)
 {
     extract($args);
 
@@ -30,7 +30,7 @@ function keywords_wordsapi_countwords(array $args=[])
     // optionally by module/itemtype
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $wordstable = $tables['keywords'];
     $idxtable = $tables['keywords_index'];
 

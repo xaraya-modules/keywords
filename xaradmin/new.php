@@ -16,7 +16,7 @@
  * @param string confirm
  * @return array with data
  */
-function keywords_admin_new($args)
+function keywords_admin_new(array $args = [], $context = null)
 {
     extract($args);
 
@@ -52,7 +52,7 @@ function keywords_admin_new($args)
             } // throw back
 
             // let's go back to the admin view
-            xarController::redirect(xarController::URL('keywords', 'admin', 'view'));
+            xarController::redirect(xarController::URL('keywords', 'admin', 'view'), null, $context);
             return true;
         }
     }

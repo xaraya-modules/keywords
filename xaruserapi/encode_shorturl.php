@@ -18,7 +18,7 @@
  * @param  $args the function and arguments passed to xarController::URL
  * @return string path to be added to index.php for a short URL, or empty if failed
  */
-function keywords_userapi_encode_shorturl($args)
+function keywords_userapi_encode_shorturl(array $args = [], $context = null)
 {
     // Get arguments from argument array
     extract($args);
@@ -35,7 +35,7 @@ function keywords_userapi_encode_shorturl($args)
     if ($func == 'main') {
         unset($get['func']);
         if (!empty($tab)) {
-            $path[] = 'tab'.$tab;
+            $path[] = 'tab' . $tab;
             unset($get['tab']);
         } elseif (!empty($keyword)) {
             $path[] = $keyword;
@@ -49,5 +49,5 @@ function keywords_userapi_encode_shorturl($args)
         // anything else that you haven't defined a short URL equivalent for
         // -> don't create a path here
     }
-    return ['path'=>$path,'get'=>$get];
+    return ['path' => $path,'get' => $get];
 }

@@ -18,7 +18,7 @@
  * @return array data for the template display
  *
  */
-function keywords_admin_hooks(array $args=[])
+function keywords_admin_hooks(array $args = [], $context = null)
 {
     // Security
     if (!xarSecurity::check('ManageKeywords')) {

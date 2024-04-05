@@ -16,14 +16,14 @@
  * This function shows the overview template, currently admin-main.xd.
  * The template contains overview and help texts
  */
-function keywords_admin_overview()
+function keywords_admin_overview(array $args = [], $context = null)
 {
     /* Security Check */
     if (!xarSecurity::check('AdminKeywords', 0)) {
         return;
     }
 
-    $data=[];
+    $data = [];
 
     return xarTpl::module('keywords', 'admin', 'main', $data, 'main');
 }

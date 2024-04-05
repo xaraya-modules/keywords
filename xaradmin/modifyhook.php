@@ -18,7 +18,7 @@
  * @param string $args['extrainfo']['keywords'] or 'keywords' from input (optional)
  * @return string hook output in HTML
  */
-function keywords_admin_modifyhook($args)
+function keywords_admin_modifyhook(array $args = [], $context = null)
 {
     extract($args);
 

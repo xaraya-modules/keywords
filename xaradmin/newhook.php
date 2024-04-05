@@ -15,10 +15,9 @@
  *
  * @param int $args['objectid'] ID of the object
  * @param array $args['extrainfo'] extra information
- * @return string hook output in HTML
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return string|void hook output in HTML
  */
-function keywords_admin_newhook($args)
+function keywords_admin_newhook(array $args = [], $context = null)
 {
     extract($args);
 

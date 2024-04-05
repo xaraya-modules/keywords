@@ -14,7 +14,7 @@
  * Perform the search
  * @return array with keys to keywords
  */
-function keywords_userapi_search($args)
+function keywords_userapi_search(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords')) {
         return;
@@ -34,7 +34,7 @@ function keywords_userapi_search($args)
 
     // Get item
     sys::import('xaraya.structures.query');
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $q = new Query('SELECT');
     $q->addtable($tables['keywords'], 'k');
     $q->addtable($tables['keywords_index'], 'i');

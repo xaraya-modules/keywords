@@ -19,7 +19,7 @@
  * @return array
  * @throws BadParameterException, SQLException
 **/
-function keywords_wordsapi_getwordcounts(array $args=[])
+function keywords_wordsapi_getwordcounts(array $args = [], $context = null)
 {
     extract($args);
 
@@ -50,7 +50,7 @@ function keywords_wordsapi_getwordcounts(array $args=[])
     // sort on name or count
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $wordstable = $tables['keywords'];
     $idxtable = $tables['keywords_index'];
 

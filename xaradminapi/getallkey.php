@@ -15,23 +15,22 @@
  * get entries for a module item
  *
  * @param $args['modid'] module id
- * @return array of keywords
+ * @return array|void of keywords
  */
-function keywords_adminapi_getallkey($args)
+function keywords_adminapi_getallkey(array $args = [], $context = null)
 {
     extract($args);
 
     if (!isset($moduleid) || !is_numeric($moduleid)) {
         $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
-        xarErrorSet(XAR_USER_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
+        throw new BadParameterException(null, $msg);
     }
 
     if (!xarSecurity::check('AdminKeywords')) {
         return;
     }
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $keywordstable = $xartable['keywords_restr'];
     // Get restricted keywords for this module item
     $query = "SELECT id,
@@ -40,7 +39,7 @@ function keywords_adminapi_getallkey($args)
               WHERE module_id = ?
               OR module_id = '0'
               ORDER BY keyword ASC";
-    $result =& $dbconn->Execute($query, [$moduleid]);
+    $result = & $dbconn->Execute($query, [$moduleid]);
     if (!$result) {
         return;
     }

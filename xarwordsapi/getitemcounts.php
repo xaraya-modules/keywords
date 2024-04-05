@@ -1,6 +1,6 @@
 <?php
 
-function keywords_wordsapi_getitemcounts(array $args=[])
+function keywords_wordsapi_getitemcounts(array $args = [], $context = null)
 {
     extract($args);
 
@@ -54,7 +54,7 @@ function keywords_wordsapi_getitemcounts(array $args=[])
     }
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $wordstable = $tables['keywords'];
     $idxtable = $tables['keywords_index'];
     $modstable = $tables['modules'];

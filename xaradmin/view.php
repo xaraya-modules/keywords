@@ -15,7 +15,7 @@
  * show the links for module items
  * @return array
  */
-function keywords_admin_view($args)
+function keywords_admin_view(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageKeywords')) {
         return;
@@ -152,15 +152,14 @@ function keywords_admin_view($args)
         $modules[$module]['itemlinks'] = [];
         foreach ($itemtypes as $typeid => $itemids) {
             $modules[$module]['itemlinks'][$typeid] = $itemids;
+            $itemids = array_keys($itemids);
             try {
                 $itemlinks = xarMod::apiFunc(
                     $module,
                     'user',
                     'getitemlinks',
-                    [
-                        'itemtype' => $typeid,
-                        'itemids' => array_keys($itemids),
-                    ]
+                    ['itemtype' => $typeid,
+                    'itemids' => $itemids]
                 );
             } catch (Exception $e) {
                 $itemlinks = [];
@@ -407,7 +406,7 @@ function keywords_admin_view($args)
             $num_tags = count($data['items']);
             foreach ($data['items'] as $k => $item) {
                 $item['weight'] = $item['count'] == 1 ? $min_ems :
-                    round((($item['count']/$num_tags)*($max_ems-$min_ems))+$min_ems, 2);
+                    round((($item['count'] / $num_tags) * ($max_ems - $min_ems)) + $min_ems, 2);
                 $data['items'][$k] = $item;
             }
             break;

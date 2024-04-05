@@ -1,11 +1,11 @@
 <?php
 
-function keywords_wordsapi_getmodulecounts(array $args=[])
+function keywords_wordsapi_getmodulecounts(array $args = [], $context = null)
 {
     extract($args);
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $wordstable = $tables['keywords'];
     $idxtable = $tables['keywords_index'];
     $modstable = $tables['modules'];

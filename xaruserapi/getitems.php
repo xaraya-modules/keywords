@@ -19,10 +19,9 @@
  * @param $args['itemtype'] itemtype
  * @param $args['numitems'] number of entries to retrieve (optional)
  * @param $args['startnum'] starting number (optional)
- * @return array of module id, item type and item id
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return array|void of module id, item type and item id
  */
-function keywords_userapi_getitems($args)
+function keywords_userapi_getitems(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords')) {
         return;
@@ -43,7 +42,7 @@ function keywords_userapi_getitems($args)
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $keywordstable = $xartable['keywords'];
     $bindvars = [];
 
@@ -71,11 +70,11 @@ function keywords_userapi_getitems($args)
     }
     if (!empty($itemtype)) {
         if (is_array($itemtype)) {
-            $query .= ' AND itemtype IN (?' . str_repeat(',?', count($itemtype)-1) . ')';
+            $query .= ' AND itemtype IN (?' . str_repeat(',?', count($itemtype) - 1) . ')';
             $bindvars = array_merge($bindvars, $itemtype);
         } else {
             $query .= ' AND itemtype = ?';
-            $bindvars[] = (int)$itemtype;
+            $bindvars[] = (int) $itemtype;
         }
     }
     if (!empty($modid) && is_numeric($modid)) {
@@ -88,9 +87,9 @@ function keywords_userapi_getitems($args)
         if (empty($startnum)) {
             $startnum = 1;
         }
-        $result =& $dbconn->SelectLimit($query, $numitems, $startnum-1, $bindvars);
+        $result = & $dbconn->SelectLimit($query, $numitems, $startnum - 1, $bindvars);
     } else {
-        $result =& $dbconn->Execute($query, $bindvars);
+        $result = & $dbconn->Execute($query, $bindvars);
     }
     if (!$result) {
         return;

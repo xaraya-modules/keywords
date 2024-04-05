@@ -1,6 +1,6 @@
 <?php
 
-function keywords_indexapi_getid(array $args=[])
+function keywords_indexapi_getid(array $args = [], $context = null)
 {
     extract($args);
 

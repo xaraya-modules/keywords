@@ -16,7 +16,7 @@
  * @param array $args all privilege parts
  * @return array with the new privileges
  */
-function keywords_admin_privileges($args)
+function keywords_admin_privileges(array $args = [], $context = null)
 {
     // Security Check
     if (!xarSecurity::check('AdminKeywords')) {
@@ -91,10 +91,10 @@ function keywords_admin_privileges($args)
     $modlist = [];
     $typelist = [];
     foreach ($subjects as $modname => $modinfo) {
-        $modlist[$modinfo['regid']] = ['id' => $modinfo['regid'], 'name' =>$modinfo['displayname']];
+        $modlist[$modinfo['regid']] = ['id' => $modinfo['regid'], 'name' => $modinfo['displayname']];
         if ($moduleid == $modinfo['regid'] && !empty($modinfo['itemtypes'])) {
             foreach ($modinfo['itemtypes'] as $typeid => $typeinfo) {
-                $typelist[$typeid] = ['id' => $typeid, 'name' => $typeid . ' - ' .$typeinfo['label']];
+                $typelist[$typeid] = ['id' => $typeid, 'name' => $typeid . ' - ' . $typeinfo['label']];
             }
         }
     }
@@ -127,7 +127,7 @@ function keywords_admin_privileges($args)
             'admin',
             'modifyprivilege',
             ['id' => $pid]
-        ));
+        ), null, $context);
         return true;
     }
 
@@ -220,7 +220,7 @@ function keywords_admin_privileges($args)
             'admin',
             'modifyprivilege',
             ['pid' => $pid]
-        ));
+        ), null, $context);
         return true;
     }
 

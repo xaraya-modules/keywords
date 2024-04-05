@@ -16,10 +16,9 @@
  *
  * @param int $args['objectid'] ID of the object
  * @param array $args['extrainfo'] extra information
- * @return mixed true on success, false on failure. string keywords list
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return mixed|void true on success, false on failure. string keywords list
  */
-function keywords_adminapi_updatehook($args)
+function keywords_adminapi_updatehook(array $args = [], $context = null)
 {
     extract($args);
 

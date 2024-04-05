@@ -15,7 +15,7 @@
  * Search for keywords
  * @return array retrieved keywords
  */
-function keywords_user_search($args)
+function keywords_user_search(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ReadKeywords', 0)) {
         return '';

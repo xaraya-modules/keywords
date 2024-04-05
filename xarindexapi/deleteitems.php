@@ -1,6 +1,6 @@
 <?php
 
-function keywords_indexapi_deleteitems(array $args=[])
+function keywords_indexapi_deleteitems(array $args = [], $context = null)
 {
     extract($args);
 
@@ -35,7 +35,7 @@ function keywords_indexapi_deleteitems(array $args=[])
     }
 
     $dbconn = xarDB::getConn();
-    $tables =& xarDB::getTables();
+    $tables = & xarDB::getTables();
     $idxtable = $tables['keywords_index'];
 
     $where = [];

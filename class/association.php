@@ -20,7 +20,7 @@ class Keyword_Association extends Object
     public function __construct()
     {
         xarMod::apiLoad('keywords');
-        $this->tables =& xarDB::getTables();
+        $this->tables = & xarDB::getTables();
     }
 
     /**
@@ -90,11 +90,11 @@ class Keyword_Association extends Object
      * @return array   A list of associations, including the keyword_id -> (module_id + itemtype + property_id + itemid)
      */
 
-    public function get_associations($args=[])
+    public function get_associations($args = [])
     {
         $q = new Query('SELECT', $this->tables['keywords_index']);
         if (isset($args['keyword_id'])) {
-            $q->in('keyword_id', (int)$args['keyword_id']);
+            $q->in('keyword_id', (int) $args['keyword_id']);
         }
 
         // We need all the $args to have values
@@ -102,9 +102,9 @@ class Keyword_Association extends Object
             return [];
         }
 
-        $q->eq('module_id', (int)$args['module_id']);
-        $q->eq('itemtype', (int)$args['itemtype']);
-        $q->eq('itemid', (int)$args['itemid']);
+        $q->eq('module_id', (int) $args['module_id']);
+        $q->eq('itemtype', (int) $args['itemtype']);
+        $q->eq('itemid', (int) $args['itemid']);
 
         if (!$q->run()) {
             return false;
@@ -133,7 +133,7 @@ class Keyword_Association extends Object
      *  @return bool TRUE on success, FALSE with exception on error
      */
 
-    public function delete_association($args=[])
+    public function delete_association($args = [])
     {
         $q = new Query('DELETE', $this->tables['keywords_index']);
         if (!isset($args['keyword_id'])) {
@@ -141,15 +141,15 @@ class Keyword_Association extends Object
         } elseif (is_array($args['keyword_id'])) {
             $q->in('keyword_id', $args['keyword_id']);
         } else {
-            $q->eq('keyword_id', (int)$args['keyword_id']);
+            $q->eq('keyword_id', (int) $args['keyword_id']);
         }
 
         if (isset($args['module_id'])) {
-            $q->eq('module_id', (int)$args['module_id']);
+            $q->eq('module_id', (int) $args['module_id']);
             if (isset($args['itemtype'])) {
-                $q->eq('itemtype', (int)$args['itemtype']);
+                $q->eq('itemtype', (int) $args['itemtype']);
                 if (isset($args['itemid'])) {
-                    $q->eq('itemid', (int)$args['itemid']);
+                    $q->eq('itemid', (int) $args['itemid']);
                 }
             }
         }
@@ -173,7 +173,7 @@ class Keyword_Association extends Object
      *  @return integer The id of the keyword that was associated, FALSE with exception on error
      */
 
-    public function add_association($args=[])
+    public function add_association($args = [])
     {
         $q = new Query('INSERT', $this->tables['keywords_index']);
         if (!isset($args['keyword_id'])) {
@@ -191,10 +191,10 @@ class Keyword_Association extends Object
             return $args['keyword_id'];
         }
 
-        $q->addfield('keyword_id', (int)$args['keyword_id']);
-        $q->addfield('module_id', (int)$args['module_id']);
-        $q->addfield('itemtype', (int)$args['itemtype']);
-        $q->addfield('itemid', (int)$args['itemid']);
+        $q->addfield('keyword_id', (int) $args['keyword_id']);
+        $q->addfield('module_id', (int) $args['module_id']);
+        $q->addfield('itemtype', (int) $args['itemtype']);
+        $q->addfield('itemid', (int) $args['itemid']);
         if (!$q->run()) {
             return false;
         }
@@ -215,7 +215,7 @@ class Keyword_Association extends Object
      *                           or an array of keyword_id's and their number of associations
      */
 
-    public function count_associations($args=[])
+    public function count_associations($args = [])
     {
         $q = new Query('SELECT', $this->tables['keywords_index']);
         if (isset($keyword_id)) {

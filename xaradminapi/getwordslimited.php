@@ -15,21 +15,19 @@
  *
  * @param int $args['modid'] module id
  * @param int $args['itemtype'] itemtype
- * @return array of keywords
- * @throws BAD_PARAM, NO_PERMISSION, DATABASE_ERROR
+ * @return array|string|void of keywords
  */
-function keywords_adminapi_getwordslimited($args)
+function keywords_adminapi_getwordslimited(array $args = [], $context = null)
 {
     extract($args);
 
     if (!isset($moduleid) || !is_numeric($moduleid)) {
         $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
-        xarErrorSet(XAR_USER_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
+        throw new BadParameterException(null, $msg);
     }
 
     $dbconn = xarDB::getConn();
-    $xartable =& xarDB::getTables();
+    $xartable = & xarDB::getTables();
     $keywordstable = $xartable['keywords_restr'];
     $bindvars = [];
 
@@ -46,7 +44,7 @@ function keywords_adminapi_getwordslimited($args)
         $bindvars[] = $itemtype;
     }
     $query .= " ORDER BY keyword ASC";
-    $result =& $dbconn->Execute($query, $bindvars);
+    $result = & $dbconn->Execute($query, $bindvars);
 
     if (!$result) {
         return;
@@ -66,7 +64,7 @@ function keywords_adminapi_getwordslimited($args)
     $result->Close();
 
     $delimiters = xarModVars::get('keywords', 'delimiters');
-    $delimiter = substr($delimiters, 0, 1)." ";
+    $delimiter = substr($delimiters, 0, 1) . " ";
     $keywords = implode($delimiter, $keywords);
 
     return $keywords;

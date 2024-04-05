@@ -17,7 +17,7 @@
  * @param array keywords (default = empty)
  * @return mixed. true on succes and redirect to URL
  */
-function keywords_admin_updateconfig()
+function keywords_admin_updateconfig(array $args = [], $context = null)
 {
     if (!xarSec::confirmAuthKey()) {
         return;
@@ -45,7 +45,7 @@ function keywords_admin_updateconfig()
         );
         foreach ($keywords as $modname => $value) {
             if ($modname == 'default.0' || $modname == 'default') {
-                $moduleid='0';
+                $moduleid = '0';
                 $itemtype = '0';
             } else {
                 $moduleitem = explode(".", $modname);
@@ -97,6 +97,6 @@ function keywords_admin_updateconfig()
         $itemid = $data['module_settings']->updateItem();
     }
 
-    xarController::redirect(xarController::URL('keywords', 'admin', 'modifyconfig'));
+    xarController::redirect(xarController::URL('keywords', 'admin', 'modifyconfig'), null, $context);
     return true;
 }
