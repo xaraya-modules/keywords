@@ -139,6 +139,7 @@ function keywords_user_displayhook(array $args = [], $context = null)
 
     $data['keywords'] = $keywords;
     $data['showlabel'] = $extrainfo['showlabel'] ?? true;
+    $data['context'] ??= $context;
 
     $tpltype = $extrainfo['tpltype'] ?? 'user';
     return xarTpl::module('keywords', $tpltype, 'displayhook', $data);

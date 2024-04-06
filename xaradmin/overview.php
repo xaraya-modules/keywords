@@ -25,5 +25,6 @@ function keywords_admin_overview(array $args = [], $context = null)
 
     $data = [];
 
+    $data['context'] = $context;
     return xarTpl::module('keywords', 'admin', 'main', $data, 'main');
 }

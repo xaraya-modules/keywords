@@ -128,5 +128,6 @@ function keywords_admin_newhook(array $args = [], $context = null)
     }
     $data['delimiters'] = $delimiters;
 
+    $data['context'] ??= $context;
     return xarTpl::module('keywords', 'admin', 'newhook', $data);
 }

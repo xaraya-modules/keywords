@@ -16,7 +16,7 @@
  * @param int $args['objectid'] ID of the object
  * @param array $args['extrainfo']
  * @param string $args['extrainfo']['keywords'] or 'keywords' from input (optional)
- * @return string hook output in HTML
+ * @return string|void hook output in HTML
  */
 function keywords_admin_modifyhook(array $args = [], $context = null)
 {
@@ -194,5 +194,6 @@ function keywords_admin_modifyhook(array $args = [], $context = null)
     }
     $data['delimiters'] = $delimiters;
 
+    $data['context'] ??= $context;
     return xarTpl::module('keywords', 'admin', 'modifyhook', $data);
 }

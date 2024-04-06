@@ -18,8 +18,8 @@
                 </li>
                 {% if modules %}
                     {% for assoc, modinfo in modules %}
-                        {% set tabclass = modname==assoc?activetab.inactivetab %}
-                        {% set linkclass = modname==assoc?activelink.inactivelink %}
+                        {% set tabclass = modname==assoc ? activetab : inactivetab %}
+                        {% set linkclass = modname==assoc ? activelink : inactivelink %}
                         <li class="{{ tabclass }}">
                             <a href="{{ xar_currenturl({'module_id': modinfo['regid'], 'itemtype': null}) }}" title="{{ xar_translate('View module keywords') }}" class="{{ linkclass }}">
                             {{ modinfo['displayname'] }}</a>
@@ -33,16 +33,16 @@
             <ul class="xar-tabs xar-alt xar-norm-outline">
                 <li class="xar-tabs-label help" title="{{ xar_translate('Choose a module itemtype to view item associations for') }}">Itemtype:</li>
 
-                {% set tabclass = not itemtype?activetab.inactivetab %}
-                {% set linkclass = not itemtype?activelink.inactivelink %}
+                {% set tabclass = not itemtype ? activetab : inactivetab %}
+                {% set linkclass = not itemtype ? activelink : inactivelink %}
                 <li class="{{ tabclass }}">
                     <a href="{{ xar_currenturl({'module_id': module_id, 'itemtype': null}) }}" title="{{ xar_translate('View all keywords for current module selection') }}" class="{{ linkclass }}">
                     All</a>
                 </li>
                 {% if modules[modname]['itemtypes'] %}
                     {% for typeid, typeinfo in modules[modname]['itemtypes'] %}
-                        {% set tabclass = itemtype==typeid?activetab.inactivetab %}
-                        {% set linkclass = itemtype==typeid?activelink.inactivelink %}
+                        {% set tabclass = itemtype==typeid ? activetab : inactivetab %}
+                        {% set linkclass = itemtype==typeid ? activelink : inactivelink %}
                         <li class="{{ tabclass }}">
                             <a href="{{ xar_currenturl({'module_id': module_id, 'itemtype': typeid}) }}" title="{{ xar_translate('View module itemtype keywords') }}" class="{{ linkclass }}">
                             {{ typeinfo['label'] }}</a>
