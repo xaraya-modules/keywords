@@ -23,6 +23,14 @@ $modversion['admin']          = 1;
 $modversion['user']           = 1;
 $modversion['class']          = 'Utility';
 $modversion['category']       = 'Miscellaneous';
+//$modversion['namespace']      = 'Xaraya\Modules\Keywords';
+$modversion['twigtemplates']  = true;
+$modversion['dependencyinfo'] = [
+    0 => [
+        'name' => 'Xaraya Core',
+        'version_ge' => '2.4.1',
+    ],
+];
 
 if (false) {
     xarML('Keywords');
