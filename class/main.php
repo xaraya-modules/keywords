@@ -28,13 +28,13 @@ class Keywords extends xarObject
             $config = self::$configs[$hash];
         }
         if (empty($config) && !empty($itemtype)) { // try for module itemtype specific settings
-            $config = @unserialize(xarModVars::get($module, self::CONFIG_MODVAR . '_' . $itemtype));
+            $config = @unserialize((string) xarModVars::get($module, self::CONFIG_MODVAR . '_' . $itemtype));
         }
         if (empty($config)) { // fall back on module specific defaults
-            $config =  @unserialize(xarModVars::get($module, self::CONFIG_MODVAR));
+            $config =  @unserialize((string) xarModVars::get($module, self::CONFIG_MODVAR));
         }
         if (empty($config)) { // fall back on keywords defaults
-            $config =  @unserialize(xarModVars::get('keywords', self::CONFIG_MODVAR));
+            $config =  @unserialize((string) xarModVars::get('keywords', self::CONFIG_MODVAR));
         }
         if (empty($config)) {
             // first run ever or keywords defaults modvar deleted manually, re create using object defaults
