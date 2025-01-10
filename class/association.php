@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -45,8 +46,8 @@ class Keyword_Association extends Object
 
         // get the current keyword associations for this module item
         $assoc = $this->get_associations(['module_id'    => $moduleid,
-                                               'itemtype'     => $itemtype,
-                                               'itemid'       => $itemid, ]);
+            'itemtype'     => $itemtype,
+            'itemid'       => $itemid, ]);
 
         // see what we need to add or delete
         if (!empty($assoc) && count($assoc) > 0) {
@@ -62,18 +63,18 @@ class Keyword_Association extends Object
                 continue;
             }
             $this->add_association(['keyword_id'      => $id,
-                                         'module_id'    => $moduleid,
-                                         'itemtype'     => $itemtype,
-                                         'itemid'       => $itemid, ]);
+                'module_id'    => $moduleid,
+                'itemtype'     => $itemtype,
+                'itemid'       => $itemid, ]);
         }
         foreach ($del as $id) {
             if (empty($id)) {
                 continue;
             }
             $this->delete_association(['keyword_id'      => $id,
-                                            'module_id'    => $moduleid,
-                                            'itemtype'     => $itemtype,
-                                            'itemid'       => $itemid, ]);
+                'module_id'    => $moduleid,
+                'itemtype'     => $itemtype,
+                'itemid'       => $itemid, ]);
         }
     }
 

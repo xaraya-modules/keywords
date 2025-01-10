@@ -1,0 +1,218 @@
+<?php
+
+/**
+ * @package modules\keywords
+ * @category Xaraya Web Applications Framework
+ * @version 2.5.7
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link https://github.com/mikespub/xaraya-modules
+**/
+
+namespace Xaraya\Modules\Keywords\AdminGui;
+
+use Xaraya\Modules\MethodClass;
+use xarMod;
+use xarSecurity;
+use xarVar;
+use xarModVars;
+use xarTpl;
+use sys;
+use BadParameterException;
+
+sys::import('xaraya.modules.method');
+
+/**
+ * keywords admin modifyhook function
+ */
+class ModifyhookMethod extends MethodClass
+{
+    /** functions imported by bermuda_cleanup */
+
+    /**
+     * modify an entry for a module item - hook for ('item','modify','GUI')
+     * @param int $args ['objectid'] ID of the object
+     * @param array $args ['extrainfo']
+     * @param string $args ['extrainfo']['keywords'] or 'keywords' from input (optional)
+     * @return string|void hook output in HTML
+     */
+    public function __invoke(array $args = [])
+    {
+        extract($args);
+
+        if (empty($extrainfo)) {
+            $extrainfo = [];
+        }
+
+        if (!isset($objectid) || !is_numeric($objectid)) {
+            $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
+            $vars = ['objectid', 'admin', 'modifyhook', 'keywords'];
+            throw new BadParameterException($vars, $msg);
+        }
+
+        // When called via hooks, the module name may be empty. Get it from current module.
+        if (empty($extrainfo['module'])) {
+            $modname = xarMod::getName();
+        } else {
+            $modname = $extrainfo['module'];
+        }
+
+        $modid = xarMod::getRegId($modname);
+        if (empty($modid)) {
+            $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
+            $vars = ['module', 'admin', 'modifyhook', 'keywords'];
+            throw new BadParameterException($vars, $msg);
+        }
+
+        if (!empty($extrainfo['itemtype']) && is_numeric($extrainfo['itemtype'])) {
+            $itemtype = $extrainfo['itemtype'];
+        } else {
+            $itemtype = 0;
+        }
+
+        if (!empty($extrainfo['itemid']) && is_numeric($extrainfo['itemid'])) {
+            $itemid = $extrainfo['itemid'];
+        } else {
+            $itemid = $objectid;
+        }
+
+        // no permission, no worries, just don't display the form
+        if (!xarSecurity::check('AddKeywords', 0, 'Item', "$modid:$itemtype:$itemid")) {
+            return '';
+        }
+
+        // get settings currently in force for this module/itemtype
+        $data = xarMod::apiFunc(
+            'keywords',
+            'hooks',
+            'getsettings',
+            [
+                'module' => $modname,
+                'itemtype' => $itemtype,
+            ]
+        );
+
+        // get the index_id for this module/itemtype/item
+        $index_id = xarMod::apiFunc(
+            'keywords',
+            'index',
+            'getid',
+            [
+                'module' => $modname,
+                'itemtype' => $itemtype,
+                'itemid' => $itemid,
+            ]
+        );
+
+        // see if keywords were passed to hook call
+        if (!empty($extrainfo['keywords'])) {
+            $keywords = $extrainfo['keywords'];
+        } else {
+            // could be an item preview, try fetch from form input
+            if (!xarVar::fetch(
+                'keywords',
+                'isset',
+                $keywords,
+                null,
+                xarVar::DONT_SET
+            )) {
+                return;
+            }
+        }
+        // keywords not supplied
+        if (!isset($keywords)) {
+            // get the keywords associated with this item
+            $keywords = xarMod::apiFunc(
+                'keywords',
+                'words',
+                'getwords',
+                [
+                    'index_id' => $index_id,
+                ]
+            );
+        }
+        // we may have been given a string list
+        if (!empty($keywords) && !is_array($keywords)) {
+            $keywords = xarMod::apiFunc(
+                'keywords',
+                'admin',
+                'separekeywords',
+                [
+                    'keywords' => $keywords,
+                ]
+            );
+        }
+
+        // it's ok if there are no keywords
+        if (empty($keywords)) {
+            $keywords = [];
+        }
+
+        // if there are auto tags and they're persistent, add them to keywords
+        if (!empty($data['auto_tag_create']) && !empty($data['auto_tag_persist'])) {
+            $keywords = array_merge($keywords, $data['auto_tag_create']);
+        }
+
+
+        // Retrieve the list of allowed delimiters
+        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
+
+        if (empty($data['restrict_words'])) {
+            // no restrictions, display expects a string
+            // Use first delimiter to join words
+            $data['keywords'] = !empty($keywords) ? implode($delimiter, array_unique($keywords)) : '';
+        } else {
+            // get restricted list based on current settings
+            $data['restricted_list'] = xarMod::apiFunc(
+                'keywords',
+                'words',
+                'getwords',
+                [
+                    'index_id' => $data['index_id'],
+                ]
+            );
+            // return only keywords that are also in the restricted list
+            $data['keywords'] = array_intersect($keywords, $data['restricted_list']);
+            // see if managers are allowed to add to restricted list
+            if (!empty($data['allow_manager_add'])) {
+                // see if current user is a manager
+                $data['is_manager'] = xarSecurity::check('ManageKeywords', 0, 'Item', "$modid:$itemtype:$itemid");
+                if (!empty($data['is_manager'])) {
+                    // see if keywords were passed to hook call
+                    if (!empty($extrainfo['restricted_extra'])) {
+                        $toadd = $extrainfo['restricted_extra'];
+                    } else {
+                        // could be an item preview, try fetch from form input
+                        if (!xarVar::fetch(
+                            'restricted_extra',
+                            'isset',
+                            $toadd,
+                            [],
+                            xarVar::NOT_REQUIRED
+                        )) {
+                            return;
+                        }
+                    }
+                    // we may have been given a string list
+                    if (!empty($toadd) && !is_array($toadd)) {
+                        $toadd = xarMod::apiFunc(
+                            'keywords',
+                            'admin',
+                            'separekeywords',
+                            [
+                                'keywords' => $toadd,
+                            ]
+                        );
+                    }
+                    // display expects a string
+                    $data['restricted_extra'] = !empty($toadd) ? implode($delimiter, array_unique($toadd)) : '';
+                }
+            }
+        }
+        $data['delimiters'] = $delimiters;
+
+        $data['context'] ??= $this->getContext();
+        return xarTpl::module('keywords', 'admin', 'modifyhook', $data);
+    }
+}
