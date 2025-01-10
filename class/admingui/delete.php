@@ -18,7 +18,8 @@ use xarController;
 use xarMod;
 use xarSec;
 use sys;
-use BadParameterException;
+use EmptyParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 

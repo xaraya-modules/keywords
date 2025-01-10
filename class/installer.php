@@ -24,7 +24,9 @@ use xarMasks;
 use xarTableDDL;
 use xarModHooks;
 use xarSystemVars;
+use Query;
 use sys;
+use SQLException;
 use Exception;
 
 sys::import('xaraya.modules.installer');

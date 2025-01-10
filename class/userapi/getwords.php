@@ -14,8 +14,9 @@ namespace Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarDB;
+use Query;
 use sys;
-use BadParameterException;
+use Exception;
 
 sys::import('xaraya.modules.method');
 
@@ -47,12 +48,10 @@ class GetwordsMethod extends MethodClass
         if (!isset($modid) || !is_numeric($modid)) {
             $msg = xarML('Invalid #(1)', 'module id');
             throw new Exception($msg);
-            return;
         }
         if (!isset($itemid) || !is_numeric($itemid)) {
             $msg = xarML('Invalid #(1)', 'item id');
             throw new Exception($msg);
-            return;
         }
 
         $table = & xarDB::getTables();

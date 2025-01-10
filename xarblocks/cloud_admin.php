@@ -35,7 +35,7 @@ class Keywords_CloudBlockAdmin extends Keywords_CloudBlock implements iBlock
         return $data;
     }
 
-    public function update()
+    public function update($data = [])
     {
         // Get the cloud type
         if (!xarVar::fetch('cloudtype', 'int', $vars['cloudtype'], $this->cloudtype, xarVar::NOT_REQUIRED)) {

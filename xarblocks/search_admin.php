@@ -31,7 +31,7 @@ class Keywords_SearchBlockAdmin extends Keywords_SearchBlock implements iBlock
         return $data;
     }*/
 
-    public function update()
+    public function update($data = [])
     {
         if (!xarVar::fetch('module_id', 'str:1:', $vars['module_id'], $this->module_id, xarVar::NOT_REQUIRED)) {
             return;

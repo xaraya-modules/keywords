@@ -36,7 +36,7 @@ class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock
         return $vars;
     }
 
-    public function update()
+    public function update($data = [])
     {
         if (!xarVar::fetch('ptid', 'id', $vars['ptid'], $this->ptid, xarVar::NOT_REQUIRED)) {
             return;
