@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
+
+use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSec;
 use xarSecurity;
@@ -26,6 +28,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords admin updateconfig function
+ * @extends MethodClass<AdminGui>
  */
 class UpdateconfigMethod extends MethodClass
 {

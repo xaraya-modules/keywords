@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\UserGui;
 
+
+use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarSecurity;
@@ -24,6 +26,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords user displayhook function
+ * @extends MethodClass<UserGui>
  */
 class DisplayhookMethod extends MethodClass
 {

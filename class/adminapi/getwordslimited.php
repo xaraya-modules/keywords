@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
+
+use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use xarModVars;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords adminapi getwordslimited function
+ * @extends MethodClass<AdminApi>
  */
 class GetwordslimitedMethod extends MethodClass
 {

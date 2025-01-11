@@ -19,6 +19,19 @@ sys::import('modules.keywords.class.adminapi');
 
 /**
  * Handle the keywords admin GUI
+ *
+ * @method mixed delete(array $args)
+ * @method mixed hooks(array $args)
+ * @method mixed main(array $args)
+ * @method mixed modify(array $args)
+ * @method mixed modifyconfig(array $args)
+ * @method mixed modifyhook(array $args)
+ * @method mixed new(array $args)
+ * @method mixed newhook(array $args)
+ * @method mixed overview(array $args)
+ * @method mixed privileges(array $args)
+ * @method mixed updateconfig(array $args)
+ * @method mixed view(array $args)
  * @extends AdminGuiClass<Module>
  */
 class AdminGui extends AdminGuiClass

@@ -19,6 +19,12 @@ sys::import('modules.keywords.class.userapi');
 
 /**
  * Handle the keywords user GUI
+ *
+ * @method mixed display(array $args)
+ * @method mixed displayhook(array $args)
+ * @method mixed main(array $args)
+ * @method mixed search(array $args)
+ * @method mixed view(array $args)
  * @extends UserGuiClass<Module>
  */
 class UserGui extends UserGuiClass

@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
+
+use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use sys;
@@ -20,6 +22,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords adminapi deletehook function
+ * @extends MethodClass<AdminApi>
  */
 class DeletehookMethod extends MethodClass
 {

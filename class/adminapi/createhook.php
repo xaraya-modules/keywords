@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
+
+use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarSecurity;
@@ -23,6 +25,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords adminapi createhook function
+ * @extends MethodClass<AdminApi>
  */
 class CreatehookMethod extends MethodClass
 {

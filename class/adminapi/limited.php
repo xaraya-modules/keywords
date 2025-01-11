@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
+
+use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -22,6 +24,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords adminapi limited function
+ * @extends MethodClass<AdminApi>
  */
 class LimitedMethod extends MethodClass
 {

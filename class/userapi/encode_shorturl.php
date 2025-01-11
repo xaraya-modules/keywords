@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\UserApi;
 
+
+use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\MethodClass;
 use sys;
 use BadParameterException;
@@ -19,6 +21,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords userapi encode_shorturl function
+ * @extends MethodClass<UserApi>
  */
 class EncodeShorturlMethod extends MethodClass
 {

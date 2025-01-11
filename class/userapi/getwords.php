@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\UserApi;
 
+
+use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarDB;
@@ -22,6 +24,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords userapi getwords function
+ * @extends MethodClass<UserApi>
  */
 class GetwordsMethod extends MethodClass
 {

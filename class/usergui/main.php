@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\UserGui;
 
+
+use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarModVars;
@@ -24,6 +26,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords user main function
+ * @extends MethodClass<UserGui>
  */
 class MainMethod extends MethodClass
 {

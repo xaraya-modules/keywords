@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
+
+use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -25,6 +27,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords admin modify function
+ * @extends MethodClass<AdminGui>
  */
 class ModifyMethod extends MethodClass
 {

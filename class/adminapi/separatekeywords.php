@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
+
+use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarModVars;
 use xarVar;
@@ -21,6 +23,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * keywords adminapi separatekeywords function
+ * @extends MethodClass<AdminApi>
  */
 class SeparatekeywordsMethod extends MethodClass
 {
