@@ -45,20 +45,20 @@ class ModifyconfigMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('AdminKeywords')) {
+        if (!$this->checkAccess('AdminKeywords')) {
             return;
         }
 
-        if (!xarVar::fetch('module_id', 'id', $module_id, null, xarVar::DONT_SET)) {
+        if (!$this->fetch('module_id', 'id', $module_id, null, xarVar::DONT_SET)) {
             return;
         }
-        if (!xarVar::fetch('itemtype', 'int:0:', $itemtype, null, xarVar::DONT_SET)) {
+        if (!$this->fetch('itemtype', 'int:0:', $itemtype, null, xarVar::DONT_SET)) {
             return;
         }
-        if (!xarVar::fetch('phase', 'pre:trim:lower:enum:update', $phase, 'form', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('phase', 'pre:trim:lower:enum:update', $phase, 'form', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('return_url', 'pre:trim:str:1:', $return_url, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('return_url', 'pre:trim:str:1:', $return_url, '', xarVar::NOT_REQUIRED)) {
             return;
         }
 
@@ -78,52 +78,52 @@ class ModifyconfigMethod extends MethodClass
         }
 
         if ($phase == 'update') {
-            if (!xarSec::confirmAuthKey()) {
+            if (!$this->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
             if ($modname == 'keywords') {
                 $isvalid = $data['module_settings']->checkInput();
                 if ($isvalid) {
                     $itemid = $data['module_settings']->updateItem();
-                    if (!xarVar::fetch('delimiters', 'pre:trim:str:1:', $delimiters, xarModVars::get('keywords', 'delimiters', ','), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('delimiters', 'pre:trim:str:1:', $delimiters, $this->getModVar('delimiters', ','), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    if (!xarVar::fetch('stats_per_page', 'int:0:', $stats_per_page, xarModVars::get('keywords', 'stats_per_page', 100), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('stats_per_page', 'int:0:', $stats_per_page, $this->getModVar('stats_per_page', 100), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    if (!xarVar::fetch('items_per_page', 'int:0:', $items_per_page, xarModVars::get('keywords', 'items_per_page', 20), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('items_per_page', 'int:0:', $items_per_page, $this->getModVar('items_per_page', 20), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    if (!xarVar::fetch('user_layout', 'pre:trim:lower:enum:list:cloud', $user_layout, xarModVars::get('keywords', 'user_layout', 'list'), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('user_layout', 'pre:trim:lower:enum:list:cloud', $user_layout, $this->getModVar('user_layout', 'list'), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    xarModVars::set('keywords', 'delimiters', $delimiters);
-                    xarModVars::set('keywords', 'stats_per_page', $stats_per_page);
-                    xarModVars::set('keywords', 'items_per_page', $items_per_page);
-                    xarModVars::set('keywords', 'user_layout', $user_layout);
+                    $this->setModVar('delimiters', $delimiters);
+                    $this->setModVar('stats_per_page', $stats_per_page);
+                    $this->setModVar('items_per_page', $items_per_page);
+                    $this->setModVar('user_layout', $user_layout);
                     //if ($user_layout == 'list') {
-                    if (!xarVar::fetch('cols_per_page', 'int:0:', $cols_per_page, xarModVars::get('keywords', 'cols_per_page', 2), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('cols_per_page', 'int:0:', $cols_per_page, $this->getModVar('cols_per_page', 2), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    if (!xarVar::fetch('words_per_page', 'int:0:', $words_per_page, xarModVars::get('keywords', 'words_per_page', 50), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('words_per_page', 'int:0:', $words_per_page, $this->getModVar('words_per_page', 50), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    xarModVars::set('keywords', 'cols_per_page', $cols_per_page);
-                    xarModVars::set('keywords', 'words_per_page', $words_per_page);
+                    $this->setModVar('cols_per_page', $cols_per_page);
+                    $this->setModVar('words_per_page', $words_per_page);
                     //} else {
                     // the cloudy stuff
-                    if (!xarVar::fetch('cloud_font_min', 'int:1:', $cloud_font_min, xarModVars::get('keywords', 'cloud_font_min', 1), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('cloud_font_min', 'int:1:', $cloud_font_min, $this->getModVar('cloud_font_min', 1), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    if (!xarVar::fetch('cloud_font_max', 'int:1:', $cloud_font_max, xarModVars::get('keywords', 'cloud_font_max', 1), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('cloud_font_max', 'int:1:', $cloud_font_max, $this->getModVar('cloud_font_max', 1), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    if (!xarVar::fetch('cloud_font_unit', 'pre:trim:lower:enum:em:pt:px:%', $cloud_font_unit, xarModVars::get('keywords', 'cloud_font_unit', 'em'), xarVar::NOT_REQUIRED)) {
+                    if (!$this->fetch('cloud_font_unit', 'pre:trim:lower:enum:em:pt:px:%', $cloud_font_unit, $this->getModVar('cloud_font_unit', 'em'), xarVar::NOT_REQUIRED)) {
                         return;
                     }
-                    xarModVars::set('keywords', 'cloud_font_min', $cloud_font_min);
-                    xarModVars::set('keywords', 'cloud_font_max', $cloud_font_max);
-                    xarModVars::set('keywords', 'cloud_font_unit', $cloud_font_unit);
+                    $this->setModVar('cloud_font_min', $cloud_font_min);
+                    $this->setModVar('cloud_font_max', $cloud_font_max);
+                    $this->setModVar('cloud_font_unit', $cloud_font_unit);
                     //}
                 }
             }
@@ -139,8 +139,7 @@ class ModifyconfigMethod extends MethodClass
                 return;
             }
             if (empty($return_url)) {
-                $return_url = xarController::URL(
-                    'keywords',
+                $return_url = $this->getUrl(
                     'admin',
                     'modifyconfig',
                     [
@@ -149,7 +148,7 @@ class ModifyconfigMethod extends MethodClass
                     ]
                 );
             }
-            xarController::redirect($return_url, null, $this->getContext());
+            $this->redirect($return_url);
         }
 
         // form phase
@@ -158,18 +157,18 @@ class ModifyconfigMethod extends MethodClass
         $data['itemtype'] = $itemtype;
 
         if ($modname == 'keywords') {
-            $data['delimiters'] = xarModVars::get('keywords', 'delimiters', ',');
-            $data['stats_per_page'] = xarModVars::get('keywords', 'stats_per_page', 100);
-            $data['items_per_page'] = xarModVars::get('keywords', 'items_per_page', 20);
-            $data['user_layout'] = xarModVars::get('keywords', 'user_layout', 'list');
+            $data['delimiters'] = $this->getModVar('delimiters', ',');
+            $data['stats_per_page'] = $this->getModVar('stats_per_page', 100);
+            $data['items_per_page'] = $this->getModVar('items_per_page', 20);
+            $data['user_layout'] = $this->getModVar('user_layout', 'list');
 
             if ($data['user_layout'] == 'list') {
-                $data['cols_per_page'] = xarModVars::get('keywords', 'cols_per_page', 2);
-                $data['words_per_page'] = xarModVars::get('keywords', 'words_per_page', 50);
+                $data['cols_per_page'] = $this->getModVar('cols_per_page', 2);
+                $data['words_per_page'] = $this->getModVar('words_per_page', 50);
             } else {
-                $data['cloud_font_min'] = xarModVars::get('keywords', 'cloud_font_min', 1);
-                $data['cloud_font_max'] = xarModVars::get('keywords', 'cloud_font_max', 3);
-                $data['cloud_font_unit'] = xarModVars::get('keywords', 'cloud_font_unit', 'em');
+                $data['cloud_font_min'] = $this->getModVar('cloud_font_min', 1);
+                $data['cloud_font_max'] = $this->getModVar('cloud_font_max', 3);
+                $data['cloud_font_unit'] = $this->getModVar('cloud_font_unit', 'em');
                 $data['font_units'] = [
                     ['id' => 'em', 'name' => 'em'],
                     ['id' => 'pt', 'name' => 'pt'],
@@ -179,8 +178,8 @@ class ModifyconfigMethod extends MethodClass
             }
 
             $data['user_layouts'] = [
-                ['id' => 'list', 'name' => xarML('List')],
-                ['id' => 'cloud', 'name' => xarML('Cloud')],
+                ['id' => 'list', 'name' => $this->translate('List')],
+                ['id' => 'cloud', 'name' => $this->translate('Cloud')],
             ];
         }
 

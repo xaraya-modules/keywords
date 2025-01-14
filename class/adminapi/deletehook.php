@@ -30,9 +30,10 @@ class DeletehookMethod extends MethodClass
 
     /**
      * delete entry for a module item - hook for ('item','delete','API')
-     * @param mixed $args ['objectid'] ID of the object
-     * @param mixed $args ['extrainfo'] extra information
-     * @return bool true on success, false on failure
+     * @param array<mixed> $args
+     * @var mixed $objectid ID of the object
+     * @var mixed $extrainfo extra information
+     * @return bool|void true on success, false on failure
      */
     public function __invoke(array $args = [])
     {

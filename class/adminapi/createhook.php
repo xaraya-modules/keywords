@@ -34,8 +34,9 @@ class CreatehookMethod extends MethodClass
     /**
      * create an entry for a module item - hook for ('item','create','GUI')
      * Optional $extrainfo['keywords'] from arguments, or 'keywords' from input
-     * @param mixed $args ['objectid'] ID of the object
-     * @param mixed $args ['extrainfo'] extra information
+     * @param array<mixed> $args
+     * @var mixed $objectid ID of the object
+     * @var mixed $extrainfo extra information
      * @return array|void Extrainfo array
      */
     public function __invoke(array $args = [])
@@ -111,7 +112,7 @@ class CreatehookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // otherwise, try fetch from form input
-            if (!xarVar::fetch(
+            if (!$this->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -172,7 +173,7 @@ class CreatehookMethod extends MethodClass
         }
 
         // Retrieve the list of allowed delimiters
-        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiters = $this->getModVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
         $extrainfo['keywords'] = implode($delimiter, $keywords);
 

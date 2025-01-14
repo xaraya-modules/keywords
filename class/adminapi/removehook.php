@@ -30,8 +30,9 @@ class RemovehookMethod extends MethodClass
 
     /**
      * delete all entries for a module - hook for ('module','remove','API')
-     * @param mixed $args ['objectid'] ID of the object (must be the module name here !!)
-     * @param mixed $args ['extrainfo'] extra information
+     * @param array<mixed> $args
+     * @var mixed $objectid ID of the object (must be the module name here !!)
+     * @var mixed $extrainfo extra information
      * @return bool|void true on success, false on failure
      */
     public function __invoke(array $args = [])

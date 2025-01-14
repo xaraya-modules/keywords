@@ -34,8 +34,9 @@ class NewhookMethod extends MethodClass
 
     /**
      * Create an entry for a module item - hook for ('item','new','GUI')
-     * @param int $args ['objectid'] ID of the object
-     * @param array $args ['extrainfo'] extra information
+     * @param array<mixed> $args
+     * @var int $objectid ID of the object
+     * @var array $extrainfo extra information
      * @return string|void hook output in HTML
      */
     public function __invoke(array $args = [])
@@ -97,7 +98,7 @@ class NewhookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // could be an item preview, try fetch from form input
-            if (!xarVar::fetch(
+            if (!$this->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -126,7 +127,7 @@ class NewhookMethod extends MethodClass
         }
 
         // Retrieve the list of allowed delimiters
-        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiters = $this->getModVar('delimiters');
 
         $data = $settings;
         if (empty($settings['restrict_words'])) {

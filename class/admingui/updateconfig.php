@@ -43,23 +43,23 @@ class UpdateconfigMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSec::confirmAuthKey()) {
+        if (!$this->confirmAuthKey()) {
             return;
         }
-        if (!xarSecurity::check('AdminKeywords')) {
+        if (!$this->checkAccess('AdminKeywords')) {
             return;
         }
 
-        xarVar::fetch('restricted', 'int:0:1', $restricted, 0);
-        xarVar::fetch('useitemtype', 'int:0:1', $useitemtype, 0);
-        xarVar::fetch('keywords', 'isset', $keywords, '', xarVar::DONT_SET);
-        xarVar::fetch('isalias', 'isset', $isalias, '', xarVar::DONT_SET);
-        xarVar::fetch('showsort', 'isset', $showsort, '', xarVar::DONT_SET);
-        xarVar::fetch('displaycolumns', 'isset', $displaycolumns, '', xarVar::DONT_SET);
-        xarVar::fetch('delimiters', 'isset', $delimiters, '', xarVar::DONT_SET);
+        $this->fetch('restricted', 'int:0:1', $restricted, 0);
+        $this->fetch('useitemtype', 'int:0:1', $useitemtype, 0);
+        $this->fetch('keywords', 'isset', $keywords, '', xarVar::DONT_SET);
+        $this->fetch('isalias', 'isset', $isalias, '', xarVar::DONT_SET);
+        $this->fetch('showsort', 'isset', $showsort, '', xarVar::DONT_SET);
+        $this->fetch('displaycolumns', 'isset', $displaycolumns, '', xarVar::DONT_SET);
+        $this->fetch('delimiters', 'isset', $delimiters, '', xarVar::DONT_SET);
 
-        xarModVars::set('keywords', 'restricted', $restricted);
-        xarModVars::set('keywords', 'useitemtype', $useitemtype);
+        $this->setModVar('restricted', $restricted);
+        $this->setModVar('useitemtype', $useitemtype);
 
         if (isset($keywords) && is_array($keywords)) {
             xarMod::apiFunc(
@@ -93,22 +93,22 @@ class UpdateconfigMethod extends MethodClass
             }
         }
         if (empty($isalias)) {
-            xarModVars::set('keywords', 'SupportShortURLs', 0);
+            $this->setModVar('SupportShortURLs', 0);
         } else {
-            xarModVars::set('keywords', 'SupportShortURLs', 1);
+            $this->setModVar('SupportShortURLs', 1);
         }
         if (empty($showsort)) {
-            xarModVars::set('keywords', 'showsort', 0);
+            $this->setModVar('showsort', 0);
         } else {
-            xarModVars::set('keywords', 'showsort', 1);
+            $this->setModVar('showsort', 1);
         }
         if (empty($displaycolumns)) {
-            xarModVars::set('keywords', 'displaycolumns', 2);
+            $this->setModVar('displaycolumns', 2);
         } else {
-            xarModVars::set('keywords', 'displaycolumns', $displaycolumns);
+            $this->setModVar('displaycolumns', $displaycolumns);
         }
         if (isset($delimiters)) {
-            xarModVars::set('keywords', 'delimiters', trim($delimiters));
+            $this->setModVar('delimiters', trim($delimiters));
         }
         $data['module_settings'] = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'keywords']);
         $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls, user_menu_link');
@@ -122,7 +122,7 @@ class UpdateconfigMethod extends MethodClass
             $itemid = $data['module_settings']->updateItem();
         }
 
-        xarController::redirect(xarController::URL('keywords', 'admin', 'modifyconfig'), null, $this->getContext());
+        $this->redirect($this->getUrl('admin', 'modifyconfig'));
         return true;
     }
 }

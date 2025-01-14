@@ -28,7 +28,6 @@ class Keyword_Association extends xarObject
      * Utility function to synchronise keyword associations on validation
      * Given a list of resokeywordurce IDs, this makes sure that there is an entry in the associations table
      * for each with the appropriate $itemid, $itemtype, $moduleid
-     *
      */
     public function sync_associations($moduleid = 0, $itemtype = 0, $itemid = 0, $keyword_ids = [])
     {
@@ -83,10 +82,11 @@ class Keyword_Association extends xarObject
      *
      * @author Carl P. Corliss
      * @access public
-     * @param   integer module_id     The id of module this keyword is associated with
-     * @param   integer itemtype      The item type within the defined module
-     * @param   integer itemid        The id of the item types item
-     * @param   integer keyword_id    The id of the keyword we are going to associate with an item
+     * @param array<mixed> $args
+     * @var integer module_id     The id of module this keyword is associated with
+     * @var integer itemtype      The item type within the defined module
+     * @var integer itemid        The id of the item types item
+     * @var integer keyword_id    The id of the keyword we are going to associate with an item
      *
      * @return array   A list of associations, including the keyword_id -> (module_id + itemtype + property_id + itemid)
      */
@@ -124,14 +124,15 @@ class Keyword_Association extends xarObject
      *  If the keyword_id and module_id are supplied, any assocations for the given keyword and module_id
      *  will be removed. The same holds true for itemtype and itemid.
      *
-     *  @author  Carl P. Corliss
-     *  @access  public
-     *  @param   integer keyword_id    The id of the keyword we are going to remove association with
-     *  @param   integer module_id     The id of module this keyword is associated with
-     *  @param   integer itemtype      The item type within the defined module
-     *  @param   integer itemid        The id of the item types item
+     * @author  Carl P. Corliss
+     * @access  public
+     * @param array<mixed> $args
+     * @var integer keyword_id    The id of the keyword we are going to remove association with
+     * @var integer module_id     The id of module this keyword is associated with
+     * @var integer itemtype      The item type within the defined module
+     * @var integer itemid        The id of the item types item
      *
-     *  @return bool TRUE on success, FALSE with exception on error
+     * @return bool TRUE on success, FALSE with exception on error
      */
 
     public function delete_association($args = [])
@@ -164,14 +165,15 @@ class Keyword_Association extends xarObject
     /**
      *  Create an assocation between a (stored) keyword and a module/itemtype/item
      *
-     *  @author  Carl P. Corliss
-     *  @access  public
-     *  @param   integer keyword_id    The id of the keyword we are going to associate with an item
-     *  @param   integer module_id     The id of module this keyword is associated with
-     *  @param   integer itemtype      The item type within the defined module
-     *  @param   integer itemid        The id of the item types item
+     * @author  Carl P. Corliss
+     * @access  public
+     * @param array<mixed> $args
+     * @var integer keyword_id    The id of the keyword we are going to associate with an item
+     * @var integer module_id     The id of module this keyword is associated with
+     * @var integer itemtype      The item type within the defined module
+     * @var integer itemid        The id of the item types item
      *
-     *  @return integer The id of the keyword that was associated, FALSE with exception on error
+     * @return integer The id of the keyword that was associated, FALSE with exception on error
      */
 
     public function add_association($args = [])
@@ -207,10 +209,11 @@ class Keyword_Association extends xarObject
      *
      * @author  Carl P. Corliss
      * @access  public
-     * @param   integer keyword_id  The id of the keyword, or an array of keyword_id's
-     * @param   integer module_id   The id of module this keyword is associated with
-     * @param   integer itemtype    The item type within the defined module
-     * @param   integer itemid      The id of the item types item
+     * @param array<mixed> $args
+     * @var integer keyword_id  The id of the keyword, or an array of keyword_id's
+     * @var integer module_id   The id of module this keyword is associated with
+     * @var integer itemtype    The item type within the defined module
+     * @var integer itemid      The id of the item types item
 
      * @return mixed             The total number of associations for particular module/itemtype/item combination
      *                           or an array of keyword_id's and their number of associations

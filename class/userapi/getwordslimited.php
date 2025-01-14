@@ -33,19 +33,20 @@ class GetwordslimitedMethod extends MethodClass
     /**
      * get entries for a module item
      * This function gets the restricted keywords for one module
-     * @param int $args ['moduleid'] module id
+     * @param array<mixed> $args
+     * @var int $moduleid module id
      * @return array|void of keywords, sorted ASC
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 
         extract($args);
 
         if (!isset($moduleid) || !is_numeric($moduleid)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'module id',
                 'user',
@@ -63,7 +64,7 @@ class GetwordslimitedMethod extends MethodClass
 
         // Get restricted keywords for this module item
 
-        $useitemtype = xarModVars::get('keywords', 'useitemtype');
+        $useitemtype = $this->getModVar('useitemtype');
 
         $query = "SELECT id,
                          keyword

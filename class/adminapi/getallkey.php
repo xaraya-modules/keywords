@@ -31,7 +31,8 @@ class GetallkeyMethod extends MethodClass
 
     /**
      * get entries for a module item
-     * @param mixed $args ['modid'] module id
+     * @param array<mixed> $args
+     * @var mixed $modid module id
      * @return array|void of keywords
      */
     public function __invoke(array $args = [])
@@ -39,11 +40,11 @@ class GetallkeyMethod extends MethodClass
         extract($args);
 
         if (!isset($moduleid) || !is_numeric($moduleid)) {
-            $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
+            $msg = $this->translate('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
             throw new BadParameterException(null, $msg);
         }
 
-        if (!xarSecurity::check('AdminKeywords')) {
+        if (!$this->checkAccess('AdminKeywords')) {
             return;
         }
         $dbconn = xarDB::getConn();

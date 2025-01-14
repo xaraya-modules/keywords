@@ -34,9 +34,10 @@ class ModifyhookMethod extends MethodClass
 
     /**
      * modify an entry for a module item - hook for ('item','modify','GUI')
-     * @param int $args ['objectid'] ID of the object
-     * @param array $args ['extrainfo']
-     * @param string $args ['extrainfo']['keywords'] or 'keywords' from input (optional)
+     * @param array<mixed> $args
+     * @var int $objectid ID of the object
+     * @var array $extrainfo
+     * @var string $extrainfo['keywords'] or 'keywords' from input (optional)
      * @return string|void hook output in HTML
      */
     public function __invoke(array $args = [])
@@ -112,7 +113,7 @@ class ModifyhookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // could be an item preview, try fetch from form input
-            if (!xarVar::fetch(
+            if (!$this->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -158,7 +159,7 @@ class ModifyhookMethod extends MethodClass
 
 
         // Retrieve the list of allowed delimiters
-        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiters = $this->getModVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
 
         if (empty($data['restrict_words'])) {
@@ -187,7 +188,7 @@ class ModifyhookMethod extends MethodClass
                         $toadd = $extrainfo['restricted_extra'];
                     } else {
                         // could be an item preview, try fetch from form input
-                        if (!xarVar::fetch(
+                        if (!$this->fetch(
                             'restricted_extra',
                             'isset',
                             $toadd,

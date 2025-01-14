@@ -31,14 +31,15 @@ class GetlistMethod extends MethodClass
 
     /**
      * get list of keywords (from the existing assignments for now)
-     * @param mixed $args ['count'] if you want to count items per keyword
-     * @param mixed $args ['tab'] = int(1:5) returns keywords with initial withn
+     * @param array<mixed> $args
+     * @var mixed $count if you want to count items per keyword
+     * @var mixed $tab = int(1:5) returns keywords with initial withn
      * a specific letter range (1=[A-F]; 2=[G-L]; etc...)
-     * @return array of found keywords
+     * @return array|void of found keywords
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 

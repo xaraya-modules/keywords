@@ -38,13 +38,13 @@ class DeleteMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ManageKeywords')) {
+        if (!$this->checkAccess('ManageKeywords')) {
             return;
         }
 
         $data = [];
 
-        if (!xarVar::fetch(
+        if (!$this->fetch(
             'module_id',
             'id',
             $module_id,
@@ -53,7 +53,7 @@ class DeleteMethod extends MethodClass
         )) {
             return;
         }
-        if (!xarVar::fetch(
+        if (!$this->fetch(
             'itemtype',
             'id',
             $itemtype,
@@ -62,7 +62,7 @@ class DeleteMethod extends MethodClass
         )) {
             return;
         }
-        if (!xarVar::fetch(
+        if (!$this->fetch(
             'itemid',
             'id',
             $itemid,
@@ -71,7 +71,7 @@ class DeleteMethod extends MethodClass
         )) {
             return;
         }
-        if (!xarVar::fetch(
+        if (!$this->fetch(
             'return_url',
             'pre:trim:str:1:',
             $return_url,
@@ -82,8 +82,7 @@ class DeleteMethod extends MethodClass
         }
 
         if (empty($return_url)) {
-            $return_url = xarController::URL(
-                'keywords',
+            $return_url = $this->getUrl(
                 'admin',
                 'stats',
                 [
@@ -106,7 +105,7 @@ class DeleteMethod extends MethodClass
             throw new EmptyParameterException($vars, $msg);
         }
 
-        if (!xarVar::fetch(
+        if (!$this->fetch(
             'phase',
             'pre:trim:lower:enum:confirm',
             $phase,
@@ -119,7 +118,7 @@ class DeleteMethod extends MethodClass
         $modname = xarMod::getName($module_id);
 
         if ($phase == 'confirm') {
-            if (!xarVar::fetch(
+            if (!$this->fetch(
                 'cancel',
                 'checkbox',
                 $cancel,
@@ -129,9 +128,9 @@ class DeleteMethod extends MethodClass
                 return;
             }
             if ($cancel) {
-                xarController::redirect($return_url, null, $this->getContext());
+                $this->redirect($return_url);
             }
-            if (!xarSec::confirmAuthKey()) {
+            if (!$this->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
             // get the index_id for this module/itemtype/item
@@ -157,7 +156,7 @@ class DeleteMethod extends MethodClass
             )) {
                 return;
             }
-            xarController::redirect($return_url, null, $this->getContext());
+            $this->redirect($return_url);
         }
 
         try {
@@ -171,8 +170,8 @@ class DeleteMethod extends MethodClass
             $item = reset($item);
         } catch (Exception $e) {
             $item = [
-                'label' => xarML('Item #(1)', $itemid),
-                'title' => xarML('Display Item #(1)', $itemid),
+                'label' => $this->translate('Item #(1)', $itemid),
+                'title' => $this->translate('Display Item #(1)', $itemid),
                 'url' => xarController::URL(
                     $modname,
                     'user',
@@ -208,8 +207,8 @@ class DeleteMethod extends MethodClass
                 }
                 if (!isset($modtypes[$module][$typeid])) {
                     $modtypes[$module][$typeid] = [
-                        'label' => xarML('Itemtype #(1)', $typeid),
-                        'title' => xarML('View itemtype #(1) items', $typeid),
+                        'label' => $this->translate('Itemtype #(1)', $typeid),
+                        'title' => $this->translate('View itemtype #(1) items', $typeid),
                         'url' => xarController::URL($module, 'user', 'view', ['itemtype' => $typeid]),
                     ];
                 }

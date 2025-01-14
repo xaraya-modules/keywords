@@ -108,7 +108,7 @@ class Installer extends InstallerClass
                 return;
             }
         } catch (Exception $e) {
-            throw new Exception(xarML('Could not create module tables'));
+            throw new Exception($this->translate('Could not create module tables'));
         }
 
         /*********************************************************************
@@ -211,8 +211,8 @@ class Installer extends InstallerClass
             case '1.0':
             case '1.0.0':
 
-                xarModVars::set('keywords', 'restricted', 0);
-                xarModVars::set('keywords', 'default', 'xaraya');
+                $this->setModVar('restricted', 0);
+                $this->setModVar('default', 'xaraya');
 
                 $dbconn = xarDB::getConn();
                 $xartable = & xarDB::getTables();
@@ -297,7 +297,7 @@ class Installer extends InstallerClass
 
                 // no break
             case '1.0.3':
-                xarModVars::set('keywords', 'useitemtype', 0);
+                $this->setModVar('useitemtype', 0);
 
                 // no break
             case '1.0.4':
@@ -582,9 +582,9 @@ class Installer extends InstallerClass
         }
 
         // transpose deprecated modvar settings to new format
-        $restricted = xarModVars::get('keywords', 'restricted');
+        $restricted = $this->getModVar('restricted');
         if ($restricted) {
-            $useitemtype = xarModVars::get('keywords', 'useitemtype');
+            $useitemtype = $this->getModVar('useitemtype');
             $subjects = xarMod::apiFunc('keywords', 'hooks', 'getsubjects');
             if (!empty($subjects)) {
                 foreach (array_keys($subjects) as $hookedto) {
@@ -647,19 +647,19 @@ class Installer extends InstallerClass
         xarModVars::delete('keywords', 'restricted');
         xarModVars::delete('keywords', 'useitemtype');
 
-        $cols_per_page = xarModVars::get('keywords', 'displaycolumns', 2);
+        $cols_per_page = $this->getModVar('displaycolumns', 2);
         xarModVars::delete('keywords', 'displaycolumns');
 
         // new modvars
-        xarModVars::set('keywords', 'stats_per_page', 100);
-        xarModVars::set('keywords', 'items_per_page', 20);
-        xarModVars::set('keywords', 'user_layout', 'list');
-        xarModVars::set('keywords', 'cols_per_page', $cols_per_page);
-        xarModVars::set('keywords', 'words_per_page', 50);
-        xarModVars::set('keywords', 'cloud_font_min', 1);
-        xarModVars::set('keywords', 'cloud_font_max', 3);
-        xarModVars::set('keywords', 'cloud_font_unit', 'em');
-        xarModVars::set('keywords', 'use_module_icons', true);
+        $this->setModVar('stats_per_page', 100);
+        $this->setModVar('items_per_page', 20);
+        $this->setModVar('user_layout', 'list');
+        $this->setModVar('cols_per_page', $cols_per_page);
+        $this->setModVar('words_per_page', 50);
+        $this->setModVar('cloud_font_min', 1);
+        $this->setModVar('cloud_font_max', 3);
+        $this->setModVar('cloud_font_unit', 'em');
+        $this->setModVar('use_module_icons', true);
 
         xarHooks::registerObserver('ModuleModifyconfig', 'keywords', 'gui', 'hooks', 'modulemodifyconfig');
         xarHooks::registerObserver('ModuleUpdateconfig', 'keywords', 'api', 'hooks', 'moduleupdateconfig');

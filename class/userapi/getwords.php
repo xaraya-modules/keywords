@@ -32,28 +32,29 @@ class GetwordsMethod extends MethodClass
 
     /**
      * get entries for a module item
-     * @param int $args ['modid'] module id
-     * @param int $args ['itemtype'] item type
-     * @param int $args ['itemid'] item id
-     * @param int $args ['numitems'] number of entries to retrieve (optional)
-     * @param int $args ['startnum'] starting number (optional)
+     * @param array<mixed> $args
+     * @var int $modid module id
+     * @var int $itemtype item type
+     * @var int $itemid item id
+     * @var int $numitems number of entries to retrieve (optional)
+     * @var int $startnum starting number (optional)
      * @return array|void of keywords
      * @todo This is so similar to getitems, that they could be merged. It is only the format of the results that differs.
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 
         extract($args);
 
         if (!isset($modid) || !is_numeric($modid)) {
-            $msg = xarML('Invalid #(1)', 'module id');
+            $msg = $this->translate('Invalid #(1)', 'module id');
             throw new Exception($msg);
         }
         if (!isset($itemid) || !is_numeric($itemid)) {
-            $msg = xarML('Invalid #(1)', 'item id');
+            $msg = $this->translate('Invalid #(1)', 'item id');
             throw new Exception($msg);
         }
 

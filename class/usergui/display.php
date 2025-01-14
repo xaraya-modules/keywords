@@ -33,17 +33,18 @@ class DisplayMethod extends MethodClass
 
     /**
      * display keywords entry
-     * @param mixed $args ['itemid'] item id of the keywords entry
+     * @param array<mixed> $args
+     * @var mixed $itemid item id of the keywords entry
      * @checkme: this appears to display a link to a display of an item, why is this needed?
      * @return array|void Item
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 
-        xarVar::fetch('itemid', 'id', $itemid, '', xarVar::DONT_SET);
+        $this->fetch('itemid', 'id', $itemid, '', xarVar::DONT_SET);
         extract($args);
 
         if (empty($itemid)) {

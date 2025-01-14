@@ -37,7 +37,7 @@ class SearchMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 

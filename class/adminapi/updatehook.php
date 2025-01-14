@@ -34,8 +34,9 @@ class UpdatehookMethod extends MethodClass
     /**
      * update entry for a module item - hook for ('item','update','API')
      * Optional $extrainfo['keywords'] from arguments, or 'keywords' from input
-     * @param int $args ['objectid'] ID of the object
-     * @param array $args ['extrainfo'] extra information
+     * @param array<mixed> $args
+     * @var int $objectid ID of the object
+     * @var array $extrainfo extra information
      * @return mixed|void true on success, false on failure. string keywords list
      */
     public function __invoke(array $args = [])
@@ -114,7 +115,7 @@ class UpdatehookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // otherwise, try fetch from form input
-            if (!xarVar::fetch(
+            if (!$this->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -182,7 +183,7 @@ class UpdatehookMethod extends MethodClass
                         $toadd = $extrainfo['restricted_extra'];
                     } else {
                         // could be an item preview, try fetch from form input
-                        if (!xarVar::fetch(
+                        if (!$this->fetch(
                             'restricted_extra',
                             'isset',
                             $toadd,
@@ -253,7 +254,7 @@ class UpdatehookMethod extends MethodClass
         }
 
         // Retrieve the list of allowed delimiters
-        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiters = $this->getModVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
         $extrainfo['keywords'] = implode($delimiter, $keywords);
 

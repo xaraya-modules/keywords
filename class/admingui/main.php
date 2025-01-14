@@ -42,20 +42,20 @@ class MainMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Security Check
-        if (!xarSecurity::check('EditKeywords')) {
+        if (!$this->checkAccess('EditKeywords')) {
             return;
         }
 
         if (xarModVars::get('modules', 'disableoverview') == 0) {
             return [];
         } else {
-            $redirect = xarModVars::get('keywords', 'defaultbackpage');
+            $redirect = $this->getModVar('defaultbackpage');
             if (!empty($redirect)) {
                 $truecurrenturl = xarServer::getCurrentURL([], false);
                 $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
-                xarController::redirect($urldata['redirecturl'], null, $this->getContext());
+                $this->redirect($urldata['redirecturl']);
             } else {
-                xarController::redirect(xarController::URL('keywords', 'admin', 'view'), null, $this->getContext());
+                $this->redirect($this->getUrl('admin', 'view'));
             }
         }
         return true;

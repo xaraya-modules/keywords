@@ -31,25 +31,26 @@ class GetmultiplewordsMethod extends MethodClass
 
     /**
      * get entries for a module item
-     * @param int $args ['modid'] module id
-     * @param int $args ['itemtype'] item type
-     * @param int $args ['objectids'] item id
+     * @param array<mixed> $args
+     * @var int $modid module id
+     * @var int $itemtype item type
+     * @var int $objectids item id
      * @return array|void of keywords
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 
         extract($args);
 
         if (!isset($modid) || !is_numeric($modid)) {
-            $msg = xarML('Invalid Parameters');
+            $msg = $this->translate('Invalid Parameters');
             throw new BadParameterException(null, $msg);
         }
         if (!is_array($objectids)) {
-            $msg = xarML('Invalid Parameters');
+            $msg = $this->translate('Invalid Parameters');
             throw new BadParameterException(null, $msg);
         }
         $keywords = [];

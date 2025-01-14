@@ -31,8 +31,9 @@ class GetwordslimitedMethod extends MethodClass
 
     /**
      * get entries for a module item
-     * @param int $args ['modid'] module id
-     * @param int $args ['itemtype'] itemtype
+     * @param array<mixed> $args
+     * @var int $modid module id
+     * @var int $itemtype itemtype
      * @return array|string|void of keywords
      */
     public function __invoke(array $args = [])
@@ -40,7 +41,7 @@ class GetwordslimitedMethod extends MethodClass
         extract($args);
 
         if (!isset($moduleid) || !is_numeric($moduleid)) {
-            $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
+            $msg = $this->translate('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
             throw new BadParameterException(null, $msg);
         }
 
@@ -81,7 +82,7 @@ class GetwordslimitedMethod extends MethodClass
         }
         $result->Close();
 
-        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiters = $this->getModVar('delimiters');
         $delimiter = substr($delimiters, 0, 1) . " ";
         $keywords = implode($delimiter, $keywords);
 

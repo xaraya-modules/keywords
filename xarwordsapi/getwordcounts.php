@@ -5,7 +5,7 @@
 **/
 /**
  * @access public
- * @param array   $args
+ * @param array<mixed> $args
  * @param string  $args[module]
  * @param integer $args[module_id]
  * @param integer $args[itemtype]

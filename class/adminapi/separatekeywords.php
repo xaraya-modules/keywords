@@ -37,7 +37,7 @@ class SeparatekeywordsMethod extends MethodClass
     {
         extract($args);
 
-        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiters = $this->getModVar('delimiters');
 
         // Colons are the only character we can't use (ATM).
         // TODO: remove this then xarVar::validate() is able to handle escape

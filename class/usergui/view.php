@@ -38,21 +38,21 @@ class ViewMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 
-        if (!xarVar::fetch('keyword', 'pre:trim:str:1:', $keyword, null, xarVar::DONT_SET)) {
+        if (!$this->fetch('keyword', 'pre:trim:str:1:', $keyword, null, xarVar::DONT_SET)) {
             return;
         }
-        if (!xarVar::fetch('startnum', 'int:1:', $startnum, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('startnum', 'int:1:', $startnum, null, xarVar::NOT_REQUIRED)) {
             return;
         }
 
         $data = [];
 
         if (!empty($keyword)) {
-            $items_per_page = xarModVars::get('keywords', 'items_per_page', 20);
+            $items_per_page = $this->getModVar('items_per_page', 20);
             $total = xarMod::apiFunc(
                 'keywords',
                 'words',
@@ -104,8 +104,8 @@ class ViewMethod extends MethodClass
                     }
                     if (!isset($modtypes[$module][$typeid])) {
                         $modtypes[$module][$typeid] = [
-                            'label' => xarML('Itemtype #(1)', $typeid),
-                            'title' => xarML('View itemtype #(1) items', $typeid),
+                            'label' => $this->translate('Itemtype #(1)', $typeid),
+                            'title' => $this->translate('View itemtype #(1) items', $typeid),
                             'url' => xarController::URL($module, 'user', 'view', ['itemtype' => $typeid]),
                         ];
                     }
@@ -142,8 +142,8 @@ class ViewMethod extends MethodClass
                     foreach (array_keys($itemids) as $id) {
                         if (!isset($itemlinks[$id])) {
                             $itemlinks[$id] = [
-                                'label' => xarML('Item #(1)', $id),
-                                'title' => xarML('Display Item #(1)', $id),
+                                'label' => $this->translate('Item #(1)', $id),
+                                'title' => $this->translate('Display Item #(1)', $id),
                                 'url' => xarController::URL(
                                     $module,
                                     'user',
@@ -160,15 +160,15 @@ class ViewMethod extends MethodClass
             $data['items_per_page'] = $items_per_page;
             $data['total'] = $total;
             $data['items'] = $items;
-            $data['use_icons'] = xarModVars::get('keywords', 'use_module_icons');
+            $data['use_icons'] = $this->getModVar('use_module_icons');
         } else {
-            $user_layout = xarModVars::get('keywords', 'user_layout', 'list');
+            $user_layout = $this->getModVar('user_layout', 'list');
 
             switch ($user_layout) {
                 case 'list':
                 default:
-                    $cols_per_page = xarModVars::get('keywords', 'cols_per_page', 2);
-                    $items_per_page = xarModVars::get('keywords', 'words_per_page', 50);
+                    $cols_per_page = $this->getModVar('cols_per_page', 2);
+                    $items_per_page = $this->getModVar('words_per_page', 50);
                     $total = xarMod::apiFunc(
                         'keywords',
                         'words',
@@ -206,9 +206,9 @@ class ViewMethod extends MethodClass
                     foreach ($items as $item) {
                         $counts[$item['keyword']] = $item['count'];
                     }
-                    $font_min = xarModVars::get('keywords', 'cloud_font_min');
-                    $font_max = xarModVars::get('keywords', 'cloud_font_max');
-                    $font_unit = xarModVars::get('keywords', 'cloud_font_unit');
+                    $font_min = $this->getModVar('cloud_font_min');
+                    $font_max = $this->getModVar('cloud_font_max');
+                    $font_unit = $this->getModVar('cloud_font_unit');
                     $min_count = min($counts);
                     $max_count = max($counts);
                     $range = $max_count - $min_count;
@@ -237,12 +237,12 @@ class ViewMethod extends MethodClass
 
         return $data;
 
-        xarVar::fetch('keyword', 'str', $keyword, '', xarVar::DONT_SET);
-        xarVar::fetch('id', 'id', $id, '', xarVar::DONT_SET);
-        xarVar::fetch('tab', 'int:0:5', $tab, '0', xarVar::DONT_SET);
+        $this->fetch('keyword', 'str', $keyword, '', xarVar::DONT_SET);
+        $this->fetch('id', 'id', $id, '', xarVar::DONT_SET);
+        $this->fetch('tab', 'int:0:5', $tab, '0', xarVar::DONT_SET);
 
         //extract($args);
-        $displaycolumns = xarModVars::get('keywords', 'displaycolumns');
+        $displaycolumns = $this->getModVar('displaycolumns');
         if (!isset($displaycolumns) or (empty($displaycolumns))) {
             $displaycolumns = 1;
         }
@@ -263,8 +263,7 @@ class ViewMethod extends MethodClass
                     continue;
                 }
                 $items[] = [
-                    'url' => xarController::URL(
-                        'keywords',
+                    'url' => $this->getUrl(
                         'user',
                         'view',
                         ['keyword' => $word]
@@ -429,7 +428,7 @@ class ViewMethod extends MethodClass
             );
         }
 
-        xarController::redirect($url, null, $this->getContext());
+        $this->redirect($url);
         return true;
     }
 }

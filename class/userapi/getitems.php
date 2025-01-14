@@ -31,17 +31,18 @@ class GetitemsMethod extends MethodClass
 
     /**
      * get module items for a keyword
-     * @param mixed $args ['id'] id(s) of the keywords entry(ies), or
-     * @param mixed $args ['keyword'] keyword
-     * @param mixed $args ['modid'] modid
-     * @param mixed $args ['itemtype'] itemtype
-     * @param mixed $args ['numitems'] number of entries to retrieve (optional)
-     * @param mixed $args ['startnum'] starting number (optional)
+     * @param array<mixed> $args
+     * @var mixed $id id(s) of the keywords entry(ies), or
+     * @var mixed $keyword keyword
+     * @var mixed $modid modid
+     * @var mixed $itemtype itemtype
+     * @var mixed $numitems number of entries to retrieve (optional)
+     * @var mixed $startnum starting number (optional)
      * @return array|void of module id, item type and item id
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ReadKeywords')) {
+        if (!$this->checkAccess('ReadKeywords')) {
             return;
         }
 
@@ -49,12 +50,12 @@ class GetitemsMethod extends MethodClass
 
         if (!empty($id)) {
             if (!is_numeric($id) && !is_array($id)) {
-                $msg = xarML('Invalid #(1)', 'keywords id');
+                $msg = $this->translate('Invalid #(1)', 'keywords id');
                 throw new Exception($msg);
             }
         } else {
             if (!isset($keyword)) {
-                $msg = xarML('Invalid #(1)', 'keyword');
+                $msg = $this->translate('Invalid #(1)', 'keyword');
                 throw new Exception($msg);
             }
         }

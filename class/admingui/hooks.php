@@ -31,14 +31,15 @@ class HooksMethod extends MethodClass
     /**
      * Configure hooks by hook module
      * @author Xaraya Development Team
-     * @param mixed $args ['curhook'] current hook module (optional)
-     * @param mixed $args ['return_url'] URL to return to after updating the hooks (optional)
+     * @param array<mixed> $args
+     * @var mixed $curhook current hook module (optional)
+     * @var mixed $return_url URL to return to after updating the hooks (optional)
      * @return array data for the template display
      */
     public function __invoke(array $args = [])
     {
         // Security
-        if (!xarSecurity::check('ManageKeywords')) {
+        if (!$this->checkAccess('ManageKeywords')) {
             return;
         }
 

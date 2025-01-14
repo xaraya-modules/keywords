@@ -34,8 +34,9 @@ class DisplayhookMethod extends MethodClass
 
     /**
      * display keywords entry for a module item - hook for ('item','display','GUI')
-     * @param mixed $args ['objectid'] ID of the object
-     * @param mixed $args ['extrainfo'] extra information
+     * @param array<mixed> $args
+     * @var mixed $objectid ID of the object
+     * @var mixed $extrainfo extra information
      * @return mixed|void Array with information for the template that is called.
      */
     public function __invoke(array $args = [])
@@ -96,7 +97,7 @@ class DisplayhookMethod extends MethodClass
         );
 
         // Retrieve the list of allowed delimiters
-        $delimiters = xarModVars::get('keywords', 'delimiters');
+        $delimiters = $this->getModVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
 
         // get the index_id for this module/itemtype/item
