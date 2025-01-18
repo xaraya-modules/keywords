@@ -39,18 +39,18 @@ class GetmultiplewordsMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadKeywords')) {
+        if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
 
         extract($args);
 
         if (!isset($modid) || !is_numeric($modid)) {
-            $msg = $this->translate('Invalid Parameters');
+            $msg = $this->ml('Invalid Parameters');
             throw new BadParameterException(null, $msg);
         }
         if (!is_array($objectids)) {
-            $msg = $this->translate('Invalid Parameters');
+            $msg = $this->ml('Invalid Parameters');
             throw new BadParameterException(null, $msg);
         }
         $keywords = [];

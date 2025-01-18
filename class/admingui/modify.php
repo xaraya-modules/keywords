@@ -44,13 +44,13 @@ class ModifyMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ManageKeywords')) {
+        if (!$this->sec()->checkAccess('ManageKeywords')) {
             return;
         }
 
         $data = [];
 
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'module_id',
             'id',
             $module_id,
@@ -59,7 +59,7 @@ class ModifyMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'itemtype',
             'id',
             $itemtype,
@@ -68,7 +68,7 @@ class ModifyMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'itemid',
             'id',
             $itemid,
@@ -77,7 +77,7 @@ class ModifyMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'return_url',
             'pre:trim:str:1:',
             $return_url,
@@ -100,7 +100,7 @@ class ModifyMethod extends MethodClass
             throw new EmptyParameterException($vars, $msg);
         }
 
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'phase',
             'pre:trim:lower:enum:update',
             $phase,
@@ -113,11 +113,11 @@ class ModifyMethod extends MethodClass
         $modname = xarMod::getName($module_id);
 
         if ($phase == 'update') {
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
             // check for keywords empty and redirect to delete confirm
-            if (!$this->fetch(
+            if (!$this->var()->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -127,7 +127,7 @@ class ModifyMethod extends MethodClass
                 return;
             }
             if (empty($keywords)) {
-                $delete_url = $this->getUrl(
+                $delete_url = $this->mod()->getURL(
                     'admin',
                     'delete',
                     [
@@ -136,7 +136,7 @@ class ModifyMethod extends MethodClass
                         'itemid' => $itemid,
                     ]
                 );
-                $this->redirect($delete_url);
+                $this->ctl()->redirect($delete_url);
             }
             xarMod::apiFunc(
                 'keywords',
@@ -148,7 +148,7 @@ class ModifyMethod extends MethodClass
                 ]
             );
             if (empty($return_url)) {
-                $return_url = $this->getUrl(
+                $return_url = $this->mod()->getURL(
                     'admin',
                     'modify',
                     [
@@ -158,7 +158,7 @@ class ModifyMethod extends MethodClass
                     ]
                 );
             }
-            $this->redirect($return_url);
+            $this->ctl()->redirect($return_url);
         }
 
         try {
@@ -172,8 +172,8 @@ class ModifyMethod extends MethodClass
             $item = reset($item);
         } catch (Exception $e) {
             $item = [
-                'label' => $this->translate('Item #(1)', $itemid),
-                'title' => $this->translate('Display Item #(1)', $itemid),
+                'label' => $this->ml('Item #(1)', $itemid),
+                'title' => $this->ml('Display Item #(1)', $itemid),
                 'url' => xarController::URL(
                     $modname,
                     'user',
@@ -209,8 +209,8 @@ class ModifyMethod extends MethodClass
                 }
                 if (!isset($modtypes[$module][$typeid])) {
                     $modtypes[$module][$typeid] = [
-                        'label' => $this->translate('Itemtype #(1)', $typeid),
-                        'title' => $this->translate('View itemtype #(1) items', $typeid),
+                        'label' => $this->ml('Itemtype #(1)', $typeid),
+                        'title' => $this->ml('View itemtype #(1) items', $typeid),
                         'url' => xarController::URL($module, 'user', 'view', ['itemtype' => $typeid]),
                     ];
                 }

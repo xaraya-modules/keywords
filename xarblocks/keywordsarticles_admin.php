@@ -24,11 +24,11 @@ class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock
         $vars['pubtypes'] = xarMod::apiFunc('articles', 'user', 'getpubtypes');
         $vars['categorylist'] = xarMod::apiFunc('categories', 'user', 'getcat');
         $vars['statusoptions'] = [['id' => '3,2',
-                                         'name' => xarML('All Published'), ],
+                                         'name' => xarMLS::translate('All Published'), ],
                                    ['id' => '3',
-                                         'name' => xarML('Frontpage'), ],
+                                         'name' => xarMLS::translate('Frontpage'), ],
                                    ['id' => '2',
-                                         'name' => xarML('Approved'), ],
+                                         'name' => xarMLS::translate('Approved'), ],
                                   ];
 
         $vars['blockid'] = $this->block_id;

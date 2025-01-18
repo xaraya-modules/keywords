@@ -37,10 +37,10 @@ class SeparatekeywordsMethod extends MethodClass
     {
         extract($args);
 
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
 
         // Colons are the only character we can't use (ATM).
-        // TODO: remove this then xarVar::validate() is able to handle escape
+        // TODO: remove this then $this->var()->validate() is able to handle escape
         // sequences for colons as data in the validation rules.
         str_replace(':', '', $delimiters);
 
@@ -53,7 +53,7 @@ class SeparatekeywordsMethod extends MethodClass
         $first = substr($delimiters, 0, 1);
 
         // Normalise the delimiters and trim the strings.
-        xarVar::validate("strlist:$delimiters:pre:trim", $keywords);
+        $this->var()->validate("strlist:$delimiters:pre:trim", $keywords);
 
         // Explode into an array of words.
         $words = explode($first, $keywords);

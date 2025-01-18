@@ -113,7 +113,7 @@ class ModifyhookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // could be an item preview, try fetch from form input
-            if (!$this->fetch(
+            if (!$this->var()->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -159,7 +159,7 @@ class ModifyhookMethod extends MethodClass
 
 
         // Retrieve the list of allowed delimiters
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
 
         if (empty($data['restrict_words'])) {
@@ -188,7 +188,7 @@ class ModifyhookMethod extends MethodClass
                         $toadd = $extrainfo['restricted_extra'];
                     } else {
                         // could be an item preview, try fetch from form input
-                        if (!$this->fetch(
+                        if (!$this->var()->fetch(
                             'restricted_extra',
                             'isset',
                             $toadd,
@@ -217,6 +217,6 @@ class ModifyhookMethod extends MethodClass
         $data['delimiters'] = $delimiters;
 
         $data['context'] ??= $this->getContext();
-        return xarTpl::module('keywords', 'admin', 'modifyhook', $data);
+        return $this->mod()->template('modifyhook', $data);
     }
 }

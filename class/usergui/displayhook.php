@@ -97,7 +97,7 @@ class DisplayhookMethod extends MethodClass
         );
 
         // Retrieve the list of allowed delimiters
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
 
         // get the index_id for this module/itemtype/item
@@ -150,7 +150,7 @@ class DisplayhookMethod extends MethodClass
         // @checkme: cache a cumultive list of keywords encountered during this request ?
         // @fixme: find some way to identify and cache the 'real' current main module/itemtype/item keywords
         $keys = implode(',', $keywords);
-        xarVar::setCached('Blocks.keywords', 'keys', $keys);
+        $this->var()->setCached('Blocks.keywords', 'keys', $keys);
 
         // see if we're handling dynamic keywords
         if (!empty($data['meta_keywords'])) {

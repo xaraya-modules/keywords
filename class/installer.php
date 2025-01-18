@@ -108,7 +108,7 @@ class Installer extends InstallerClass
                 return;
             }
         } catch (Exception $e) {
-            throw new Exception($this->translate('Could not create module tables'));
+            throw new Exception($this->ml('Could not create module tables'));
         }
 
         /*********************************************************************
@@ -123,16 +123,16 @@ class Installer extends InstallerClass
          * Set Module Vars (module configuration)
          *********************************************************************/
 
-        xarModVars::set($module, 'delimiters', ',;');
-        xarModVars::set($module, 'stats_per_page', 100);
-        xarModVars::set($module, 'items_per_page', 20);
-        xarModVars::set($module, 'user_layout', 'list');
-        xarModVars::set($module, 'cols_per_page', 2);
-        xarModVars::set($module, 'words_per_page', 50);
-        xarModVars::set($module, 'cloud_font_min', 1);
-        xarModVars::set($module, 'cloud_font_max', 3);
-        xarModVars::set($module, 'cloud_font_unit', 'em');
-        xarModVars::set($module, 'use_module_icons', true);
+        $this->mod()->setVar('delimiters', ',;');
+        $this->mod()->setVar('stats_per_page', 100);
+        $this->mod()->setVar('items_per_page', 20);
+        $this->mod()->setVar('user_layout', 'list');
+        $this->mod()->setVar('cols_per_page', 2);
+        $this->mod()->setVar('words_per_page', 50);
+        $this->mod()->setVar('cloud_font_min', 1);
+        $this->mod()->setVar('cloud_font_max', 3);
+        $this->mod()->setVar('cloud_font_unit', 'em');
+        $this->mod()->setVar('use_module_icons', true);
 
         /*********************************************************************
          * Create Module DD Objects
@@ -211,8 +211,8 @@ class Installer extends InstallerClass
             case '1.0':
             case '1.0.0':
 
-                $this->setModVar('restricted', 0);
-                $this->setModVar('default', 'xaraya');
+                $this->mod()->setVar('restricted', 0);
+                $this->mod()->setVar('default', 'xaraya');
 
                 $dbconn = xarDB::getConn();
                 $xartable = & xarDB::getTables();
@@ -297,7 +297,7 @@ class Installer extends InstallerClass
 
                 // no break
             case '1.0.3':
-                $this->setModVar('useitemtype', 0);
+                $this->mod()->setVar('useitemtype', 0);
 
                 // no break
             case '1.0.4':
@@ -582,9 +582,9 @@ class Installer extends InstallerClass
         }
 
         // transpose deprecated modvar settings to new format
-        $restricted = $this->getModVar('restricted');
+        $restricted = $this->mod()->getVar('restricted');
         if ($restricted) {
-            $useitemtype = $this->getModVar('useitemtype');
+            $useitemtype = $this->mod()->getVar('useitemtype');
             $subjects = xarMod::apiFunc('keywords', 'hooks', 'getsubjects');
             if (!empty($subjects)) {
                 foreach (array_keys($subjects) as $hookedto) {
@@ -647,19 +647,19 @@ class Installer extends InstallerClass
         xarModVars::delete('keywords', 'restricted');
         xarModVars::delete('keywords', 'useitemtype');
 
-        $cols_per_page = $this->getModVar('displaycolumns', 2);
+        $cols_per_page = $this->mod()->getVar('displaycolumns', 2);
         xarModVars::delete('keywords', 'displaycolumns');
 
         // new modvars
-        $this->setModVar('stats_per_page', 100);
-        $this->setModVar('items_per_page', 20);
-        $this->setModVar('user_layout', 'list');
-        $this->setModVar('cols_per_page', $cols_per_page);
-        $this->setModVar('words_per_page', 50);
-        $this->setModVar('cloud_font_min', 1);
-        $this->setModVar('cloud_font_max', 3);
-        $this->setModVar('cloud_font_unit', 'em');
-        $this->setModVar('use_module_icons', true);
+        $this->mod()->setVar('stats_per_page', 100);
+        $this->mod()->setVar('items_per_page', 20);
+        $this->mod()->setVar('user_layout', 'list');
+        $this->mod()->setVar('cols_per_page', $cols_per_page);
+        $this->mod()->setVar('words_per_page', 50);
+        $this->mod()->setVar('cloud_font_min', 1);
+        $this->mod()->setVar('cloud_font_max', 3);
+        $this->mod()->setVar('cloud_font_unit', 'em');
+        $this->mod()->setVar('use_module_icons', true);
 
         xarHooks::registerObserver('ModuleModifyconfig', 'keywords', 'gui', 'hooks', 'modulemodifyconfig');
         xarHooks::registerObserver('ModuleUpdateconfig', 'keywords', 'api', 'hooks', 'moduleupdateconfig');

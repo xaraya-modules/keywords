@@ -39,11 +39,11 @@ class ViewMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ManageKeywords')) {
+        if (!$this->sec()->checkAccess('ManageKeywords')) {
             return;
         }
 
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'module_id',
             'id',
             $module_id,
@@ -52,7 +52,7 @@ class ViewMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'itemtype',
             'int:0:',
             $itemtype,
@@ -61,7 +61,7 @@ class ViewMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'keyword',
             'pre:trim:str:1:',
             $keyword,
@@ -71,7 +71,7 @@ class ViewMethod extends MethodClass
             return;
         }
 
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'sort',
             'pre:trim:str:1',
             $sort,
@@ -80,7 +80,7 @@ class ViewMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'startnum',
             'int:1',
             $startnum,
@@ -89,7 +89,7 @@ class ViewMethod extends MethodClass
         )) {
             return;
         }
-        $items_per_page = $this->getModVar('stats_per_page', 100);
+        $items_per_page = $this->mod()->getVar('stats_per_page', 100);
 
         if (empty($module_id)) {
             $modname = $itemtype = null;
@@ -125,8 +125,8 @@ class ViewMethod extends MethodClass
                 }
                 if (!isset($modtypes[$module][$typeid])) {
                     $modtypes[$module][$typeid] = [
-                        'label' => $this->translate('Itemtype #(1)', $typeid),
-                        'title' => $this->translate('View itemtype #(1) items', $typeid),
+                        'label' => $this->ml('Itemtype #(1)', $typeid),
+                        'title' => $this->ml('View itemtype #(1) items', $typeid),
                         'url' => xarController::URL($module, 'user', 'view', ['itemtype' => $typeid]),
                     ];
                 }
@@ -189,8 +189,8 @@ class ViewMethod extends MethodClass
                 foreach (array_keys($itemids) as $id) {
                     if (!isset($itemlinks[$id])) {
                         $itemlinks[$id] = [
-                            'label' => $this->translate('Item #(1)', $id),
-                            'title' => $this->translate('Display Item #(1)', $id),
+                            'label' => $this->ml('Item #(1)', $id),
+                            'title' => $this->ml('Display Item #(1)', $id),
                             'url' => xarController::URL(
                                 $module,
                                 'user',
@@ -204,7 +204,7 @@ class ViewMethod extends MethodClass
             }
         }
 
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
         if (!empty($keyword) && is_array($keyword)) {
             $delimiter = !empty($delims) ? $delims[0] : ',';
             $keyword = implode($delimiter, $keyword);
@@ -220,7 +220,7 @@ class ViewMethod extends MethodClass
         $data['startnum'] = $startnum;
         $data['items_per_page'] = $items_per_page;
         $data['total'] = $total;
-        $data['use_icons'] = $this->getModVar('use_module_icons');
+        $data['use_icons'] = $this->mod()->getVar('use_module_icons');
 
         return $data;
 
@@ -271,7 +271,7 @@ class ViewMethod extends MethodClass
 
         $data = [];
 
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'modname',
             'pre:trim:lower:str:1:',
             $modname,
@@ -280,7 +280,7 @@ class ViewMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'itemtype',
             'int:1:',
             $itemtype,
@@ -289,7 +289,7 @@ class ViewMethod extends MethodClass
         )) {
             return;
         }
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'itemid',
             'int:1:',
             $itemid,
@@ -299,7 +299,7 @@ class ViewMethod extends MethodClass
             return;
         }
 
-        if (!$this->fetch(
+        if (!$this->var()->fetch(
             'tab',
             'pre:trim:lower:str:1:',
             $data['tab'],
@@ -331,7 +331,7 @@ class ViewMethod extends MethodClass
 
         switch ($data['tab']) {
             case 'list':
-                if (!$this->fetch(
+                if (!$this->var()->fetch(
                     'keyword',
                     'pre:trim:str:1:',
                     $data['keyword'],

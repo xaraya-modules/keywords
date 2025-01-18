@@ -98,7 +98,7 @@ class NewhookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // could be an item preview, try fetch from form input
-            if (!$this->fetch(
+            if (!$this->var()->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -127,7 +127,7 @@ class NewhookMethod extends MethodClass
         }
 
         // Retrieve the list of allowed delimiters
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
 
         $data = $settings;
         if (empty($settings['restrict_words'])) {
@@ -151,6 +151,6 @@ class NewhookMethod extends MethodClass
         $data['delimiters'] = $delimiters;
 
         $data['context'] ??= $this->getContext();
-        return xarTpl::module('keywords', 'admin', 'newhook', $data);
+        return $this->mod()->template('newhook', $data);
     }
 }

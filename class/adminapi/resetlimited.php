@@ -36,8 +36,8 @@ class ResetlimitedMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        //if (!$this->checkAccess('AdminKeywords')) return;
-        if (!$this->checkAccess('AddKeywords')) {
+        //if (!$this->sec()->checkAccess('AdminKeywords')) return;
+        if (!$this->sec()->checkAccess('AddKeywords')) {
             return;
         }
         $dbconn = xarDB::getConn();

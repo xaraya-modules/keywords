@@ -112,7 +112,7 @@ class CreatehookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // otherwise, try fetch from form input
-            if (!$this->fetch(
+            if (!$this->var()->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -173,7 +173,7 @@ class CreatehookMethod extends MethodClass
         }
 
         // Retrieve the list of allowed delimiters
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
         $extrainfo['keywords'] = implode($delimiter, $keywords);
 

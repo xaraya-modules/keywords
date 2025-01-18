@@ -39,7 +39,7 @@ class GetlistMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadKeywords')) {
+        if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
 

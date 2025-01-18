@@ -39,17 +39,17 @@ class MainMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Xaraya security
-        if (!$this->checkAccess('ReadKeywords')) {
+        if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
 
-        $redirect = $this->getModVar('frontend_page');
+        $redirect = $this->mod()->getVar('frontend_page');
         if (!empty($redirect)) {
             $truecurrenturl = xarServer::getCurrentURL([], false);
             $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
-            $this->redirect($urldata['redirecturl']);
+            $this->ctl()->redirect($urldata['redirecturl']);
         } else {
-            $this->redirect($this->getUrl( 'user', 'view', $args));
+            $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', $args));
         }
         return true;
     }

@@ -39,14 +39,14 @@ class GetwordslimitedMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadKeywords')) {
+        if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
 
         extract($args);
 
         if (!isset($moduleid) || !is_numeric($moduleid)) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'module id',
                 'user',
@@ -64,7 +64,7 @@ class GetwordslimitedMethod extends MethodClass
 
         // Get restricted keywords for this module item
 
-        $useitemtype = $this->getModVar('useitemtype');
+        $useitemtype = $this->mod()->getVar('useitemtype');
 
         $query = "SELECT id,
                          keyword

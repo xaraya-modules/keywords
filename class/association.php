@@ -180,10 +180,10 @@ class Keyword_Association extends xarObject
     {
         $q = new Query('INSERT', $this->tables['keywords_index']);
         if (!isset($args['keyword_id'])) {
-            throw new Exception(xarML('Missing parameter [#(1)]', 'keyword_id'));
+            throw new Exception(xarMLS::translate('Missing parameter [#(1)]', 'keyword_id'));
         }
         if (!isset($args['module_id'])) {
-            throw new Exception(xarML('Missing parameter [#(1)]', 'module_id'));
+            throw new Exception(xarMLS::translate('Missing parameter [#(1)]', 'module_id'));
         }
         if (!isset($args['itemtype'])) {
             $args['itemtype'] = 0;

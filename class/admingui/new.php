@@ -42,10 +42,10 @@ class NewMethod extends MethodClass
     {
         extract($args);
 
-        if (!$this->fetch('confirm', 'isset', $confirm, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('confirm', $confirm)) {
             return;
         }
-        if (!$this->checkAccess('AdminKeywords')) {
+        if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
         }
 
@@ -61,7 +61,7 @@ class NewMethod extends MethodClass
         }
         if (!empty($confirm)) {
             // Confirm authorisation code
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return;
             }
             // check the input values for this object
@@ -74,7 +74,7 @@ class NewMethod extends MethodClass
                 } // throw back
 
                 // let's go back to the admin view
-                $this->redirect($this->getUrl('admin', 'view'));
+                $this->ctl()->redirect($this->mod()->getURL('admin', 'view'));
                 return true;
             }
         }
@@ -88,8 +88,8 @@ class NewMethod extends MethodClass
         } else {
             $data['hooks'] = $hooks;
         }
-        $data['authid'] = $this->genAuthKey();
-        $data['confirm'] = $this->translate('Create');
+        $data['authid'] = $this->sec()->genAuthKey();
+        $data['confirm'] = $this->ml('Create');
 
         return $data;
     }

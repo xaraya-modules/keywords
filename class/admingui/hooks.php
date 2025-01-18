@@ -39,7 +39,7 @@ class HooksMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // Security
-        if (!$this->checkAccess('ManageKeywords')) {
+        if (!$this->sec()->checkAccess('ManageKeywords')) {
             return;
         }
 

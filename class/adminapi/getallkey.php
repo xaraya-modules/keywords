@@ -40,11 +40,11 @@ class GetallkeyMethod extends MethodClass
         extract($args);
 
         if (!isset($moduleid) || !is_numeric($moduleid)) {
-            $msg = $this->translate('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
+            $msg = $this->ml('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
             throw new BadParameterException(null, $msg);
         }
 
-        if (!$this->checkAccess('AdminKeywords')) {
+        if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
         }
         $dbconn = xarDB::getConn();

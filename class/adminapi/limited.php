@@ -38,7 +38,7 @@ class LimitedMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         extract($args);
-        if (!$this->checkAccess('AdminKeywords')) {
+        if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
         }
         $invalid = [];
@@ -52,7 +52,7 @@ class LimitedMethod extends MethodClass
             $invalid[] = 'itemtype';
         }
         if (count($invalid) > 0) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 join(', ', $invalid),
                 'admin',

@@ -42,7 +42,7 @@ class GetitemsMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadKeywords')) {
+        if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
 
@@ -50,12 +50,12 @@ class GetitemsMethod extends MethodClass
 
         if (!empty($id)) {
             if (!is_numeric($id) && !is_array($id)) {
-                $msg = $this->translate('Invalid #(1)', 'keywords id');
+                $msg = $this->ml('Invalid #(1)', 'keywords id');
                 throw new Exception($msg);
             }
         } else {
             if (!isset($keyword)) {
-                $msg = $this->translate('Invalid #(1)', 'keyword');
+                $msg = $this->ml('Invalid #(1)', 'keyword');
                 throw new Exception($msg);
             }
         }

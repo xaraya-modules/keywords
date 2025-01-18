@@ -47,7 +47,7 @@ class GetkeywordhitsMethod extends MethodClass
         }
 
         // Return nothing if we asked for hits and the hitcount module is not available
-        if ($args['cloudtype'] == 1 && !xarMod::isAvailable('hitcount')) {
+        if ($args['cloudtype'] == 1 && !$this->mod()->isAvailable('hitcount')) {
             return [];
         }
 

@@ -43,18 +43,18 @@ class GetwordsMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadKeywords')) {
+        if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
 
         extract($args);
 
         if (!isset($modid) || !is_numeric($modid)) {
-            $msg = $this->translate('Invalid #(1)', 'module id');
+            $msg = $this->ml('Invalid #(1)', 'module id');
             throw new Exception($msg);
         }
         if (!isset($itemid) || !is_numeric($itemid)) {
-            $msg = $this->translate('Invalid #(1)', 'item id');
+            $msg = $this->ml('Invalid #(1)', 'item id');
             throw new Exception($msg);
         }
 

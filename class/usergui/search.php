@@ -36,17 +36,17 @@ class SearchMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadKeywords', 0)) {
+        if (!$this->sec()->checkAccess('ReadKeywords', 0)) {
             return '';
         }
 
-        if (!$this->fetch('search', 'isset', $data['search'], null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('search', $data['search'])) {
             return;
         }
-        if (!$this->fetch('bool', 'isset', $bool, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('bool', $bool)) {
             return;
         }
-        if (!$this->fetch('sort', 'isset', $sort, null, xarVar::DONT_SET)) {
+        if (!$this->var()->check('sort', $sort)) {
             return;
         }
 

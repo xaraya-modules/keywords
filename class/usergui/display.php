@@ -40,11 +40,11 @@ class DisplayMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ReadKeywords')) {
+        if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
 
-        $this->fetch('itemid', 'id', $itemid, '', xarVar::DONT_SET);
+        $this->var()->check('itemid', $itemid, 'id', '');
         extract($args);
 
         if (empty($itemid)) {

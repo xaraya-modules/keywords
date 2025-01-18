@@ -56,7 +56,7 @@ class UpdatehookMethod extends MethodClass
         // We can exit immediately if the status flag is set because we are just updating
         // the status in the articles or other content module that works on that principle
         // Bug 1960 and 3161
-        if (xarVar::isCached('Hooks.all', 'noupdate') || !empty($extrainfo['statusflag'])) {
+        if ($this->var()->isCached('Hooks.all', 'noupdate') || !empty($extrainfo['statusflag'])) {
             return $extrainfo;
         }
 
@@ -115,7 +115,7 @@ class UpdatehookMethod extends MethodClass
             $keywords = $extrainfo['keywords'];
         } else {
             // otherwise, try fetch from form input
-            if (!$this->fetch(
+            if (!$this->var()->fetch(
                 'keywords',
                 'isset',
                 $keywords,
@@ -183,7 +183,7 @@ class UpdatehookMethod extends MethodClass
                         $toadd = $extrainfo['restricted_extra'];
                     } else {
                         // could be an item preview, try fetch from form input
-                        if (!$this->fetch(
+                        if (!$this->var()->fetch(
                             'restricted_extra',
                             'isset',
                             $toadd,
@@ -254,7 +254,7 @@ class UpdatehookMethod extends MethodClass
         }
 
         // Retrieve the list of allowed delimiters
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
         $extrainfo['keywords'] = implode($delimiter, $keywords);
 

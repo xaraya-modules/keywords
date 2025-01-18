@@ -41,7 +41,7 @@ class GetwordslimitedMethod extends MethodClass
         extract($args);
 
         if (!isset($moduleid) || !is_numeric($moduleid)) {
-            $msg = $this->translate('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
+            $msg = $this->ml('Invalid #(1) for #(2) function #(3)() in module #(4)', 'module id', 'user', 'getwordslimited', 'keywords');
             throw new BadParameterException(null, $msg);
         }
 
@@ -82,7 +82,7 @@ class GetwordslimitedMethod extends MethodClass
         }
         $result->Close();
 
-        $delimiters = $this->getModVar('delimiters');
+        $delimiters = $this->mod()->getVar('delimiters');
         $delimiter = substr($delimiters, 0, 1) . " ";
         $keywords = implode($delimiter, $keywords);
 
