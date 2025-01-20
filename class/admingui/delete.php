@@ -131,7 +131,7 @@ class DeleteMethod extends MethodClass
                 $this->ctl()->redirect($return_url);
             }
             if (!$this->sec()->confirmAuthKey()) {
-                return xarController::badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author', $this->getContext());
             }
             // get the index_id for this module/itemtype/item
             $index_id = xarMod::apiFunc(

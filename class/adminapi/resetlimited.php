@@ -40,8 +40,8 @@ class ResetlimitedMethod extends MethodClass
         if (!$this->sec()->checkAccess('AddKeywords')) {
             return;
         }
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $keywordstable = $xartable['keywords_restr'];
         $query = "DELETE FROM $keywordstable";
         $result = & $dbconn->Execute($query);

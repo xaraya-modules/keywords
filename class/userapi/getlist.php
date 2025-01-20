@@ -45,8 +45,8 @@ class GetlistMethod extends MethodClass
 
         extract($args);
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $keywordstable = $xartable['keywords'];
 
         if (!isset($tab)) {

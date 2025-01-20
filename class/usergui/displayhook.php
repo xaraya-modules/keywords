@@ -164,6 +164,6 @@ class DisplayhookMethod extends MethodClass
         $data['context'] ??= $this->getContext();
 
         $tpltype = $extrainfo['tpltype'] ?? 'user';
-        return xarTpl::module('keywords', $tpltype, 'displayhook', $data);
+        return $this->tpl()->module('keywords', $tpltype, 'displayhook', $data);
     }
 }

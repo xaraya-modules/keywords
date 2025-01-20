@@ -58,7 +58,7 @@ class GetwordsMethod extends MethodClass
             throw new Exception($msg);
         }
 
-        $table = & xarDB::getTables();
+        $table = & $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($table['keywords'], 'k');
         $q->addtable($table['keywords_index'], 'i');

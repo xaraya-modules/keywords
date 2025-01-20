@@ -114,7 +114,7 @@ class ModifyMethod extends MethodClass
 
         if ($phase == 'update') {
             if (!$this->sec()->confirmAuthKey()) {
-                return xarController::badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author', $this->getContext());
             }
             // check for keywords empty and redirect to delete confirm
             if (!$this->var()->fetch(

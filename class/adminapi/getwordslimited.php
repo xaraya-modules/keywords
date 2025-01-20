@@ -45,8 +45,8 @@ class GetwordslimitedMethod extends MethodClass
             throw new BadParameterException(null, $msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $keywordstable = $xartable['keywords_restr'];
         $bindvars = [];
 

@@ -47,8 +47,8 @@ class GetallkeyMethod extends MethodClass
         if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
         }
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $keywordstable = $xartable['keywords_restr'];
         // Get restricted keywords for this module item
         $query = "SELECT id,

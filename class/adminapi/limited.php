@@ -72,8 +72,8 @@ class LimitedMethod extends MethodClass
         foreach ($key as $keyres) {
             $keyres = trim($keyres);
 
-            $dbconn = xarDB::getConn();
-            $xartable = & xarDB::getTables();
+            $dbconn = $this->db()->getConn();
+            $xartable = & $this->db()->getTables();
             $keywordstable = $xartable['keywords_restr'];
             $nextId = $dbconn->GenId($keywordstable);
             $query = "INSERT INTO $keywordstable (

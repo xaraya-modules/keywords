@@ -53,8 +53,8 @@ class GetkeywordhitsMethod extends MethodClass
 
         sys::import('xaraya.structures.query');
 
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
 
         $q = new Query('SELECT');
         $q->addtable($xartable['keywords_index'], 'i');
@@ -65,7 +65,7 @@ class GetkeywordhitsMethod extends MethodClass
 
         if ($args['cloudtype'] == 2) {
             xarMod::apiLoad('hitcount');
-            $xartable = & xarDB::getTables();
+            $xartable = & $this->db()->getTables();
             $q->addtable($xartable['hitcount'], 'h');
             $q->join('k.module_id', 'h.module_id');
             $q->join('k.itemtype', 'h.itemtype');

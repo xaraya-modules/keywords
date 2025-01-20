@@ -55,7 +55,7 @@ class SearchMethod extends MethodClass
 
         // Get item
         sys::import('xaraya.structures.query');
-        $tables = & xarDB::getTables();
+        $tables = & $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($tables['keywords'], 'k');
         $q->addtable($tables['keywords_index'], 'i');

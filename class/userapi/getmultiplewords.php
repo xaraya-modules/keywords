@@ -54,8 +54,8 @@ class GetmultiplewordsMethod extends MethodClass
             throw new BadParameterException(null, $msg);
         }
         $keywords = [];
-        $dbconn = xarDB::getConn();
-        $xartable = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $xartable = & $this->db()->getTables();
         $keywordstable = $xartable['keywords'];
 
         foreach ($objectids as $item) {
