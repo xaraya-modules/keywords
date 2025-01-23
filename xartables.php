@@ -19,13 +19,14 @@
  * @access private
  * @return array
  */
-function keywords_xartables()
+function keywords_xartables(?string $prefix = null)
 {
     // Initialise table array
     $xarTables = [];
-    $xarTables['keywords'] = xarDB::getPrefix() . '_keywords';
-    $xarTables['keywords_restr'] = xarDB::getPrefix() . '_keywords_restr';
-    $xarTables['keywords_index'] = xarDB::getPrefix() . '_keywords_index';
+    $prefix ??= xarDB::getPrefix();
+    $xarTables['keywords'] = $prefix . '_keywords';
+    $xarTables['keywords_restr'] = $prefix . '_keywords_restr';
+    $xarTables['keywords_index'] = $prefix . '_keywords_index';
 
     // Return the table information
     return $xarTables;

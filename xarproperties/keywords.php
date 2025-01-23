@@ -101,7 +101,7 @@ class KeywordsProperty extends TextAreaProperty
         // Make sure we have the keywords table
         xarMod::apiLoad('keywords');
 
-        $table = & xarDB::getTables();
+        $table = & $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($table['keywords'], 'k');
         $q->addtable($table['keywords_index'], 'i');
@@ -154,7 +154,7 @@ class KeywordsProperty extends TextAreaProperty
         // Make sure we have the keywords table
         xarMod::apiLoad('keywords');
 
-        $table = & xarDB::getTables();
+        $table = & $this->db()->getTables();
         $q = new Query('SELECT', $table['keywords']);
         $q->in('keyword', $words);
         $q->run();
@@ -240,7 +240,7 @@ class KeywordsProperty extends TextAreaProperty
         //xarMod::load('keywords');
         xarMod::apiLoad('keywords');
         //xarMod::load('dam');
-        $tables = xarDB::getTables();
+        $tables = $this->db()->getTables();
 
         $q->addtable($tables['dam_resources'], 'resource');
         $q->addtable($tables['keywords'], 'k');

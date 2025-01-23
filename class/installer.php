@@ -68,7 +68,7 @@ class Installer extends InstallerClass
         // Create tables inside transaction
         try {
             $q = new Query();
-            $prefix = xarDB::getPrefix();
+            $prefix = $this->db()->getPrefix();
 
             # --------------------------------------------------------
             #
@@ -202,9 +202,9 @@ class Installer extends InstallerClass
      */
     public function upgrade($oldversion)
     {
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
-        $prefix = xarDB::getPrefix();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
+        $prefix = $this->db()->getPrefix();
 
         // Upgrade dependent on old version number
         switch ($oldversion) {
@@ -214,8 +214,8 @@ class Installer extends InstallerClass
                 $this->mod()->setVar('restricted', 0);
                 $this->mod()->setVar('default', 'xaraya');
 
-                $dbconn = xarDB::getConn();
-                $xartable = & xarDB::getTables();
+                $dbconn = $this->db()->getConn();
+                $xartable = & $this->db()->getTables();
                 $query = xarTableDDL::createTable(
                     $xartable['keywords_restr'],
                     ['id'         => ['type'        => 'integer',
@@ -258,8 +258,8 @@ class Installer extends InstallerClass
             case '1.0.2':
                 //Alter table restr to add itemtype
                 // Get database information
-                $dbconn = xarDB::getConn();
-                $xartable = & xarDB::getTables();
+                $dbconn = $this->db()->getConn();
+                $xartable = & $this->db()->getTables();
 
                 // Add column 'itemtype' to table
                 $query = xarTableDDL::alterTable(
@@ -327,8 +327,8 @@ class Installer extends InstallerClass
         // hooks are removed automatically
         // blocks are removed automatically
         sys::import('xaraya.structures.query');
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
         $indextable = $tables['keywords_index'];
         $keywordstable = $tables['keywords'];
 
@@ -354,9 +354,9 @@ class Installer extends InstallerClass
     {
         // upgrade to 2.0.0, normalise tables
         sys::import('xaraya.structures.query');
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
-        $prefix = xarDB::getPrefix();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
+        $prefix = $this->db()->getPrefix();
         $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
         $indextable = $tables['keywords_index'];
         $keywordstable = $tables['keywords'];

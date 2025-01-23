@@ -65,7 +65,7 @@
                                     <xar:data-input type="integerbox" name="words_per_page" id="words_per_page" value="$words_per_page"/>
                                 </div>
                             </div>
-                <!-- not implemented yet
+                <xar:comment><!-- not implemented yet
                             <div class="xar-row">
                                 <div class="xar-col">
                                     <xar:var name="sortTitle">Allow keywords to be filtered alphabetically</xar:var>
@@ -75,7 +75,7 @@
                                     <xar:data-input type="checkbox" name="showsort" id="showsort" checked="$showsort"/>
                                 </div>
                             </div>
-                -->
+                --></xar:comment>
                         <xar:else/>
                             <div class="xar-row">
                                 <div class="xar-col">

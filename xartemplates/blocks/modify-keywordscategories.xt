@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
 <input type="hidden" value="1" name="refreshrandom" />
-  <!--
+  <xar:comment><!--
                 <div style="clear: both; padding-top: 10px;">
                 <span style="float: left; width: 20%; text-align: right;">
                         <span class="help" title="#xarML('Choose the base category for the related categories.')#"><label for="catfilter#$blockid#">Category</label>:</span>
@@ -20,7 +20,7 @@
                         </select>
                 </span>
                 </div>
--->
+--></xar:comment>
                 <div style="clear: both; padding-top: 10px;">
                 <span style="float: left; width: 20%; text-align: right;">
                         <span class="help" title="#xarML('How many minutes to wait before updating this block.')#"><label for="refreshtime#$blockid#">Time to refresh block (minutes)</label>:</span>

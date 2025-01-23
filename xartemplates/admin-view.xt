@@ -73,7 +73,7 @@
                             <tr>
                                 <xar:if condition="empty($modname)">
                                     <td>
-                                        <!-- #$modules[$item['module']]['displayname']# -->
+                                        <xar:comment><!-- #$modules[$item['module']]['displayname']# --></xar:comment>
                                         #$item['module']#
                                     </td>
                                 </xar:if>
