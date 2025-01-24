@@ -172,7 +172,7 @@ class DeleteMethod extends MethodClass
             $item = [
                 'label' => $this->ml('Item #(1)', $itemid),
                 'title' => $this->ml('Display Item #(1)', $itemid),
-                'url' => xarController::URL(
+                'url' => $this->ctl()->getModuleURL(
                     $modname,
                     'user',
                     'display',
@@ -209,7 +209,7 @@ class DeleteMethod extends MethodClass
                     $modtypes[$module][$typeid] = [
                         'label' => $this->ml('Itemtype #(1)', $typeid),
                         'title' => $this->ml('View itemtype #(1) items', $typeid),
-                        'url' => xarController::URL($module, 'user', 'view', ['itemtype' => $typeid]),
+                        'url' => $this->ctl()->getModuleURL($module, 'user', 'view', ['itemtype' => $typeid]),
                     ];
                 }
                 $modules[$module]['itemtypes'][$typeid] += $modtypes[$module][$typeid];

@@ -107,7 +107,7 @@ class DisplayMethod extends MethodClass
                 $item[$field] = $value;
             }
         } else {
-            $item['url'] = xarController::URL(
+            $item['url'] = $this->ctl()->getModuleURL(
                 $modinfo['name'],
                 'user',
                 'display',
