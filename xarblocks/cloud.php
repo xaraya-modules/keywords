@@ -42,13 +42,13 @@ class Keywords_CloudBlock extends BasicBlock
     public function init()
     {
         if (empty($this->font_min)) {
-            $this->font_min = xarModVars::get('keywords', 'cloud_font_min', 1);
+            $this->font_min = $this->mod()->getVar('cloud_font_min', 1);
         }
         if (empty($this->font_max)) {
-            $this->font_max = xarModVars::get('keywords', 'cloud_font_max', 3);
+            $this->font_max = $this->mod()->getVar('cloud_font_max', 3);
         }
         if (empty($this->font_unit)) {
-            $this->font_unit = xarModVars::get('keywords', 'cloud_font_unit', 'em');
+            $this->font_unit = $this->mod()->getVar('cloud_font_unit', 'em');
         }
     }
 

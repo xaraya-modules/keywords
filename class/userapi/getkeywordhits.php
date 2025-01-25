@@ -39,6 +39,7 @@ class GetkeywordhitsMethod extends MethodClass
      * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
      * @link http://xaraya.com/index.php/release/187.html
      * @author Marc Lutolf <mfl@netspan.ch>
+     * @see UserApi::getkeywordhits()
      */
     public function __invoke(array $args = [])
     {

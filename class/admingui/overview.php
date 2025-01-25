@@ -33,6 +33,7 @@ class OverviewMethod extends MethodClass
      * Overview function that displays the standard Overview page
      * This function shows the overview template, currently admin-main.xd.
      * The template contains overview and help texts
+     * @see AdminGui::overview()
      */
     public function __invoke(array $args = [])
     {

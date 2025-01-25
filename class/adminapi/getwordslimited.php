@@ -35,6 +35,7 @@ class GetwordslimitedMethod extends MethodClass
      * @var int $modid module id
      * @var int $itemtype itemtype
      * @return array|string|void of keywords
+     * @see AdminApi::getwordslimited()
      */
     public function __invoke(array $args = [])
     {
@@ -68,12 +69,12 @@ class GetwordslimitedMethod extends MethodClass
         if (!$result) {
             return;
         }
-        $keywords = [];
-        $keywords = '';
         if ($result->EOF) {
             $result->Close();
+            $keywords = '';
             return $keywords;
         }
+        $keywords = [];
         while (!$result->EOF) {
             [$id,
                 $word] = $result->fields;

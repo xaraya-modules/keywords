@@ -13,6 +13,8 @@ namespace Xaraya\Modules\Keywords\AdminApi;
 
 
 use Xaraya\Modules\Keywords\AdminApi;
+use Xaraya\Modules\Keywords\WordsApi;
+use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use sys;
@@ -34,10 +36,15 @@ class RemovehookMethod extends MethodClass
      * @var mixed $objectid ID of the object (must be the module name here !!)
      * @var mixed $extrainfo extra information
      * @return bool|void true on success, false on failure
+     * @see AdminApi::removehook()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
+        /** @var IndexApi $indexapi */
+        $indexapi = $this->indexapi();
 
         if (empty($extrainfo)) {
             $extrainfo = [];
@@ -61,11 +68,7 @@ class RemovehookMethod extends MethodClass
         }
 
         // delete all words associated with this module
-        if (!xarMod::apiFunc(
-            'keywords',
-            'words',
-            'deleteitems',
-            [
+        if (!$wordsapi->deleteitems([
                 'module_id' => $modid,
             ]
         )) {
@@ -73,11 +76,7 @@ class RemovehookMethod extends MethodClass
         }
 
         // delete all indexes for this module
-        if (!xarMod::apiFunc(
-            'keywords',
-            'index',
-            'deleteitems',
-            [
+        if (!$indexapi->deleteitems([
                 'module_id' => $modid,
             ]
         )) {

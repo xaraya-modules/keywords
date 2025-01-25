@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Keywords\UserApi;
 
 
 use Xaraya\Modules\Keywords\UserApi;
+use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -33,10 +34,13 @@ class SearchMethod extends MethodClass
 
     /**
      * Perform the search
-     * @return array with keys to keywords
+     * @return array|void with keys to keywords
+     * @see UserApi::search()
      */
     public function __invoke(array $args = [])
     {
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
         if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
@@ -51,7 +55,7 @@ class SearchMethod extends MethodClass
         }
 
         // If there is more than one keyword passed, separate them
-        $words = xarMod::apiFunc('keywords', 'admin', 'separatekeywords', ['keywords' => $args['search']]);
+        $words = $adminapi->separatekeywords(['keywords' => $args['search']]);
 
         // Get item
         sys::import('xaraya.structures.query');

@@ -35,6 +35,7 @@ class MainMethod extends MethodClass
     /**
      * display keywords entries
      * @return mixed bool and redirect to url
+     * @see UserGui::main()
      */
     public function __invoke(array $args = [])
     {
@@ -45,7 +46,7 @@ class MainMethod extends MethodClass
 
         $redirect = $this->mod()->getVar('frontend_page');
         if (!empty($redirect)) {
-            $truecurrenturl = xarServer::getCurrentURL([], false);
+            $truecurrenturl = $this->ctl()->getCurrentURL([], false);
             $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
             $this->ctl()->redirect($urldata['redirecturl']);
         } else {

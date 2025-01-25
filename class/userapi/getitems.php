@@ -39,6 +39,7 @@ class GetitemsMethod extends MethodClass
      * @var mixed $numitems number of entries to retrieve (optional)
      * @var mixed $startnum starting number (optional)
      * @return array|void of module id, item type and item id
+     * @see UserApi::getitems()
      */
     public function __invoke(array $args = [])
     {

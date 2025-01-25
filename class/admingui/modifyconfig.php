@@ -13,6 +13,8 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 
 use Xaraya\Modules\Keywords\AdminGui;
+use Xaraya\Modules\Keywords\HooksApi;
+use Xaraya\Modules\Keywords\HooksGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -42,9 +44,14 @@ class ModifyconfigMethod extends MethodClass
      * @param int $useitemtype 1 for itemtype specific keyword lists
      * @return bool|string|void on success or void on failure
      * @todo nothing
+     * @see AdminGui::modifyconfig()
      */
     public function __invoke(array $args = [])
     {
+        /** @var HooksApi $hooksapi */
+        $hooksapi = $this->hooksapi();
+        /** @var HooksGui $hooksgui */
+        $hooksgui = $this->hooksgui();
         if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
         }
@@ -79,22 +86,22 @@ class ModifyconfigMethod extends MethodClass
 
         if ($phase == 'update') {
             if (!$this->sec()->confirmAuthKey()) {
-                return $this->ctl()->badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author');
             }
             if ($modname == 'keywords') {
                 $isvalid = $data['module_settings']->checkInput();
                 if ($isvalid) {
                     $itemid = $data['module_settings']->updateItem();
-                    if (!$this->var()->get('delimiters', $delimiters, 'pre:trim:str:1:', $this->mod()->getVar('delimiters', ','), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('delimiters', $delimiters, 'pre:trim:str:1:', $this->mod()->getVar('delimiters', ','))) {
                         return;
                     }
-                    if (!$this->var()->get('stats_per_page', $stats_per_page, 'int:0:', $this->mod()->getVar('stats_per_page', 100), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('stats_per_page', $stats_per_page, 'int:0:', $this->mod()->getVar('stats_per_page', 100))) {
                         return;
                     }
-                    if (!$this->var()->get('items_per_page', $items_per_page, 'int:0:', $this->mod()->getVar('items_per_page', 20), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('items_per_page', $items_per_page, 'int:0:', $this->mod()->getVar('items_per_page', 20))) {
                         return;
                     }
-                    if (!$this->var()->get('user_layout', $user_layout, 'pre:trim:lower:enum:list:cloud', $this->mod()->getVar('user_layout', 'list'), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('user_layout', $user_layout, 'pre:trim:lower:enum:list:cloud', $this->mod()->getVar('user_layout', 'list'))) {
                         return;
                     }
                     $this->mod()->setVar('delimiters', $delimiters);
@@ -102,23 +109,23 @@ class ModifyconfigMethod extends MethodClass
                     $this->mod()->setVar('items_per_page', $items_per_page);
                     $this->mod()->setVar('user_layout', $user_layout);
                     //if ($user_layout == 'list') {
-                    if (!$this->var()->get('cols_per_page', $cols_per_page, 'int:0:', $this->mod()->getVar('cols_per_page', 2), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('cols_per_page', $cols_per_page, 'int:0:', $this->mod()->getVar('cols_per_page', 2))) {
                         return;
                     }
-                    if (!$this->var()->get('words_per_page', $words_per_page, 'int:0:', $this->mod()->getVar('words_per_page', 50), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('words_per_page', $words_per_page, 'int:0:', $this->mod()->getVar('words_per_page', 50))) {
                         return;
                     }
                     $this->mod()->setVar('cols_per_page', $cols_per_page);
                     $this->mod()->setVar('words_per_page', $words_per_page);
                     //} else {
                     // the cloudy stuff
-                    if (!$this->var()->get('cloud_font_min', $cloud_font_min, 'int:1:', $this->mod()->getVar('cloud_font_min', 1), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('cloud_font_min', $cloud_font_min, 'int:1:', $this->mod()->getVar('cloud_font_min', 1))) {
                         return;
                     }
-                    if (!$this->var()->get('cloud_font_max', $cloud_font_max, 'int:1:', $this->mod()->getVar('cloud_font_max', 1), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('cloud_font_max', $cloud_font_max, 'int:1:', $this->mod()->getVar('cloud_font_max', 1))) {
                         return;
                     }
-                    if (!$this->var()->get('cloud_font_unit', $cloud_font_unit, 'pre:trim:lower:enum:em:pt:px:%', $this->mod()->getVar('cloud_font_unit', 'em'), xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('cloud_font_unit', $cloud_font_unit, 'pre:trim:lower:enum:em:pt:px:%', $this->mod()->getVar('cloud_font_unit', 'em'))) {
                         return;
                     }
                     $this->mod()->setVar('cloud_font_min', $cloud_font_min);
@@ -127,11 +134,7 @@ class ModifyconfigMethod extends MethodClass
                     //}
                 }
             }
-            if (!xarMod::apiFunc(
-                'keywords',
-                'hooks',
-                'moduleupdateconfig',
-                [
+            if (!$hooksapi->moduleupdateconfig([
                     'objectid' => $modname,
                     'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype],
                 ]
@@ -183,12 +186,8 @@ class ModifyconfigMethod extends MethodClass
             ];
         }
 
-        $data['subjects'] = xarMod::apiFunc('keywords', 'hooks', 'getsubjects');
-        $data['hook_config'] = xarMod::guiFunc(
-            'keywords',
-            'hooks',
-            'modulemodifyconfig',
-            [
+        $data['subjects'] = $hooksapi->getsubjects();
+        $data['hook_config'] = $hooksgui->modulemodifyconfig([
                 'objectid' => $modname,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype],
             ]

@@ -13,6 +13,8 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 
 use Xaraya\Modules\Keywords\AdminGui;
+use Xaraya\Modules\Keywords\WordsApi;
+use Xaraya\Modules\Keywords\HooksGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -35,10 +37,15 @@ class ViewMethod extends MethodClass
 
     /**
      * show the links for module items
-     * @return array
+     * @return array|void
+     * @see AdminGui::view()
      */
     public function __invoke(array $args = [])
     {
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
+        /** @var HooksGui $hooksgui */
+        $hooksgui = $this->hooksgui();
         if (!$this->sec()->checkAccess('ManageKeywords')) {
             return;
         }
@@ -99,11 +106,7 @@ class ViewMethod extends MethodClass
 
         $data = [];
 
-        $modlist = xarMod::apiFunc(
-            'keywords',
-            'words',
-            'getmodulecounts',
-            [
+        $modlist = $wordsapi->getmodulecounts([
                 'skip_restricted' => true,
             ]
         );
@@ -134,22 +137,14 @@ class ViewMethod extends MethodClass
             }
         }
 
-        $total = xarMod::apiFunc(
-            'keywords',
-            'words',
-            'countitems',
-            [
+        $total = $wordsapi->countitems([
                 'module_id' => $module_id,
                 'itemtype' => $itemtype,
                 'keyword' => $keyword,
                 'skip_restricted' => true,
             ]
         );
-        $items = xarMod::apiFunc(
-            'keywords',
-            'words',
-            'getitemcounts',
-            [
+        $items = $wordsapi->getitemcounts([
                 'module_id' => $module_id,
                 'itemtype' => $itemtype,
                 'keyword' => $keyword,
@@ -233,11 +228,7 @@ class ViewMethod extends MethodClass
                 if (!empty($data['keyword'])) {
                     // list items by keyword
                     // get a list of items associated with this keyword
-                    $data['items'] = xarMod::apiFunc(
-                        'keywords',
-                        'words',
-                        'getitems',
-                        [
+                    $data['items'] = $wordsapi->getitems([
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -247,11 +238,7 @@ class ViewMethod extends MethodClass
                 } else {
                     // list keywords
                     // get a list of keywords (with counts)
-                    $data['items'] = xarMod::apiFunc(
-                        'keywords',
-                        'words',
-                        'getwordcounts',
-                        [
+                    $data['items'] = $wordsapi->getwordcounts([
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -343,11 +330,7 @@ class ViewMethod extends MethodClass
                 if (!empty($data['keyword'])) {
                     // list items by keyword
                     // get a list of items associated with this keyword
-                    $data['items'] = xarMod::apiFunc(
-                        'keywords',
-                        'words',
-                        'getitems',
-                        [
+                    $data['items'] = $wordsapi->getitems([
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -357,11 +340,7 @@ class ViewMethod extends MethodClass
                 } else {
                     // list keywords
                     // get a list of keywords (with counts)
-                    $data['items'] = xarMod::apiFunc(
-                        'keywords',
-                        'words',
-                        'getwordcounts',
-                        [
+                    $data['items'] = $wordsapi->getwordcounts([
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -372,11 +351,7 @@ class ViewMethod extends MethodClass
             case 'assoc':
                 // list items
                 // get a list of item associations
-                $data['items'] = xarMod::apiFunc(
-                    'keywords',
-                    'words',
-                    'getitems',
-                    [
+                $data['items'] = $wordsapi->getitems([
                         'module' => $modname,
                         'itemtype' => $itemtype,
                         'skip_restricted' => true,
@@ -388,11 +363,7 @@ class ViewMethod extends MethodClass
                 // list keywords
                 // same as list but with weighting applied
                 // get a list of keywords (with counts)
-                $data['items'] = xarMod::apiFunc(
-                    'keywords',
-                    'words',
-                    'getwordcounts',
-                    [
+                $data['items'] = $wordsapi->getwordcounts([
                         'module' => $modname,
                         'itemtype' => $itemtype,
                         'skip_restricted' => true,
@@ -434,11 +405,7 @@ class ViewMethod extends MethodClass
                 break;
             case 'config':
                 // config is supplied by our modifyconfig hook
-                $data['config'] = xarMod::guiFunc(
-                    'keywords',
-                    'hooks',
-                    'modulemodifyconfig',
-                    [
+                $data['config'] = $hooksgui->modulemodifyconfig([
                         'objectid' => $modname,
                         'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype],
                     ]

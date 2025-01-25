@@ -34,6 +34,7 @@ class GetallkeyMethod extends MethodClass
      * @param array<mixed> $args
      * @var mixed $modid module id
      * @return array|void of keywords
+     * @see AdminApi::getallkey()
      */
     public function __invoke(array $args = [])
     {

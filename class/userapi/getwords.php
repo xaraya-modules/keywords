@@ -40,6 +40,7 @@ class GetwordsMethod extends MethodClass
      * @var int $startnum starting number (optional)
      * @return array|void of keywords
      * @todo This is so similar to getitems, that they could be merged. It is only the format of the results that differs.
+     * @see UserApi::getwords()
      */
     public function __invoke(array $args = [])
     {

@@ -13,6 +13,8 @@ namespace Xaraya\Modules\Keywords\UserGui;
 
 
 use Xaraya\Modules\Keywords\UserGui;
+use Xaraya\Modules\Keywords\WordsApi;
+use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -35,9 +37,14 @@ class ViewMethod extends MethodClass
     /**
      * display keywords entries
      * @return mixed bool and redirect to url
+     * @see UserGui::view()
      */
     public function __invoke(array $args = [])
     {
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
@@ -53,22 +60,14 @@ class ViewMethod extends MethodClass
 
         if (!empty($keyword)) {
             $items_per_page = $this->mod()->getVar('items_per_page', 20);
-            $total = xarMod::apiFunc(
-                'keywords',
-                'words',
-                'countitems',
-                [
+            $total = $wordsapi->countitems([
                     //'module_id' => $module_id,
                     //'itemtype' => $itemtype,
                     'keyword' => $keyword,
                     'skip_restricted' => true,
                 ]
             );
-            $items = xarMod::apiFunc(
-                'keywords',
-                'words',
-                'getitems',
-                [
+            $items = $wordsapi->getitems([
                     //'module_id' => $module_id,
                     //'itemtype' => $itemtype,
                     'keyword' => $keyword,
@@ -78,11 +77,7 @@ class ViewMethod extends MethodClass
                 ]
             );
 
-            $modlist = xarMod::apiFunc(
-                'keywords',
-                'words',
-                'getmodulecounts',
-                [
+            $modlist = $wordsapi->getmodulecounts([
                     'skip_restricted' => true,
                 ]
             );
@@ -169,19 +164,11 @@ class ViewMethod extends MethodClass
                 default:
                     $cols_per_page = $this->mod()->getVar('cols_per_page', 2);
                     $items_per_page = $this->mod()->getVar('words_per_page', 50);
-                    $total = xarMod::apiFunc(
-                        'keywords',
-                        'words',
-                        'countwords',
-                        [
+                    $total = $wordsapi->countwords([
                             'skip_restricted' => true,
                         ]
                     );
-                    $items = xarMod::apiFunc(
-                        'keywords',
-                        'words',
-                        'getwordcounts',
-                        [
+                    $items = $wordsapi->getwordcounts([
                             'startnum' => $startnum,
                             'numitems' => $items_per_page,
                             'skip_restricted' => true,
@@ -194,11 +181,7 @@ class ViewMethod extends MethodClass
                     $data['items'] = $items;
                     break;
                 case 'cloud':
-                    $items = xarMod::apiFunc(
-                        'keywords',
-                        'words',
-                        'getwordcounts',
-                        [
+                    $items = $wordsapi->getwordcounts([
                             'skip_restricted' => true,
                         ]
                     );
@@ -249,11 +232,7 @@ class ViewMethod extends MethodClass
 
         if (empty($keyword)) {
             // get the list of keywords that are in use
-            $words = xarMod::apiFunc(
-                'keywords',
-                'user',
-                'getlist',
-                ['count' => 1,
+            $words = $userapi->getlist(['count' => 1,
                     'tab' => $tab, ]
             );
 
@@ -285,11 +264,7 @@ class ViewMethod extends MethodClass
                 $keyword = str_replace('_', ' ', $keyword);
             }
             // get the list of items to which this keyword is assigned
-            $items = xarMod::apiFunc(
-                'keywords',
-                'user',
-                'getitems',
-                ['keyword' => $keyword]
+            $items = $userapi->getitems(['keyword' => $keyword]
             );
 
             if (!isset($items)) {
@@ -380,11 +355,7 @@ class ViewMethod extends MethodClass
         // if we're given an id we redirect to item display?
         // we already got a link pointing to the item display url, why isn't that used
         // in the template instead of pointing here?
-        $items = xarMod::apiFunc(
-            'keywords',
-            'user',
-            'getitems',
-            ['keyword' => $keyword,
+        $items = $userapi->getitems(['keyword' => $keyword,
                 'id' => $id, ]
         );
         if (!isset($items)) {

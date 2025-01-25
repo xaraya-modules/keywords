@@ -33,6 +33,7 @@ class ResetlimitedMethod extends MethodClass
      *
      * @todo MichelV what is this?
      * @todo ? inserire controllo sicurezza
+     * @see AdminApi::resetlimited()
      */
     public function __invoke(array $args = [])
     {

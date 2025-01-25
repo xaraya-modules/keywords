@@ -13,6 +13,9 @@ namespace Xaraya\Modules\Keywords\AdminApi;
 
 
 use Xaraya\Modules\Keywords\AdminApi;
+use Xaraya\Modules\Keywords\HooksApi;
+use Xaraya\Modules\Keywords\IndexApi;
+use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\MethodClass;
 use xarVar;
 use xarMod;
@@ -38,10 +41,19 @@ class UpdatehookMethod extends MethodClass
      * @var int $objectid ID of the object
      * @var array $extrainfo extra information
      * @return mixed|void true on success, false on failure. string keywords list
+     * @see AdminApi::updatehook()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var HooksApi $hooksapi */
+        $hooksapi = $this->hooksapi();
+        /** @var IndexApi $indexapi */
+        $indexapi = $this->indexapi();
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
 
         if (empty($extrainfo)) {
             $extrainfo = [];
@@ -87,22 +99,14 @@ class UpdatehookMethod extends MethodClass
         }
 
         // get settings currently in force for this module/itemtype
-        $settings = xarMod::apiFunc(
-            'keywords',
-            'hooks',
-            'getsettings',
-            [
+        $settings = $hooksapi->getsettings([
                 'module' => $modname,
                 'itemtype' => $itemtype,
             ]
         );
 
         // get the index_id for this module/itemtype/item
-        $index_id = xarMod::apiFunc(
-            'keywords',
-            'index',
-            'getid',
-            [
+        $index_id = $indexapi->getid([
                 'module' => $modname,
                 'itemtype' => $itemtype,
                 'itemid' => $itemid,
@@ -132,11 +136,7 @@ class UpdatehookMethod extends MethodClass
 
         // we may have been given a string list
         if (!empty($keywords) && !is_array($keywords)) {
-            $keywords = xarMod::apiFunc(
-                'keywords',
-                'admin',
-                'separekeywords',
-                [
+            $keywords = $adminapi->separekeywords([
                     'keywords' => $keywords,
                 ]
             );
@@ -153,21 +153,13 @@ class UpdatehookMethod extends MethodClass
         }
 
         // get the current keywords associated with this item
-        $oldwords = xarMod::apiFunc(
-            'keywords',
-            'words',
-            'getwords',
-            [
+        $oldwords = $wordsapi->getwords([
                 'index_id' => $index_id,
             ]
         );
 
         if (!empty($settings['restrict_words'])) {
-            $restricted_list = xarMod::apiFunc(
-                'keywords',
-                'words',
-                'getwords',
-                [
+            $restricted_list = $wordsapi->getwords([
                     'index_id' => $settings['index_id'],
                 ]
             );
@@ -195,22 +187,14 @@ class UpdatehookMethod extends MethodClass
                     }
                     // we may have been given a string list
                     if (!empty($toadd) && !is_array($toadd)) {
-                        $toadd = xarMod::apiFunc(
-                            'keywords',
-                            'admin',
-                            'separekeywords',
-                            [
+                        $toadd = $adminapi->separekeywords([
                                 'keywords' => $toadd,
                             ]
                         );
                     }
                     if (!empty($toadd)) {
                         // add words to restricted list
-                        if (!xarMod::apiFunc(
-                            'keywords',
-                            'words',
-                            'createitems',
-                            [
+                        if (!$wordsapi->createitems([
                                 'index_id' => $settings['index_id'],
                                 'keyword' => array_unique(array_diff($toadd, $keywords)),
                             ]
@@ -227,11 +211,7 @@ class UpdatehookMethod extends MethodClass
         $toremove = array_filter(array_unique(array_diff($oldwords, $keywords)));
 
         if (!empty($toadd)) {
-            if (!xarMod::apiFunc(
-                'keywords',
-                'words',
-                'createitems',
-                [
+            if (!$wordsapi->createitems([
                     'index_id' => $index_id,
                     'keyword' => $toadd,
                 ]
@@ -240,11 +220,7 @@ class UpdatehookMethod extends MethodClass
             }
         }
         if (!empty($toremove)) {
-            if (!xarMod::apiFunc(
-                'keywords',
-                'words',
-                'deleteitems',
-                [
+            if (!$wordsapi->deleteitems([
                     'index_id' => $index_id,
                     'keyword' => $toremove,
                 ]

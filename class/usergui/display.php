@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Keywords\UserGui;
 
 
 use Xaraya\Modules\Keywords\UserGui;
+use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -37,9 +38,12 @@ class DisplayMethod extends MethodClass
      * @var mixed $itemid item id of the keywords entry
      * @checkme: this appears to display a link to a display of an item, why is this needed?
      * @return array|void Item
+     * @see UserGui::display()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('ReadKeywords')) {
             return;
         }
@@ -50,11 +54,7 @@ class DisplayMethod extends MethodClass
         if (empty($itemid)) {
             return [];
         }
-        $items = xarMod::apiFunc(
-            'keywords',
-            'user',
-            'getitems',
-            ['id' => $itemid]
+        $items = $userapi->getitems(['id' => $itemid]
         );
         if (!isset($items)) {
             return;

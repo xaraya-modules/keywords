@@ -36,6 +36,7 @@ class GetlistMethod extends MethodClass
      * @var mixed $tab = int(1:5) returns keywords with initial withn
      * a specific letter range (1=[A-F]; 2=[G-L]; etc...)
      * @return array|void of found keywords
+     * @see UserApi::getlist()
      */
     public function __invoke(array $args = [])
     {

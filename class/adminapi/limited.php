@@ -34,10 +34,13 @@ class LimitedMethod extends MethodClass
      * Unknown
      * Remark: gestire errore su inserted
      * @todo MichelV <1> Keep this file?
+     * @see AdminApi::limited()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
         if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
         }
@@ -62,11 +65,7 @@ class LimitedMethod extends MethodClass
             throw new BadParameterException(null, $msg);
         }
 
-        $key = xarMod::apiFunc(
-            'keywords',
-            'admin',
-            'separatekeywords',
-            ['keywords' => $keyword]
+        $key = $adminapi->separatekeywords(['keywords' => $keyword]
         );
 
         foreach ($key as $keyres) {

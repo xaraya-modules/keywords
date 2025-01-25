@@ -234,13 +234,13 @@ class Installer extends InstallerClass
                 );
 
                 if (empty($query)) {
-                    return;
+                    return false;
                 } // throw back
 
                 // Pass the Table Create DDL to adodb to create the table and send exception if unsuccessful
                 $result = $dbconn->Execute($query);
                 if (!$result) {
-                    return;
+                    return false;
                 }
 
                 if (!xarModHooks::register(
@@ -251,7 +251,7 @@ class Installer extends InstallerClass
                     'user',
                     'search'
                 )) {
-                    return;
+                    return false;
                 }
 
                 // no break
@@ -272,7 +272,7 @@ class Installer extends InstallerClass
                 );
                 $result = & $dbconn->Execute($query);
                 if (!$result) {
-                    return;
+                    return false;
                 }
 
                 // Register blocks
@@ -283,7 +283,7 @@ class Installer extends InstallerClass
                     ['modName'  => 'keywords',
                         'blockType' => 'keywordsarticles', ]
                 )) {
-                    return;
+                    return false;
                 }
                 if (!xarMod::apiFunc(
                     'blocks',
@@ -292,7 +292,7 @@ class Installer extends InstallerClass
                     ['modName'  => 'keywords',
                         'blockType' => 'keywordscategories', ]
                 )) {
-                    return;
+                    return false;
                 }
 
                 // no break
@@ -307,7 +307,7 @@ class Installer extends InstallerClass
             case '1.0.5':
                 // upgrade to v2.0.0
                 if (!$this->upgrade_200()) {
-                    return;
+                    return false;
                 }
 
                 break;
@@ -336,11 +336,11 @@ class Installer extends InstallerClass
         // drop tables
         $query = "DROP TABLE IF EXISTS " . $indextable;
         if (!$q->run($query)) {
-            return;
+            return false;
         }
         $query = "DROP TABLE IF EXISTS " . $keywordstable;
         if (!$q->run($query)) {
-            return;
+            return false;
         }
 
         // Remove Masks and Instances

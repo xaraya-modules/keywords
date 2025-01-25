@@ -36,6 +36,7 @@ class GetmultiplewordsMethod extends MethodClass
      * @var int $itemtype item type
      * @var int $objectids item id
      * @return array|void of keywords
+     * @see UserApi::getmultiplewords()
      */
     public function __invoke(array $args = [])
     {

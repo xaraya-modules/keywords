@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 
 use Xaraya\Modules\Keywords\AdminGui;
+use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -35,10 +36,13 @@ class PrivilegesMethod extends MethodClass
     /**
      * Manage definition of instances for privileges (unfinished)
      * @param array<mixed> $args all privilege parts
-     * @return array with the new privileges
+     * @return array|bool|void with the new privileges
+     * @see AdminGui::privileges()
      */
     public function __invoke(array $args = [])
     {
+        /** @var HooksApi $hooksapi */
+        $hooksapi = $this->hooksapi();
         // Security Check
         if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
@@ -107,7 +111,7 @@ class PrivilegesMethod extends MethodClass
         }
 
         // get the list of modules (and their itemtypes) keywords is currently hooked to
-        $subjects = xarMod::apiFunc('keywords', 'hooks', 'getsubjects');
+        $subjects = $hooksapi->getsubjects();
 
         $modlist = [];
         $typelist = [];

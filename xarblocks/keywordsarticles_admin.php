@@ -24,11 +24,11 @@ class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock
         $vars['pubtypes'] = xarMod::apiFunc('articles', 'user', 'getpubtypes');
         $vars['categorylist'] = xarMod::apiFunc('categories', 'user', 'getcat');
         $vars['statusoptions'] = [['id' => '3,2',
-                                         'name' => xarMLS::translate('All Published'), ],
+                                         'name' => $this->ml('All Published'), ],
                                    ['id' => '3',
-                                         'name' => xarMLS::translate('Frontpage'), ],
+                                         'name' => $this->ml('Frontpage'), ],
                                    ['id' => '2',
-                                         'name' => xarMLS::translate('Approved'), ],
+                                         'name' => $this->ml('Approved'), ],
                                   ];
 
         $vars['blockid'] = $this->block_id;
@@ -38,16 +38,16 @@ class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock
 
     public function update($data = [])
     {
-        if (!xarVar::fetch('ptid', 'id', $vars['ptid'], $this->ptid, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('ptid', 'id', $vars['ptid'], $this->ptid, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('cid', 'int:1:', $vars['cid'], $this->cid, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('cid', 'int:1:', $vars['cid'], $this->cid, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('status', 'str:1:', $vars['status'], $this->status, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('status', 'str:1:', $vars['status'], $this->status, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('refreshtime', 'int:1:', $vars['refreshtime'], 1, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->fetch('refreshtime', 'int:1:', $vars['refreshtime'], 1, xarVar::NOT_REQUIRED)) {
             return;
         }
         $this->setContent($vars);

@@ -32,6 +32,7 @@ class SeparatekeywordsMethod extends MethodClass
     /**
      * Now using 'strlist' validation to do the hard work.
      * @return array
+     * @see AdminApi::separatekeywords()
      */
     public function __invoke(array $args = [])
     {

@@ -42,7 +42,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
         $vars = $this->getContent();
 
         // Allow refresh by setting refreshrandom variable
-        if (!xarVar::fetch('refreshrandom', 'int:1:1', $vars['refreshtime'], 0, xarVar::DONT_SET)) {
+        if (!$this->var()->fetch('refreshrandom', 'int:1:1', $vars['refreshtime'], 0, xarVar::DONT_SET)) {
             return;
         }
 
@@ -60,9 +60,9 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
             fclose($fp);
         } else {
             //Get the keywords related categories
-            if (xarVar::isCached('Blocks.articles', 'cids')) {
+            if ($this->var()->isCached('Blocks.articles', 'cids')) {
                 $vars['modid'] = xarMod::getRegId('categories');
-                $vars['cids'] = xarVar::getCached('Blocks.articles', 'cids');
+                $vars['cids'] = $this->var()->getCached('Blocks.articles', 'cids');
                 if (empty($vars['cids']) || !is_array($vars['cids']) || count($vars['cids']) == 0) {
                     return '';
                 }
@@ -127,7 +127,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                                 'parent' => $categories['parent'],
                                 'left' => $categories['left'],
                                 'right' => $categories['right'],
-                                'link' => xarController::URL('articles', 'user', 'view', ['cids' => [0 => $item['itemid']]]),
+                                'link' => $this->ctl()->getModuleURL('articles', 'user', 'view', ['cids' => [0 => $item['itemid']]]),
                                 ];
                     }
                 }

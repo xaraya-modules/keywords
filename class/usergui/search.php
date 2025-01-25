@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Keywords\UserGui;
 
 
 use Xaraya\Modules\Keywords\UserGui;
+use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -32,10 +33,13 @@ class SearchMethod extends MethodClass
 
     /**
      * Search for keywords
-     * @return array retrieved keywords
+     * @return array|string|void retrieved keywords
+     * @see UserGui::search()
      */
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('ReadKeywords', 0)) {
             return '';
         }
@@ -55,7 +59,7 @@ class SearchMethod extends MethodClass
             return $data;
         }
 
-        $data['keys'] = xarMod::apiFunc('keywords', 'user', 'search', ['search' => $data['search']]);
+        $data['keys'] = $userapi->search(['search' => $data['search']]);
 
         return $data;
     }

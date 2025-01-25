@@ -47,7 +47,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
         $vars = $this->getContent();
         // Allow refresh by setting refreshrandom variable
 
-        if (!xarVar::fetch('refreshrandom', 'int:1:1', $vars['refreshtime'], 0, xarVar::DONT_SET)) {
+        if (!$this->var()->fetch('refreshrandom', 'int:1:1', $vars['refreshtime'], 0, xarVar::DONT_SET)) {
             return;
         }
 
@@ -65,9 +65,9 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
             fclose($fp);
         } else {
             //Get the keywords related articles
-            if (xarVar::isCached('Blocks.articles', 'aid')) {
-                $vars['itemid'] = xarVar::getCached('Blocks.articles', 'aid');
-                $itemtype = xarVar::getCached('Blocks.articles', 'ptid');
+            if ($this->var()->isCached('Blocks.articles', 'aid')) {
+                $vars['itemid'] = $this->var()->getCached('Blocks.articles', 'aid');
+                $itemtype = $this->var()->getCached('Blocks.articles', 'ptid');
                 if (!empty($itemtype) && is_numeric($itemtype)) {
                     $vars['itemtype'] = $itemtype;
                 } else {
@@ -96,7 +96,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                 $vars['items'] = [];
                 foreach ($keywords as $id => $word) {
                     //$item['id'] = $id;
-                    //$item['keyword'] = xarVar::prepForDisplay($word);
+                    //$item['keyword'] = $this->var()->prep($word);
                     // get the list of items to which this keyword is assigned
                     //TODO Make itemtype / modid dependant
                     $items = $items + xarMod::apiFunc(
@@ -140,7 +140,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                                         'pubdate' => $articles['pubdate'],
                                         'pubtypeid' => $articles['pubtypeid'],
                                         'status' => $articles['status'],
-                                        'link' => xarController::URL('articles', 'user', 'display', ['aid' => $articles['aid'], 'ptid' => $articles['pubtypeid']]),
+                                        'link' => $this->ctl()->getModuleURL('articles', 'user', 'display', ['aid' => $articles['aid'], 'ptid' => $articles['pubtypeid']]),
                                         ];
                             }
                         }

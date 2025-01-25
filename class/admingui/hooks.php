@@ -34,7 +34,8 @@ class HooksMethod extends MethodClass
      * @param array<mixed> $args
      * @var mixed $curhook current hook module (optional)
      * @var mixed $return_url URL to return to after updating the hooks (optional)
-     * @return array data for the template display
+     * @return array|void data for the template display
+     * @see AdminGui::hooks()
      */
     public function __invoke(array $args = [])
     {

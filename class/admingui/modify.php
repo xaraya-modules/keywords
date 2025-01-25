@@ -13,6 +13,9 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 
 use Xaraya\Modules\Keywords\AdminGui;
+use Xaraya\Modules\Keywords\AdminApi;
+use Xaraya\Modules\Keywords\WordsApi;
+use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -41,9 +44,18 @@ class ModifyMethod extends MethodClass
      * @param string phase, current function phase (form)|update
      * @return mixed array of template data in form phase or bool redirected in update phase
      * @throws \EmptyParameterException
+     * @see AdminGui::modify()
      */
     public function __invoke(array $args = [])
     {
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
+        /** @var AdminGui $admingui */
+        $admingui = $this->admingui();
+        /** @var UserGui $usergui */
+        $usergui = $this->usergui();
         if (!$this->sec()->checkAccess('ManageKeywords')) {
             return;
         }
@@ -114,7 +126,7 @@ class ModifyMethod extends MethodClass
 
         if ($phase == 'update') {
             if (!$this->sec()->confirmAuthKey()) {
-                return $this->ctl()->badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author');
             }
             // check for keywords empty and redirect to delete confirm
             if (!$this->var()->fetch(
@@ -138,11 +150,7 @@ class ModifyMethod extends MethodClass
                 );
                 $this->ctl()->redirect($delete_url);
             }
-            xarMod::apiFunc(
-                'keywords',
-                'admin',
-                'updatehook',
-                [
+            $adminapi->updatehook([
                     'objectid' => $itemid,
                     'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid],
                 ]
@@ -183,11 +191,7 @@ class ModifyMethod extends MethodClass
             ];
         }
 
-        $modlist = xarMod::apiFunc(
-            'keywords',
-            'words',
-            'getmodulecounts',
-            [
+        $modlist = $wordsapi->getmodulecounts([
                 'skip_restricted' => true,
             ]
         );
@@ -226,20 +230,12 @@ class ModifyMethod extends MethodClass
         $data['item'] = $item;
         $data['return_url'] = $return_url;
 
-        $data['modify_hook'] = xarMod::guiFunc(
-            'keywords',
-            'admin',
-            'modifyhook',
-            [
+        $data['modify_hook'] = $admingui->modifyhook([
                 'objectid' => $itemid,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid],
             ]
         );
-        $data['display_hook'] = xarMod::guiFunc(
-            'keywords',
-            'user',
-            'displayhook',
-            [
+        $data['display_hook'] = $usergui->displayhook([
                 'objectid' => $itemid,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid, 'showlabel' => false, 'tpltype' => 'admin'],
             ]

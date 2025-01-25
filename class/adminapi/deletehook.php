@@ -13,6 +13,8 @@ namespace Xaraya\Modules\Keywords\AdminApi;
 
 
 use Xaraya\Modules\Keywords\AdminApi;
+use Xaraya\Modules\Keywords\IndexApi;
+use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use sys;
@@ -34,10 +36,15 @@ class DeletehookMethod extends MethodClass
      * @var mixed $objectid ID of the object
      * @var mixed $extrainfo extra information
      * @return bool|void true on success, false on failure
+     * @see AdminApi::deletehook()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var IndexApi $indexapi */
+        $indexapi = $this->indexapi();
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
 
         if (empty($extrainfo)) {
             $extrainfo = [];
@@ -76,11 +83,7 @@ class DeletehookMethod extends MethodClass
         }
 
         // get the index_id for this module/itemtype/item
-        $index_id = xarMod::apiFunc(
-            'keywords',
-            'index',
-            'getid',
-            [
+        $index_id = $indexapi->getid([
                 'module' => $modname,
                 'itemtype' => $itemtype,
                 'itemid' => $itemid,
@@ -88,11 +91,7 @@ class DeletehookMethod extends MethodClass
         );
 
         // delete all keywords associated with this item
-        if (!xarMod::apiFunc(
-            'keywords',
-            'words',
-            'deleteitems',
-            [
+        if (!$wordsapi->deleteitems([
                 'index_id' => $index_id,
             ]
         )) {
@@ -100,11 +99,7 @@ class DeletehookMethod extends MethodClass
         }
 
         // delete the index
-        if (!xarMod::apiFunc(
-            'keywords',
-            'index',
-            'deleteitem',
-            [
+        if (!$indexapi->deleteitem([
                 'id' => $index_id,
             ]
         )) {

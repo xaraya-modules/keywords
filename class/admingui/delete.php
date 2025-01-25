@@ -13,6 +13,9 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 
 use Xaraya\Modules\Keywords\AdminGui;
+use Xaraya\Modules\Keywords\IndexApi;
+use Xaraya\Modules\Keywords\WordsApi;
+use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -35,9 +38,16 @@ class DeleteMethod extends MethodClass
 
     /**
      * delete existing keywords assignment
+     * @see AdminGui::delete()
      */
     public function __invoke(array $args = [])
     {
+        /** @var IndexApi $indexapi */
+        $indexapi = $this->indexapi();
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
+        /** @var UserGui $usergui */
+        $usergui = $this->usergui();
         if (!$this->sec()->checkAccess('ManageKeywords')) {
             return;
         }
@@ -131,14 +141,10 @@ class DeleteMethod extends MethodClass
                 $this->ctl()->redirect($return_url);
             }
             if (!$this->sec()->confirmAuthKey()) {
-                return $this->ctl()->badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author');
             }
             // get the index_id for this module/itemtype/item
-            $index_id = xarMod::apiFunc(
-                'keywords',
-                'index',
-                'getid',
-                [
+            $index_id = $indexapi->getid([
                     'module' => $modname,
                     'itemtype' => $itemtype,
                     'itemid' => $itemid,
@@ -146,11 +152,7 @@ class DeleteMethod extends MethodClass
             );
 
             // delete all keywords associated with this item
-            if (!xarMod::apiFunc(
-                'keywords',
-                'words',
-                'deleteitems',
-                [
+            if (!$wordsapi->deleteitems([
                     'index_id' => $index_id,
                 ]
             )) {
@@ -181,11 +183,7 @@ class DeleteMethod extends MethodClass
             ];
         }
 
-        $modlist = xarMod::apiFunc(
-            'keywords',
-            'words',
-            'getmodulecounts',
-            [
+        $modlist = $wordsapi->getmodulecounts([
                 'skip_restricted' => true,
             ]
         );
@@ -224,11 +222,7 @@ class DeleteMethod extends MethodClass
         $data['item'] = $item;
         $data['return_url'] = $return_url;
 
-        $data['display_hook'] = xarMod::guiFunc(
-            'keywords',
-            'user',
-            'displayhook',
-            [
+        $data['display_hook'] = $usergui->displayhook([
                 'objectid' => $itemid,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid, 'showlabel' => false, 'tpltype' => 'admin'],
             ]

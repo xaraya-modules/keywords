@@ -36,6 +36,7 @@ class GetwordslimitedMethod extends MethodClass
      * @param array<mixed> $args
      * @var int $moduleid module id
      * @return array|void of keywords, sorted ASC
+     * @see UserApi::getwordslimited()
      */
     public function __invoke(array $args = [])
     {

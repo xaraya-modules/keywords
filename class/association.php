@@ -92,7 +92,7 @@ class Keyword_Association extends xarObject
      * @var integer itemid        The id of the item types item
      * @var integer keyword_id    The id of the keyword we are going to associate with an item
      *
-     * @return array   A list of associations, including the keyword_id -> (module_id + itemtype + property_id + itemid)
+     * @return array|bool   A list of associations, including the keyword_id -> (module_id + itemtype + property_id + itemid)
      */
 
     public function get_associations($args = [])

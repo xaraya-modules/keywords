@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 
 use Xaraya\Modules\Keywords\AdminGui;
+use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarSec;
 use xarSecurity;
@@ -40,9 +41,12 @@ class UpdateconfigMethod extends MethodClass
      * @param int useitemtype
      * @param array keywords (default = empty)
      * @return mixed true on succes and redirect to URL
+     * @see AdminGui::updateconfig()
      */
     public function __invoke(array $args = [])
     {
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
         if (!$this->sec()->confirmAuthKey()) {
             return;
         }
@@ -81,11 +85,7 @@ class UpdateconfigMethod extends MethodClass
                     }
                 }
                 if ($value <> '') {
-                    xarMod::apiFunc(
-                        'keywords',
-                        'admin',
-                        'limited',
-                        ['moduleid' => $moduleid,
+                    $adminapi->limited(['moduleid' => $moduleid,
                             'keyword'  => $value,
                             'itemtype' => $itemtype, ]
                     );

@@ -35,8 +35,9 @@ class NewMethod extends MethodClass
 
     /**
      * create new keywords assignment
-     * @param string confirm
-     * @return array with data
+     * @param array $args with confirm
+     * @return array|bool|void with data
+     * @see AdminGui::new()
      */
     public function __invoke(array $args = [])
     {
