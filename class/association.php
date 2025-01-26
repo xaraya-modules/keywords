@@ -13,19 +13,17 @@
  */
 
 sys::import('xaraya.structures.query');
-sys::import('xaraya.services.hasdatabasetrait');
-use Xaraya\Services\HasDatabaseStaticTrait;
+sys::import('xaraya.facades.database');
+use Xaraya\Facades\xarDB3;
 
 class Keyword_Association extends xarObject
 {
-    use HasDatabaseStaticTrait;
-
     public $tables;
 
     public function __construct()
     {
         xarMod::apiLoad('keywords');
-        $this->tables = & self::xarDB()->getTables();
+        $this->tables = xarDB3::getTables();
     }
 
     /**
