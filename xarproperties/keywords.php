@@ -39,7 +39,7 @@ class KeywordsProperty extends TextAreaProperty
             return false;
         }
 
-        $words = xarMod::apiFunc('keywords', 'admin', 'separatekeywords', ['keywords' => $value]);
+        $words = $this->mod()->apiMethod('keywords', 'admin', 'separatekeywords', ['keywords' => $value]);
         $cleanwords = [];
         foreach ($words as $word) {
             if (empty($word)) {
@@ -99,7 +99,7 @@ class KeywordsProperty extends TextAreaProperty
         }
 
         // Make sure we have the keywords table
-        xarMod::apiLoad('keywords');
+        $this->mod()->apiLoad('keywords');
 
         $table = & $this->db()->getTables();
         $q = new Query('SELECT');
@@ -152,7 +152,7 @@ class KeywordsProperty extends TextAreaProperty
         }
 
         // Make sure we have the keywords table
-        xarMod::apiLoad('keywords');
+        $this->mod()->apiLoad('keywords');
 
         $table = & $this->db()->getTables();
         $q = new Query('SELECT', $table['keywords']);
@@ -237,9 +237,9 @@ class KeywordsProperty extends TextAreaProperty
         $primary_source = $this->objectref->properties[$primary]->source;
 
         // Assemble the links to the object's table
-        //xarMod::load('keywords');
-        xarMod::apiLoad('keywords');
-        //xarMod::load('dam');
+        //$this->mod()->load('keywords');
+        $this->mod()->apiLoad('keywords');
+        //$this->mod()->load('dam');
         $tables = $this->db()->getTables();
 
         $q->addtable($tables['dam_resources'], 'resource');

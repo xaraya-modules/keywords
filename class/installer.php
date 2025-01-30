@@ -357,7 +357,6 @@ class Installer extends InstallerClass
         $dbconn = $this->db()->getConn();
         $tables = & $this->db()->getTables();
         $prefix = $this->db()->getPrefix();
-        $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
         $indextable = $tables['keywords_index'];
         $keywordstable = $tables['keywords'];
         $restrtable = $tables['keywords_restr'];  // $prefix . '_keywords_restr';
@@ -482,7 +481,6 @@ class Installer extends InstallerClass
 
         // (re)Create keywords table
         try {
-            $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
             $dbconn->begin();
             $q = new Query();
             // drop keywords table

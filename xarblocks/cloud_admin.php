@@ -22,12 +22,12 @@ class Keywords_CloudBlockAdmin extends Keywords_CloudBlock implements iBlock
         switch ($data['cloudtype']) {
             default:
             case 1:
-                if (!xarMod::isAvailable('categories')) {
+                if (!$this->mod()->isAvailable('categories')) {
                     $data['status'] = 'not_available';
                 }
                 break;
             case 3:
-                if (!xarMod::isAvailable('keywords')) {
+                if (!$this->mod()->isAvailable('keywords')) {
                     $data['status'] = 'not_available';
                 }
                 break;

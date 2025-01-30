@@ -88,7 +88,7 @@ class ViewMethod extends MethodClass
                 $modules[$module]['itemtypes'] = $itemtypes;
                 if (!isset($modtypes[$module])) {
                     try {
-                        $modtypes[$module] = xarMod::apiFunc($module, 'user', 'getitemtypes');
+                        $modtypes[$module] = $this->mod()->apiFunc($module, 'user', 'getitemtypes');
                     } catch (Exception $e) {
                         $modtypes[$module] = [];
                     }
@@ -124,7 +124,7 @@ class ViewMethod extends MethodClass
                     $modules[$module]['itemlinks'][$typeid] = $itemids;
                     $itemids = array_keys($itemids);
                     try {
-                        $itemlinks = xarMod::apiFunc(
+                        $itemlinks = $this->mod()->apiFunc(
                             $module,
                             'user',
                             'getitemlinks',
@@ -288,14 +288,14 @@ class ViewMethod extends MethodClass
 
             // get the corresponding URL and title (if any)
             foreach ($modules as $moduleid => $itemtypes) {
-                $modinfo = xarMod::getInfo($moduleid);
+                $modinfo = $this->mod()->getInfo($moduleid);
                 if (!isset($modinfo) || empty($modinfo['name'])) {
                     return;
                 }
 
                 // Get the list of all item types for this module (if any)
                 try {
-                    $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+                    $mytypes = $this->mod()->apiFunc($modinfo['name'], 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $mytypes = [];
                 }
@@ -303,7 +303,7 @@ class ViewMethod extends MethodClass
                 foreach ($itemtypes as $itemtype => $itemlist) {
                     $itemids = array_keys($itemlist);
                     try {
-                        $itemlinks = xarMod::apiFunc(
+                        $itemlinks = $this->mod()->apiFunc(
                             $modinfo['name'],
                             'user',
                             'getitemlinks',
@@ -370,14 +370,14 @@ class ViewMethod extends MethodClass
             return ['status' => 2];
         }
 
-        $modinfo = xarMod::getInfo($item['moduleid']);
+        $modinfo = $this->mod()->getInfo($item['moduleid']);
         if (!isset($modinfo) || empty($modinfo['name'])) {
             return ['status' => 3];
         }
 
         // TODO: make configurable per module/itemtype
         try {
-            $itemlinks = xarMod::apiFunc(
+            $itemlinks = $this->mod()->apiFunc(
                 $modinfo['name'],
                 'user',
                 'getitemlinks',

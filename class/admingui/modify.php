@@ -122,7 +122,7 @@ class ModifyMethod extends MethodClass
             return;
         }
 
-        $modname = xarMod::getName($module_id);
+        $modname = $this->mod()->getName($module_id);
 
         if ($phase == 'update') {
             if (!$this->sec()->confirmAuthKey()) {
@@ -170,7 +170,7 @@ class ModifyMethod extends MethodClass
         }
 
         try {
-            $item = xarMod::apiFunc(
+            $item = $this->mod()->apiFunc(
                 $modname,
                 'user',
                 'getitemlinks',
@@ -202,7 +202,7 @@ class ModifyMethod extends MethodClass
             $modules[$module]['itemtypes'] = $itemtypes;
             if (!isset($modtypes[$module])) {
                 try {
-                    $modtypes[$module] = xarMod::apiFunc($module, 'user', 'getitemtypes');
+                    $modtypes[$module] = $this->mod()->apiFunc($module, 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $modtypes[$module] = [];
                 }

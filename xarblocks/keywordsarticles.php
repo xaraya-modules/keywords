@@ -71,7 +71,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                 if (!empty($itemtype) && is_numeric($itemtype)) {
                     $vars['itemtype'] = $itemtype;
                 } else {
-                    $article = xarMod::apiFunc(
+                    $article = $this->mod()->apiFunc(
                         'articles',
                         'user',
                         'get',
@@ -79,8 +79,8 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                     );
                     $vars['itemtype'] = $article['pubtypeid'];
                 }
-                $vars['modid'] = xarMod::getRegId('articles');
-                $keywords = xarMod::apiFunc(
+                $vars['modid'] = $this->mod()->getRegID('articles');
+                $keywords = $this->mod()->apiMethod(
                     'keywords',
                     'user',
                     'getwords',
@@ -99,7 +99,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                     //$item['keyword'] = $this->var()->prep($word);
                     // get the list of items to which this keyword is assigned
                     //TODO Make itemtype / modid dependant
-                    $items = $items + xarMod::apiFunc(
+                    $items = $items + $this->mod()->apiMethod(
                         'keywords',
                         'user',
                         'getitems',
@@ -119,7 +119,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                 foreach ($itemsB as $id => $item) {
                     if ($vars['itemid'] != $item['itemid'] || $vars['modid'] != $item['moduleid']
                     || $vars['itemtype'] != $item['itemtype']) {
-                        if ($articles = xarMod::apiFunc(
+                        if ($articles = $this->mod()->apiFunc(
                             'articles',
                             'user',
                             'get',

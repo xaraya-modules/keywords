@@ -21,8 +21,8 @@ class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock
     public function modify()
     {
         $vars = $this->getContent();
-        $vars['pubtypes'] = xarMod::apiFunc('articles', 'user', 'getpubtypes');
-        $vars['categorylist'] = xarMod::apiFunc('categories', 'user', 'getcat');
+        $vars['pubtypes'] = $this->mod()->apiFunc('articles', 'user', 'getpubtypes');
+        $vars['categorylist'] = $this->mod()->apiFunc('categories', 'user', 'getcat');
         $vars['statusoptions'] = [['id' => '3,2',
                                          'name' => $this->ml('All Published'), ],
                                    ['id' => '3',

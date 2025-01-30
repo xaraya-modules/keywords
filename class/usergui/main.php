@@ -47,7 +47,7 @@ class MainMethod extends MethodClass
         $redirect = $this->mod()->getVar('frontend_page');
         if (!empty($redirect)) {
             $truecurrenturl = $this->ctl()->getCurrentURL([], false);
-            $urldata = xarMod::apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
+            $urldata = $this->mod()->apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
             $this->ctl()->redirect($urldata['redirecturl']);
         } else {
             $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', $args));

@@ -68,7 +68,7 @@ class DisplayMethod extends MethodClass
             return [];
         }
 
-        $modinfo = xarMod::getInfo($item['moduleid']);
+        $modinfo = $this->mod()->getInfo($item['moduleid']);
         if (!isset($modinfo) || empty($modinfo['name'])) {
             return [];
         }
@@ -76,7 +76,7 @@ class DisplayMethod extends MethodClass
         if (!empty($item['itemtype'])) {
             // Get the list of all item types for this module (if any)
             try {
-                $mytypes = xarMod::apiFunc($modinfo['name'], 'user', 'getitemtypes');
+                $mytypes = $this->mod()->apiFunc($modinfo['name'], 'user', 'getitemtypes');
             } catch (Exception $e) {
                 $mytypes = [];
             }
@@ -90,7 +90,7 @@ class DisplayMethod extends MethodClass
         }
 
         try {
-            $itemlinks = xarMod::apiFunc(
+            $itemlinks = $this->mod()->apiFunc(
                 $modinfo['name'],
                 'user',
                 'getitemlinks',

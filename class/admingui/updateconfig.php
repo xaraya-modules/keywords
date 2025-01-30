@@ -66,7 +66,7 @@ class UpdateconfigMethod extends MethodClass
         $this->mod()->setVar('useitemtype', $useitemtype);
 
         if (isset($keywords) && is_array($keywords)) {
-            xarMod::apiFunc(
+            $this->mod()->apiMethod(
                 'keywords',
                 'admin',
                 'resetlimited'
@@ -77,7 +77,7 @@ class UpdateconfigMethod extends MethodClass
                     $itemtype = '0';
                 } else {
                     $moduleitem = explode(".", $modname);
-                    $moduleid = xarMod::getRegId($moduleitem[0], 'module');
+                    $moduleid = $this->mod()->getRegID($moduleitem[0], 'module');
                     if (isset($moduleitem[1]) && is_numeric($moduleitem[1])) {
                         $itemtype = $moduleitem[1];
                     } else {
@@ -110,7 +110,7 @@ class UpdateconfigMethod extends MethodClass
         if (isset($delimiters)) {
             $this->mod()->setVar('delimiters', trim($delimiters));
         }
-        $data['module_settings'] = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'keywords']);
+        $data['module_settings'] = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'keywords']);
         $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls, user_menu_link');
         $data['module_settings']->getItem();
 

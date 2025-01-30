@@ -60,7 +60,7 @@ class RemovehookMethod extends MethodClass
 
         $modname = $objectid;
 
-        $modid = xarMod::getRegId($modname);
+        $modid = $this->mod()->getRegID($modname);
         if (empty($modid)) {
             $msg = 'Invalid #(1) for #(2) module #(3) function #(4)()';
             $vars = ['objectid (module name)', 'keywords', 'adminapi', 'removehook'];

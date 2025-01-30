@@ -74,12 +74,12 @@ class UpdatehookMethod extends MethodClass
 
         // When called via hooks, the module name may be empty. Get it from current module.
         if (empty($extrainfo['module'])) {
-            $modname = xarMod::getName();
+            $modname = $this->mod()->getName();
         } else {
             $modname = $extrainfo['module'];
         }
 
-        $modid = xarMod::getRegId($modname);
+        $modid = $this->mod()->getRegID($modname);
         if (empty($modid)) {
             $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
             $vars = ['module', 'admin', 'updatehook', 'keywords'];

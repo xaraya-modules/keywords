@@ -25,7 +25,7 @@ function keywords_hooks_modulemodifyconfig(array $args = [], $context = null)
 
     $modname = $objectid;
 
-    $modid = xarMod::getRegId($modname);
+    $modid = xarMod::getRegID($modname);
     if (empty($modid)) {
         $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
         $vars = ['module', 'hooks', 'modifyconfig', 'keywords'];

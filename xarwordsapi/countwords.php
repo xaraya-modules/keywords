@@ -5,7 +5,7 @@ function keywords_wordsapi_countwords(array $args = [], $context = null)
     extract($args);
 
     if (!empty($module)) {
-        $module_id = xarMod::getRegId($module);
+        $module_id = xarMod::getRegID($module);
     }
     if (isset($module_id) && (empty($module_id) || !is_numeric($module_id))) {
         $invalid[] = 'module_id';
@@ -66,7 +66,7 @@ function keywords_wordsapi_countwords(array $args = [], $context = null)
     if (!empty($skip_restricted)) {
         $from['idx'] = "$idxtable idx";
         $where[] = '(idx.module_id != ? OR idx.itemid != 0)';
-        $bindvars[] = xarMod::getRegId('keywords');
+        $bindvars[] = xarMod::getRegID('keywords');
     }
 
     if (!empty($from['idx'])) {

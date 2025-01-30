@@ -61,7 +61,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
         } else {
             //Get the keywords related categories
             if ($this->var()->isCached('Blocks.articles', 'cids')) {
-                $vars['modid'] = xarMod::getRegId('categories');
+                $vars['modid'] = $this->mod()->getRegID('categories');
                 $vars['cids'] = $this->var()->getCached('Blocks.articles', 'cids');
                 if (empty($vars['cids']) || !is_array($vars['cids']) || count($vars['cids']) == 0) {
                     return '';
@@ -71,7 +71,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                 foreach ($vars['cids'] as $id => $cid) {
                     // if we're viewing all items below a certain category, i.e. catid = _NN
                     $cid = str_replace('_', '', $cid);
-                    $keywords = xarMod::apiFunc(
+                    $keywords = $this->mod()->apiMethod(
                         'keywords',
                         'user',
                         'getwords',
@@ -88,7 +88,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                 foreach ($keywords as $id => $word) {
                     // get the list of items to which this keyword is assigned
                     //TODO Make itemtype / modid dependant
-                    $items = $items + xarMod::apiFunc(
+                    $items = $items + $this->mod()->apiMethod(
                         'keywords',
                         'user',
                         'getitems',
@@ -107,7 +107,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                 }
                 foreach ($itemsB as $id => $item) {
                     if (!in_array($item['itemid'], $vars['cids'])) {
-                        $categories = xarMod::apiFunc(
+                        $categories = $this->mod()->apiFunc(
                             'categories',
                             'user',
                             'getcatinfo',

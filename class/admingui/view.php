@@ -101,7 +101,7 @@ class ViewMethod extends MethodClass
         if (empty($module_id)) {
             $modname = $itemtype = null;
         } else {
-            $modname = xarMod::getName($module_id);
+            $modname = $this->mod()->getName($module_id);
         }
 
         $data = [];
@@ -117,7 +117,7 @@ class ViewMethod extends MethodClass
             $modules[$module]['itemtypes'] = $itemtypes;
             if (!isset($modtypes[$module])) {
                 try {
-                    $modtypes[$module] = xarMod::apiFunc($module, 'user', 'getitemtypes');
+                    $modtypes[$module] = $this->mod()->apiFunc($module, 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $modtypes[$module] = [];
                 }
@@ -171,7 +171,7 @@ class ViewMethod extends MethodClass
                 $modules[$module]['itemlinks'][$typeid] = $itemids;
                 $itemids = array_keys($itemids);
                 try {
-                    $itemlinks = xarMod::apiFunc(
+                    $itemlinks = $this->mod()->apiFunc(
                         $module,
                         'user',
                         'getitemlinks',
@@ -299,9 +299,9 @@ class ViewMethod extends MethodClass
         $subjects = xarHooks::getObserverSubjects('keywords');
         if (!empty($subjects)) {
             foreach ($subjects as $hookedto => $hooks) {
-                $modinfo = xarMod::getInfo(xarMod::getRegID($hookedto));
+                $modinfo = $this->mod()->getInfo($this->mod()->getRegID($hookedto));
                 try {
-                    $itemtypes = xarMod::apiFunc($hookedto, 'user', 'getitemtypes');
+                    $itemtypes = $this->mod()->apiFunc($hookedto, 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $itemtypes = [];
                 }

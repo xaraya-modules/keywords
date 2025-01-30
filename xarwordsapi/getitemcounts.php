@@ -33,7 +33,7 @@ function keywords_wordsapi_getitemcounts(array $args = [], $context = null)
     }
 
     if (!empty($module)) {
-        $module_id = xarMod::getRegId($module);
+        $module_id = xarMod::getRegID($module);
     }
     if (isset($module_id) && (empty($module_id) || !is_numeric($module_id))) {
         $invalid[] = 'module_id';

@@ -5,7 +5,7 @@ function keywords_indexapi_createitem(array $args = [], $context = null)
     extract($args);
 
     if (!empty($module)) {
-        $module_id = xarMod::getId($module);
+        $module_id = xarMod::getID($module);
     }
     if (empty($module_id) || !is_numeric($module_id)) {
         $invalid[] = 'module_id';

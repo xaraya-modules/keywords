@@ -65,7 +65,7 @@ class GetkeywordhitsMethod extends MethodClass
         $q->addfield('COUNT(i.id) AS count');
 
         if ($args['cloudtype'] == 2) {
-            xarMod::apiLoad('hitcount');
+            $this->mod()->apiLoad('hitcount');
             $xartable = & $this->db()->getTables();
             $q->addtable($xartable['hitcount'], 'h');
             $q->join('k.module_id', 'h.module_id');

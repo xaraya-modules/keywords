@@ -22,10 +22,10 @@ class Keywords_SearchBlockAdmin extends Keywords_SearchBlock implements iBlock
         switch ($data['cloudtype']) {
             default:
             case 1:
-                if (!xarMod::isAvailable('categories')) $data['status'] = 'not_available';
+                if (!$this->mod()->isAvailable('categories')) $data['status'] = 'not_available';
                 break;
             case 3:
-                if (!xarMod::isAvailable('keywords')) $data['status'] = 'not_available';
+                if (!$this->mod()->isAvailable('keywords')) $data['status'] = 'not_available';
                 break;
         }
         return $data;

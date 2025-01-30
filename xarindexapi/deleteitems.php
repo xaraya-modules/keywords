@@ -12,7 +12,7 @@ function keywords_indexapi_deleteitems(array $args = [], $context = null)
     } elseif (isset($module) || isset($module_id)) {
         // deleting some items by module_id (+ itemtype) (+ itemid)
         if (!empty($module)) {
-            $module_id = xarMod::getRegId($module);
+            $module_id = xarMod::getRegID($module);
         }
         if (empty($module_id) || !is_numeric($module_id)) {
             $invalid[] = 'module_id';

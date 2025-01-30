@@ -75,11 +75,11 @@ class ModifyconfigMethod extends MethodClass
             $modname = 'keywords';
             $itemtype = null;
         } else {
-            $modname = xarMod::getName($module_id);
+            $modname = $this->mod()->getName($module_id);
         }
 
         if ($modname == 'keywords') {
-            $data['module_settings'] = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'keywords']);
+            $data['module_settings'] = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'keywords']);
             $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls, use_module_icons, frontend_page, backend_page');
             $data['module_settings']->getItem();
         }

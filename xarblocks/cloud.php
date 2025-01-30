@@ -61,7 +61,7 @@ class Keywords_CloudBlock extends BasicBlock
                 break;
             case 2:
             case 3:
-                $vars['tags'] = xarMod::apiFunc('keywords', 'user', 'getkeywordhits', ['cloudtype' => $vars['cloudtype']]);
+                $vars['tags'] = $this->mod()->apiMethod('keywords', 'user', 'getkeywordhits', ['cloudtype' => $vars['cloudtype']]);
                 break;
         }
         return $vars;

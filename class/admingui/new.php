@@ -51,7 +51,7 @@ class NewMethod extends MethodClass
         }
 
         $data = [];
-        $data['object'] = xarMod::apiFunc(
+        $data['object'] = $this->mod()->apiFunc(
             'dynamicdata',
             'user',
             'getobject',
