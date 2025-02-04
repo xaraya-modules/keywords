@@ -19,6 +19,8 @@ sys::import('modules.keywords.class.hooksapi');
 
 /**
  * Handle the keywords hooks GUI
+ *
+ * @method mixed modulemodifyconfig(array $args = [])
  * @extends UserGuiClass<Module>
  */
 class HooksGui extends UserGuiClass

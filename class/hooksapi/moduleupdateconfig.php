@@ -13,6 +13,8 @@ namespace Xaraya\Modules\Keywords\HooksApi;
 
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\HooksApi;
+use Xaraya\Modules\Keywords\AdminApi;
+use Xaraya\Modules\Keywords\WordsApi;
 use BadParameterException;
 use xarMod;
 use xarSecurity;
@@ -32,10 +34,17 @@ class ModuleupdateconfigMethod extends MethodClass
     /**
      * ModuleUpdateconfig Hook
      * Updates subject module (+itemtype) keywords configuration
+     * @see HooksApi::moduleupdateconfig()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var HooksApi $hooksapi */
+        $hooksapi = $this->hooksapi();
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
 
         if (empty($extrainfo)) {
             $extrainfo = [];
@@ -46,7 +55,7 @@ class ModuleupdateconfigMethod extends MethodClass
             if (!empty($extrainfo['module']) && is_string($extrainfo['module'])) {
                 $objectid = $extrainfo['module'];
             } else {
-                $objectid = xarMod::getName();
+                $objectid = $this->mod()->getName();
             }
         }
 
@@ -58,7 +67,7 @@ class ModuleupdateconfigMethod extends MethodClass
 
         $modname = $objectid;
 
-        $modid = xarMod::getRegID($modname);
+        $modid = $this->mod()->getRegID($modname);
         if (empty($modid)) {
             $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
             $vars = ['module', 'admin', 'moduleupdatehook', 'keywords'];
@@ -75,10 +84,7 @@ class ModuleupdateconfigMethod extends MethodClass
             return $extrainfo;
         }
 
-        $settings = xarMod::apiFunc(
-            'keywords',
-            'hooks',
-            'getsettings',
+        $settings = $hooksapi->getsettings(
             [
                 'module' => $modname,
                 'itemtype' => $itemtype,
@@ -97,7 +103,7 @@ class ModuleupdateconfigMethod extends MethodClass
             }
         }
 
-        if (!xarVar::fetch(
+        if (!$this->var()->fetch(
             'keywords_settings["global_config"]',
             'checkbox',
             $global_config,
@@ -106,7 +112,7 @@ class ModuleupdateconfigMethod extends MethodClass
         )) {
             return;
         }
-        if (!xarVar::fetch(
+        if (!$this->var()->fetch(
             'keywords_settings["auto_tag_create"]',
             'pre:trim:str:1:',
             $auto_tag_create,
@@ -115,7 +121,7 @@ class ModuleupdateconfigMethod extends MethodClass
         )) {
             return;
         }
-        if (!xarVar::fetch(
+        if (!$this->var()->fetch(
             'keywords_settings["auto_tag_persist"]',
             'checkbox',
             $auto_tag_persist,
@@ -125,7 +131,7 @@ class ModuleupdateconfigMethod extends MethodClass
             return;
         }
 
-        if (!xarVar::fetch(
+        if (!$this->var()->fetch(
             'keywords_settings["meta_keywords"]',
             'int:0:2',
             $meta_keywords,
@@ -135,7 +141,7 @@ class ModuleupdateconfigMethod extends MethodClass
             return;
         }
 
-        if (!xarVar::fetch(
+        if (!$this->var()->fetch(
             'keywords_settings["restrict_words"]',
             'checkbox',
             $restrict_words,
@@ -146,10 +152,7 @@ class ModuleupdateconfigMethod extends MethodClass
         }
 
         if (!empty($auto_tag_create)) {
-            $auto_tag_create = xarMod::apiFunc(
-                'keywords',
-                'admin',
-                'separekeywords',
+            $auto_tag_create = $adminapi->separatekeywords(
                 [
                     'keywords' => $auto_tag_create,
                 ]
@@ -157,7 +160,7 @@ class ModuleupdateconfigMethod extends MethodClass
         }
 
         if (!empty($meta_keywords)) {
-            if (!xarVar::fetch(
+            if (!$this->var()->fetch(
                 'keywords_settings["meta_lang"]',
                 'pre:trim:lower:str:1:',
                 $meta_lang,
@@ -172,7 +175,7 @@ class ModuleupdateconfigMethod extends MethodClass
         // when switching between restricted and unrestricted we want to preserve settings
         $status_quo = $restrict_words == $settings['restrict_words'];
         if ($restrict_words && $status_quo) {
-            if (!xarVar::fetch(
+            if (!$this->var()->fetch(
                 'keywords_settings["restricted_list"]',
                 'pre:trim:str:1:',
                 $restricted_list,
@@ -181,7 +184,7 @@ class ModuleupdateconfigMethod extends MethodClass
             )) {
                 return;
             }
-            if (!xarVar::fetch(
+            if (!$this->var()->fetch(
                 'keywords_settings["allow_manager_add"]',
                 'checkbox',
                 $allow_manager_add,
@@ -191,18 +194,12 @@ class ModuleupdateconfigMethod extends MethodClass
                 return;
             }
             $settings['allow_manager_add'] = $allow_manager_add;
-            $old_list = xarMod::apiFunc(
-                'keywords',
-                'words',
-                'getwords',
+            $old_list = $wordsapi->getwords(
                 [
                     'index_id' => $settings['index_id'],
                 ]
             );
-            $new_list = xarMod::apiFunc(
-                'keywords',
-                'admin',
-                'separekeywords',
+            $new_list = $adminapi->separatekeywords(
                 [
                     'keywords' => $restricted_list,
                 ]
@@ -218,10 +215,7 @@ class ModuleupdateconfigMethod extends MethodClass
             $toremove = array_diff($old_list, $new_list);
 
             if (!empty($toadd)) {
-                if (!xarMod::apiFunc(
-                    'keywords',
-                    'words',
-                    'createitems',
+                if (!$wordsapi->createitems(
                     [
                         'index_id' => $settings['index_id'],
                         'keyword' => $toadd,
@@ -231,10 +225,7 @@ class ModuleupdateconfigMethod extends MethodClass
                 }
             }
             if (!empty($toremove)) {
-                if (!xarMod::apiFunc(
-                    'keywords',
-                    'words',
-                    'deleteitems',
+                if (!$wordsapi->deleteitems(
                     [
                         'index_id' => $settings['index_id'],
                         'keyword' => $toremove,
@@ -250,10 +241,7 @@ class ModuleupdateconfigMethod extends MethodClass
         $settings['auto_tag_persist'] = $auto_tag_persist;
         $settings['meta_keywords'] = $meta_keywords;
         $settings['restrict_words'] = $restrict_words;
-        if (!xarMod::apiFunc(
-            'keywords',
-            'hooks',
-            'updatesettings',
+        if (!$hooksapi->updatesettings(
             [
                 'module' => $modname,
                 'itemtype' => $itemtype,

@@ -28,6 +28,12 @@ class CountitemsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \BadParameterException
+     * @see IndexApi::countitems()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
@@ -37,7 +43,7 @@ class CountitemsMethod extends MethodClass
         }
 
         if (!empty($module)) {
-            $module_id = xarMod::getRegID($module);
+            $module_id = $this->mod()->getRegID($module);
         }
         if (isset($module_id) && (empty($module_id) || !is_numeric($module_id))) {
             $invalid[] = 'module_id';
@@ -57,8 +63,8 @@ class CountitemsMethod extends MethodClass
             throw new BadParameterException($vars, $msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
         $idxtable = $tables['keywords_index'];
 
         $select = [];

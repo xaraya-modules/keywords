@@ -140,7 +140,7 @@ class ModifyhookMethod extends MethodClass
         }
         // we may have been given a string list
         if (!empty($keywords) && !is_array($keywords)) {
-            $keywords = $adminapi->separekeywords(
+            $keywords = $adminapi->separatekeywords(
                 [
                     'keywords' => $keywords,
                 ]
@@ -197,7 +197,7 @@ class ModifyhookMethod extends MethodClass
                     }
                     // we may have been given a string list
                     if (!empty($toadd) && !is_array($toadd)) {
-                        $toadd = $adminapi->separekeywords(
+                        $toadd = $adminapi->separatekeywords(
                             [
                                 'keywords' => $toadd,
                             ]

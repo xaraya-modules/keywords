@@ -39,8 +39,9 @@ class ModifyconfigMethod extends MethodClass
      * configuration parameters.
      * @author mikespub
      * @access public
-     * @param int $restricted 1 for pregiven keyword list, 0 for free input
-     * @param int $useitemtype 1 for itemtype specific keyword lists
+     * @param array<mixed> $args
+     * @var int $restricted 1 for pregiven keyword list, 0 for free input
+     * @var int $useitemtype 1 for itemtype specific keyword lists
      * @return bool|string|void on success or void on failure
      * @todo nothing
      * @see AdminGui::modifyconfig()

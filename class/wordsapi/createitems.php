@@ -28,6 +28,13 @@ class CreateitemsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \BadParameterException
+     * @return bool
+     * @see WordsApi::createitems()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
@@ -62,8 +69,8 @@ class CreateitemsMethod extends MethodClass
             throw new BadParameterException($vars, $msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
         $wordstable = $tables['keywords'];
 
         $values = [];

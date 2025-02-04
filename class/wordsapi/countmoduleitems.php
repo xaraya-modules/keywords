@@ -26,12 +26,17 @@ class CountmoduleitemsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @see WordsApi::countmoduleitems()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
 
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
         $wordstable = $tables['keywords'];
         $idxtable = $tables['keywords_index'];
         $modstable = $tables['modules'];

@@ -45,13 +45,14 @@ class GetwordcountsMethod extends MethodClass
      * @var string $args [index_key]
      * @return array
      * @throws \BadParameterException SQLException
+     * @see WordsApi::getwordcounts()
      */
     public function __invoke(array $args = [])
     {
         extract($args);
 
         if (!empty($module)) {
-            $module_id = xarMod::getRegID($module);
+            $module_id = $this->mod()->getRegID($module);
         }
         if (isset($module_id) && (empty($module_id) || !is_numeric($module_id))) {
             $invalid[] = 'module_id';
@@ -76,8 +77,8 @@ class GetwordcountsMethod extends MethodClass
         // optionally by module/itemtype
         // sort on name or count
 
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
         $wordstable = $tables['keywords'];
         $idxtable = $tables['keywords_index'];
 
@@ -115,7 +116,7 @@ class GetwordcountsMethod extends MethodClass
         if (!empty($skip_restricted)) {
             $from['idx'] = "$idxtable idx";
             $where[] = '(idx.module_id != ? OR idx.itemid != 0)';
-            $bindvars[] = xarMod::getRegID('keywords');
+            $bindvars[] = $this->mod()->getRegID('keywords');
         }
 
         if (!empty($from['idx'])) {

@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Keywords\WordsApi;
 
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\WordsApi;
+use Xaraya\Modules\Keywords\AdminApi;
 use BadParameterException;
 use xarDB;
 use xarMod;
@@ -28,9 +29,18 @@ class GetitemcountsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \BadParameterException
+     * @return array<array>
+     * @see WordsApi::getitemcounts()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
 
         if (isset($id) && (empty($id) || !is_numeric($id))) {
             $invalid[] = 'id';
@@ -39,10 +49,7 @@ class GetitemcountsMethod extends MethodClass
         if (isset($keyword)) {
             // we may have been given a string list
             if (!empty($keyword) && !is_array($keyword)) {
-                $keyword = xarMod::apiFunc(
-                    'keywords',
-                    'admin',
-                    'separatekeywords',
+                $keyword = $adminapi->separatekeywords(
                     [
                         'keywords' => $keyword,
                     ]
@@ -61,7 +68,7 @@ class GetitemcountsMethod extends MethodClass
         }
 
         if (!empty($module)) {
-            $module_id = xarMod::getRegID($module);
+            $module_id = $this->mod()->getRegID($module);
         }
         if (isset($module_id) && (empty($module_id) || !is_numeric($module_id))) {
             $invalid[] = 'module_id';
@@ -81,8 +88,8 @@ class GetitemcountsMethod extends MethodClass
             throw new BadParameterException($vars, $msg);
         }
 
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
         $wordstable = $tables['keywords'];
         $idxtable = $tables['keywords_index'];
         $modstable = $tables['modules'];

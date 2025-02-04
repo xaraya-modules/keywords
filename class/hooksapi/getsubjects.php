@@ -28,6 +28,12 @@ class GetsubjectsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @return array<mixed>
+     * @see HooksApi::getsubjects()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
@@ -39,9 +45,9 @@ class GetsubjectsMethod extends MethodClass
         $subjects = xarHooks::getObserverSubjects('keywords', $module);
         if (!empty($subjects)) {
             foreach ($subjects as $hookedto => $hooks) {
-                $modinfo = xarMod::getInfo(xarMod::getRegID($hookedto));
+                $modinfo = $this->mod()->getInfo($this->mod()->getRegID($hookedto));
                 try {
-                    $itemtypes = xarMod::apiFunc($hookedto, 'user', 'getitemtypes');
+                    $itemtypes = $this->mod()->apiFunc($hookedto, 'user', 'getitemtypes');
                 } catch (Exception $e) {
                     $itemtypes = [];
                 }

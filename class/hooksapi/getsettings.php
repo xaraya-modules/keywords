@@ -27,15 +27,20 @@ class GetsettingsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @see HooksApi::getsettings()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
 
         if (!empty($module_id)) {
-            $module = xarMod::getName($module_id);
+            $module = $this->mod()->getName($module_id);
         }
         if (empty($module)) {
-            $module = xarMod::getName();
+            $module = $this->mod()->getName();
         }
 
         if (empty($itemtype)) {

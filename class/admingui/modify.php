@@ -37,10 +37,11 @@ class ModifyMethod extends MethodClass
 
     /**
      * modify existing keywords assignment
-     * @param int module_id id of the module the item belongs to, required
-     * @param int itemtype, id of the module itemtype the item belongs to, optional
-     * @param int itemid, id of the item
-     * @param string phase, current function phase (form)|update
+     * @param array<mixed> $args
+     * @var int module_id id of the module the item belongs to, required
+     * @var int itemtype, id of the module itemtype the item belongs to, optional
+     * @var int itemid, id of the item
+     * @var string phase, current function phase (form)|update
      * @return mixed array of template data in form phase or bool redirected in update phase
      * @throws \EmptyParameterException
      * @see AdminGui::modify()

@@ -36,9 +36,10 @@ class UpdateconfigMethod extends MethodClass
 
     /**
      * Update configuration
-     * @param int restricted
-     * @param int useitemtype
-     * @param array keywords (default = empty)
+     * @param array<mixed> $args
+     * @var int restricted
+     * @var int useitemtype
+     * @var array keywords (default = empty)
      * @return mixed true on succes and redirect to URL
      * @see AdminGui::updateconfig()
      */

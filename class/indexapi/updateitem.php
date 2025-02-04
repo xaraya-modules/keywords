@@ -26,6 +26,13 @@ class UpdateitemMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \ForbiddenOperationException
+     * @return never
+     * @see IndexApi::updateitem()
+     */
     public function __invoke(array $args = [])
     {
         // there's absolutely no good reason to need this, once created an index never changes

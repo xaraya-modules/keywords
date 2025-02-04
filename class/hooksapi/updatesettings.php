@@ -27,25 +27,30 @@ class UpdatesettingsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @return bool|void
+     * @see HooksApi::updatesettings()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var HooksApi $hooksapi */
+        $hooksapi = $this->hooksapi();
 
         if (isset($module_id)) {
-            $module = xarMod::getName($module_id);
+            $module = $this->mod()->getName($module_id);
         }
         if (!isset($module)) {
-            $module = xarMod::getName();
+            $module = $this->mod()->getName();
         }
 
         if (empty($itemtype)) {
             $itemtype = 0;
         }
 
-        $defaults = xarMod::apiFunc(
-            'keywords',
-            'hooks',
-            'getsettings',
+        $defaults = $hooksapi->getsettings(
             [
                 'module' => $module,
                 'itemtype' => $itemtype,

@@ -18,6 +18,11 @@ sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the keywords hooks API
+ *
+ * @method mixed getsettings(array $args = [])
+ * @method mixed getsubjects(array $args = [])
+ * @method mixed moduleupdateconfig(array $args = []) ModuleUpdateconfig Hook - Updates subject module (+itemtype) keywords configuration
+ * @method mixed updatesettings(array $args = [])
  * @extends UserApiClass<Module>
  */
 class HooksApi extends UserApiClass

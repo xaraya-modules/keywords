@@ -26,9 +26,16 @@ class GetwordsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @see WordsApi::getwords()
+     */
     public function __invoke(array $args = [])
     {
-        $items = xarMod::apiFunc('keywords', 'words', 'getitems', $args);
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
+        $items = $wordsapi->getitems($args);
         if (empty($items)) {
             return $items;
         }

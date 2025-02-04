@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Keywords\WordsApi;
 
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\WordsApi;
+use Xaraya\Modules\Keywords\AdminApi;
 use BadParameterException;
 use xarDB;
 use xarMod;
@@ -28,9 +29,17 @@ class CountitemsMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \BadParameterException
+     * @see WordsApi::countitems()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
 
         if (isset($id) && (empty($id) || !is_numeric($id))) {
             $invalid[] = 'id';
@@ -43,10 +52,7 @@ class CountitemsMethod extends MethodClass
         if (isset($keyword)) {
             // we may have been given a string list
             if (!empty($keyword) && !is_array($keyword)) {
-                $keyword = xarMod::apiFunc(
-                    'keywords',
-                    'admin',
-                    'separatekeywords',
+                $keyword = $adminapi->separatekeywords(
                     [
                         'keywords' => $keyword,
                     ]
@@ -65,7 +71,7 @@ class CountitemsMethod extends MethodClass
         }
 
         if (!empty($module)) {
-            $module_id = xarMod::getRegID($module);
+            $module_id = $this->mod()->getRegID($module);
         }
         if (isset($module_id) && (empty($module_id) || !is_numeric($module_id))) {
             $invalid[] = 'module_id';
@@ -86,8 +92,8 @@ class CountitemsMethod extends MethodClass
         }
 
 
-        $dbconn = xarDB::getConn();
-        $tables = & xarDB::getTables();
+        $dbconn = $this->db()->getConn();
+        $tables = & $this->db()->getTables();
         $wordstable = $tables['keywords'];
         $idxtable = $tables['keywords_index'];
         $modstable = $tables['modules'];
@@ -145,7 +151,7 @@ class CountitemsMethod extends MethodClass
         if (!empty($skip_restricted)) {
             $from['idx'] = "$idxtable idx";
             $where[] = '(idx.module_id != ? OR idx.itemid != 0)';
-            $bindvars[] = xarMod::getRegID('keywords');
+            $bindvars[] = $this->mod()->getRegID('keywords');
         }
 
         if (!empty($from['idx'])) {

@@ -9,10 +9,12 @@
  * @link https://github.com/mikespub/xaraya-modules
 **/
 
-namespace Xaraya\Modules\Keywords\Hooks;
+namespace Xaraya\Modules\Keywords\HooksGui;
 
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\HooksGui;
+use Xaraya\Modules\Keywords\HooksApi;
+use Xaraya\Modules\Keywords\WordsApi;
 use BadParameterException;
 use xarMod;
 use xarTpl;
@@ -28,9 +30,20 @@ class ModulemodifyconfigMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \BadParameterException
+     * @return string
+     * @see HooksGui::modulemodifyconfig()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var HooksApi $hooksapi */
+        $hooksapi = $this->hooksapi();
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
 
         if (empty($extrainfo)) {
             $extrainfo = [];
@@ -41,7 +54,7 @@ class ModulemodifyconfigMethod extends MethodClass
             if (!empty($extrainfo['module']) && is_string($extrainfo['module'])) {
                 $objectid = $extrainfo['module'];
             } else {
-                $objectid = xarMod::getName();
+                $objectid = $this->mod()->getName();
             }
         }
 
@@ -53,7 +66,7 @@ class ModulemodifyconfigMethod extends MethodClass
 
         $modname = $objectid;
 
-        $modid = xarMod::getRegID($modname);
+        $modid = $this->mod()->getRegID($modname);
         if (empty($modid)) {
             $msg = 'Invalid #(1) for #(2) function #(3)() in module #(4)';
             $vars = ['module', 'hooks', 'modifyconfig', 'keywords'];
@@ -66,10 +79,7 @@ class ModulemodifyconfigMethod extends MethodClass
             $itemtype = 0;
         }
 
-        $data = xarMod::apiFunc(
-            'keywords',
-            'hooks',
-            'getsettings',
+        $data = $hooksapi->getsettings(
             [
                 'module' => $modname,
                 'itemtype' => $itemtype,
@@ -77,10 +87,7 @@ class ModulemodifyconfigMethod extends MethodClass
         );
 
         if (!empty($data['restrict_words'])) {
-            $restricted_list = xarMod::apiFunc(
-                'keywords',
-                'words',
-                'getwords',
+            $restricted_list = $wordsapi->getwords(
                 [
                     'index_id' => $data['index_id'],
                 ]
@@ -97,6 +104,6 @@ class ModulemodifyconfigMethod extends MethodClass
         $data['itemtype'] = $itemtype;
 
         $data['context'] ??= $this->getContext();
-        return xarTpl::module('keywords', 'hooks', 'modulemodifyconfig', $data);
+        return $this->tpl()->module('keywords', 'hooks', 'modulemodifyconfig', $data);
     }
 }

@@ -28,12 +28,20 @@ class GetidMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \BadParameterException
+     * @see IndexApi::getid()
+     */
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var IndexApi $indexapi */
+        $indexapi = $this->indexapi();
 
         if (!empty($module)) {
-            $module_id = xarMod::getRegID($module);
+            $module_id = $this->mod()->getRegID($module);
         }
         if (empty($module_id) || !is_numeric($module_id)) {
             $invalid[] = 'module_id';
@@ -60,24 +68,18 @@ class GetidMethod extends MethodClass
         }
 
         $cacheKey = "$module_id:$itemtype:$itemid";
-        if (xarCoreCache::isCached('Keywords.Index', $cacheKey)) {
-            return xarCoreCache::getCached('Keywords.Index', $cacheKey);
+        if ($this->var()->isCached('Keywords.Index', $cacheKey)) {
+            return $this->var()->getCached('Keywords.Index', $cacheKey);
         }
 
-        if (!$item = xarMod::apiFunc(
-            'keywords',
-            'index',
-            'getitem',
+        if (!$item = $indexapi->getitem(
             [
                 'module_id' => $module_id,
                 'itemtype' => $itemtype,
                 'itemid' => $itemid,
             ]
         )) {
-            $item = xarMod::apiFunc(
-                'keywords',
-                'index',
-                'createitem',
+            $item = $indexapi->createitem(
                 [
                     'module_id' => $module_id,
                     'itemtype' => $itemtype,
@@ -86,7 +88,7 @@ class GetidMethod extends MethodClass
             );
         }
 
-        xarCoreCache::setCached('Keywords.Index', $cacheKey, $item['id']);
+        $this->var()->setCached('Keywords.Index', $cacheKey, $item['id']);
 
         return $item['id'];
     }

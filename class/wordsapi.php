@@ -18,6 +18,17 @@ sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the keywords words API
+ *
+ * @method mixed countitems(array $args = [])
+ * @method mixed countmoduleitems(array $args = [])
+ * @method mixed countwords(array $args = [])
+ * @method mixed createitems(array $args = [])
+ * @method mixed deleteitems(array $args = [])
+ * @method mixed getitemcounts(array $args = [])
+ * @method mixed getitems(array $args = [])
+ * @method mixed getmodulecounts(array $args = [])
+ * @method mixed getwordcounts(array $args)
+ * @method mixed getwords(array $args = [])
  * @extends UserApiClass<Module>
  */
 class WordsApi extends UserApiClass

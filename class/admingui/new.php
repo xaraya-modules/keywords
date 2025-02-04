@@ -34,7 +34,7 @@ class NewMethod extends MethodClass
 
     /**
      * create new keywords assignment
-     * @param array $args with confirm
+     * @param array<mixed> $args with confirm
      * @return array|bool|void with data
      * @see AdminGui::new()
      */

@@ -27,8 +27,16 @@ class DeleteitemMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \BadParameterException
+     * @see IndexApi::deleteitem()
+     */
     public function __invoke(array $args = [])
     {
+        /** @var IndexApi $indexapi */
+        $indexapi = $this->indexapi();
         if (empty($args['id']) || !is_numeric($args['id'])) {
             $invalid[] = 'id';
         }
@@ -39,6 +47,6 @@ class DeleteitemMethod extends MethodClass
             throw new BadParameterException($vars, $msg);
         }
 
-        return xarMod::apiFunc('keywords', 'index', 'deleteitems', $args);
+        return $indexapi->deleteitems($args);
     }
 }

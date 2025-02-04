@@ -27,15 +27,23 @@ class GetitemMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
+    /**
+     * Summary of __invoke
+     * @param array<mixed> $args
+     * @throws \EmptyParameterException
+     * @see IndexApi::getitem()
+     */
     public function __invoke(array $args = [])
     {
+        /** @var IndexApi $indexapi */
+        $indexapi = $this->indexapi();
         if (empty($args)) {
             $msg = 'Missing #(1) for #(2) module #(3) function #(4)()';
             $vars = ['arguments', 'keywords', 'indexapi', 'getitem'];
             throw new EmptyParameterException($vars, $msg);
         }
 
-        $items = xarMod::apiFunc('keywords', 'index', 'getitems', $args);
+        $items = $indexapi->getitems($args);
 
         if (empty($items)) {
             return false;

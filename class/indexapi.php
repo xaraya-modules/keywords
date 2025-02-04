@@ -18,6 +18,15 @@ sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the keywords index API
+ *
+ * @method mixed countitems(array $args = [])
+ * @method mixed createitem(array $args = [])
+ * @method mixed deleteitem(array $args = [])
+ * @method mixed deleteitems(array $args = [])
+ * @method mixed getid(array $args = [])
+ * @method mixed getitem(array $args = [])
+ * @method mixed getitems(array $args = [])
+ * @method mixed updateitem(array $args = [])
  * @extends UserApiClass<Module>
  */
 class IndexApi extends UserApiClass
