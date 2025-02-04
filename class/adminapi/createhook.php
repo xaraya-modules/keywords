@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,12 +11,11 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
-
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarMod;
 use xarSecurity;
 use xarVar;
@@ -24,7 +23,7 @@ use xarModVars;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords adminapi createhook function
@@ -97,14 +96,16 @@ class CreatehookMethod extends MethodClass
         //    return $extrainfo;
 
         // get settings currently in force for this module/itemtype
-        $settings = $hooksapi->getsettings([
+        $settings = $hooksapi->getsettings(
+            [
                 'module' => $modname,
                 'itemtype' => $itemtype,
             ]
         );
 
         // get the index_id for this module/itemtype/item
-        $index_id = $indexapi->getid([
+        $index_id = $indexapi->getid(
+            [
                 'module' => $modname,
                 'itemtype' => $itemtype,
                 'itemid' => $itemid,
@@ -129,7 +130,8 @@ class CreatehookMethod extends MethodClass
 
         // we may have been given a string list
         if (!empty($keywords) && !is_array($keywords)) {
-            $keywords = $adminapi->separatekeywords([
+            $keywords = $adminapi->separatekeywords(
+                [
                     'keywords' => $keywords,
                 ]
             );
@@ -141,7 +143,8 @@ class CreatehookMethod extends MethodClass
         } //$keywords = array();
 
         if (!empty($settings['restrict_words'])) {
-            $restricted_list = $wordsapi->getwords([
+            $restricted_list = $wordsapi->getwords(
+                [
                     'index_id' => $settings['index_id'],
                 ]
             );
@@ -156,7 +159,8 @@ class CreatehookMethod extends MethodClass
         } //$keywords = array();
 
         // have keywords, create associations
-        if (!$wordsapi->createitems([
+        if (!$wordsapi->createitems(
+            [
                 'index_id' => $index_id,
                 'keyword' => $keywords,
             ]

@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,12 +11,11 @@
 
 namespace Xaraya\Modules\Keywords\UserGui;
 
-
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarMod;
 use xarSecurity;
 use xarModVars;
@@ -25,7 +24,7 @@ use xarTpl;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords user displayhook function
@@ -96,7 +95,8 @@ class DisplayhookMethod extends MethodClass
         }
 
         // get settings currently in force for this module/itemtype
-        $data = $hooksapi->getsettings([
+        $data = $hooksapi->getsettings(
+            [
                 'module' => $modname,
                 'itemtype' => $itemtype,
             ]
@@ -107,7 +107,8 @@ class DisplayhookMethod extends MethodClass
         $delimiter = !empty($delimiters) ? $delimiters[0] : ',';
 
         // get the index_id for this module/itemtype/item
-        $index_id = $indexapi->getid([
+        $index_id = $indexapi->getid(
+            [
                 'module' => $modname,
                 'itemtype' => $itemtype,
                 'itemid' => $itemid,
@@ -115,7 +116,8 @@ class DisplayhookMethod extends MethodClass
         );
 
         // get the keywords associated with this item
-        $keywords = $wordsapi->getwords([
+        $keywords = $wordsapi->getwords(
+            [
                 'index_id' => $index_id,
             ]
         );
@@ -128,7 +130,8 @@ class DisplayhookMethod extends MethodClass
 
         // config may have changed since the keywords were added
         if (!empty($data['restrict_words'])) {
-            $restricted_list = $wordsapi->getwords([
+            $restricted_list = $wordsapi->getwords(
+                [
                     'index_id' => $data['index_id'],
                 ]
             );

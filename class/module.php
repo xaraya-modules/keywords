@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -22,6 +22,9 @@ class Module extends ModuleClass
     {
         parent::setClassTypes();
         // add other class types for keywords
-        //$this->classtypes['utilapi'] = 'UtilApi';
+        $this->classtypes['hooksapi'] = 'HooksApi';
+        $this->classtypes['hooksgui'] = 'HooksGui';
+        $this->classtypes['indexapi'] = 'IndexApi';
+        $this->classtypes['wordsapi'] = 'WordsApi';
     }
 }

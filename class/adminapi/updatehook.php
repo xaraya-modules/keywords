@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,12 +11,11 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
-
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarVar;
 use xarMod;
 use xarSecurity;
@@ -24,7 +23,7 @@ use xarModVars;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords adminapi updatehook function
@@ -99,14 +98,16 @@ class UpdatehookMethod extends MethodClass
         }
 
         // get settings currently in force for this module/itemtype
-        $settings = $hooksapi->getsettings([
+        $settings = $hooksapi->getsettings(
+            [
                 'module' => $modname,
                 'itemtype' => $itemtype,
             ]
         );
 
         // get the index_id for this module/itemtype/item
-        $index_id = $indexapi->getid([
+        $index_id = $indexapi->getid(
+            [
                 'module' => $modname,
                 'itemtype' => $itemtype,
                 'itemid' => $itemid,
@@ -136,7 +137,8 @@ class UpdatehookMethod extends MethodClass
 
         // we may have been given a string list
         if (!empty($keywords) && !is_array($keywords)) {
-            $keywords = $adminapi->separekeywords([
+            $keywords = $adminapi->separekeywords(
+                [
                     'keywords' => $keywords,
                 ]
             );
@@ -153,13 +155,15 @@ class UpdatehookMethod extends MethodClass
         }
 
         // get the current keywords associated with this item
-        $oldwords = $wordsapi->getwords([
+        $oldwords = $wordsapi->getwords(
+            [
                 'index_id' => $index_id,
             ]
         );
 
         if (!empty($settings['restrict_words'])) {
-            $restricted_list = $wordsapi->getwords([
+            $restricted_list = $wordsapi->getwords(
+                [
                     'index_id' => $settings['index_id'],
                 ]
             );
@@ -187,14 +191,16 @@ class UpdatehookMethod extends MethodClass
                     }
                     // we may have been given a string list
                     if (!empty($toadd) && !is_array($toadd)) {
-                        $toadd = $adminapi->separekeywords([
+                        $toadd = $adminapi->separekeywords(
+                            [
                                 'keywords' => $toadd,
                             ]
                         );
                     }
                     if (!empty($toadd)) {
                         // add words to restricted list
-                        if (!$wordsapi->createitems([
+                        if (!$wordsapi->createitems(
+                            [
                                 'index_id' => $settings['index_id'],
                                 'keyword' => array_unique(array_diff($toadd, $keywords)),
                             ]
@@ -211,7 +217,8 @@ class UpdatehookMethod extends MethodClass
         $toremove = array_filter(array_unique(array_diff($oldwords, $keywords)));
 
         if (!empty($toadd)) {
-            if (!$wordsapi->createitems([
+            if (!$wordsapi->createitems(
+                [
                     'index_id' => $index_id,
                     'keyword' => $toadd,
                 ]
@@ -220,7 +227,8 @@ class UpdatehookMethod extends MethodClass
             }
         }
         if (!empty($toremove)) {
-            if (!$wordsapi->deleteitems([
+            if (!$wordsapi->deleteitems(
+                [
                     'index_id' => $index_id,
                     'keyword' => $toremove,
                 ]

@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,10 +11,9 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
-
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\AdminApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSec;
 use xarSecurity;
 use xarVar;
@@ -25,7 +24,7 @@ use xarController;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords admin updateconfig function
@@ -77,7 +76,7 @@ class UpdateconfigMethod extends MethodClass
                     $itemtype = '0';
                 } else {
                     $moduleitem = explode(".", $modname);
-                    $moduleid = $this->mod()->getRegID($moduleitem[0], 'module');
+                    $moduleid = $this->mod()->getRegID($moduleitem[0]);
                     if (isset($moduleitem[1]) && is_numeric($moduleitem[1])) {
                         $itemtype = $moduleitem[1];
                     } else {
@@ -85,7 +84,8 @@ class UpdateconfigMethod extends MethodClass
                     }
                 }
                 if ($value <> '') {
-                    $adminapi->limited(['moduleid' => $moduleid,
+                    $adminapi->limited(
+                        ['moduleid' => $moduleid,
                             'keyword'  => $value,
                             'itemtype' => $itemtype, ]
                     );

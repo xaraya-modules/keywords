@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,11 +11,10 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
-
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\HooksGui;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarVar;
 use xarMod;
@@ -25,7 +24,7 @@ use xarModVars;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords admin modifyconfig function
@@ -134,7 +133,8 @@ class ModifyconfigMethod extends MethodClass
                     //}
                 }
             }
-            if (!$hooksapi->moduleupdateconfig([
+            if (!$hooksapi->moduleupdateconfig(
+                [
                     'objectid' => $modname,
                     'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype],
                 ]
@@ -187,7 +187,8 @@ class ModifyconfigMethod extends MethodClass
         }
 
         $data['subjects'] = $hooksapi->getsubjects();
-        $data['hook_config'] = $hooksgui->modulemodifyconfig([
+        $data['hook_config'] = $hooksgui->modulemodifyconfig(
+            [
                 'objectid' => $modname,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype],
             ]

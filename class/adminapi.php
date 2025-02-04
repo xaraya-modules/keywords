@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -32,5 +32,6 @@ sys::import('xaraya.modules.adminapi');
  */
 class AdminApi extends AdminApiClass
 {
+    use OtherApiTrait;
     // ...
 }

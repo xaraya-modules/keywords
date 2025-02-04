@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,12 +11,11 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
-
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\UserGui;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarVar;
 use xarController;
@@ -26,7 +25,7 @@ use sys;
 use EmptyParameterException;
 use Exception;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords admin delete function
@@ -144,7 +143,8 @@ class DeleteMethod extends MethodClass
                 return $this->ctl()->badRequest('bad_author');
             }
             // get the index_id for this module/itemtype/item
-            $index_id = $indexapi->getid([
+            $index_id = $indexapi->getid(
+                [
                     'module' => $modname,
                     'itemtype' => $itemtype,
                     'itemid' => $itemid,
@@ -152,7 +152,8 @@ class DeleteMethod extends MethodClass
             );
 
             // delete all keywords associated with this item
-            if (!$wordsapi->deleteitems([
+            if (!$wordsapi->deleteitems(
+                [
                     'index_id' => $index_id,
                 ]
             )) {
@@ -183,7 +184,8 @@ class DeleteMethod extends MethodClass
             ];
         }
 
-        $modlist = $wordsapi->getmodulecounts([
+        $modlist = $wordsapi->getmodulecounts(
+            [
                 'skip_restricted' => true,
             ]
         );
@@ -222,7 +224,8 @@ class DeleteMethod extends MethodClass
         $data['item'] = $item;
         $data['return_url'] = $return_url;
 
-        $data['display_hook'] = $usergui->displayhook([
+        $data['display_hook'] = $usergui->displayhook(
+            [
                 'objectid' => $itemid,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid, 'showlabel' => false, 'tpltype' => 'admin'],
             ]

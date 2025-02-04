@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,12 +11,11 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
-
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarMod;
 use xarSecurity;
 use xarVar;
@@ -25,7 +24,7 @@ use xarTpl;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords admin newhook function
@@ -93,7 +92,8 @@ class NewhookMethod extends MethodClass
         }
 
         // get settings currently in force for this module/itemtype
-        $settings = $hooksapi->getsettings([
+        $settings = $hooksapi->getsettings(
+            [
                 'module' => $modname,
                 'itemtype' => $itemtype,
             ]
@@ -117,7 +117,8 @@ class NewhookMethod extends MethodClass
 
         // we may have been given a string list
         if (!empty($keywords) && !is_array($keywords)) {
-            $keywords = $adminapi->separatekeywords([
+            $keywords = $adminapi->separatekeywords(
+                [
                     'keywords' => $keywords,
                 ]
             );
@@ -139,7 +140,8 @@ class NewhookMethod extends MethodClass
             $data['keywords'] = !empty($keywords) ? implode($delimiter, $keywords) : '';
         } else {
             // get restricted list based on current settings
-            $data['restricted_list'] = $wordsapi->getwords([
+            $data['restricted_list'] = $wordsapi->getwords(
+                [
                     'index_id' => $settings['index_id'],
                 ]
             );

@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,12 +11,11 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
-
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\UserGui;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarVar;
 use xarMod;
@@ -26,7 +25,7 @@ use sys;
 use EmptyParameterException;
 use Exception;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords admin modify function
@@ -150,7 +149,8 @@ class ModifyMethod extends MethodClass
                 );
                 $this->ctl()->redirect($delete_url);
             }
-            $adminapi->updatehook([
+            $adminapi->updatehook(
+                [
                     'objectid' => $itemid,
                     'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid],
                 ]
@@ -191,7 +191,8 @@ class ModifyMethod extends MethodClass
             ];
         }
 
-        $modlist = $wordsapi->getmodulecounts([
+        $modlist = $wordsapi->getmodulecounts(
+            [
                 'skip_restricted' => true,
             ]
         );
@@ -230,12 +231,14 @@ class ModifyMethod extends MethodClass
         $data['item'] = $item;
         $data['return_url'] = $return_url;
 
-        $data['modify_hook'] = $admingui->modifyhook([
+        $data['modify_hook'] = $admingui->modifyhook(
+            [
                 'objectid' => $itemid,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid],
             ]
         );
-        $data['display_hook'] = $usergui->displayhook([
+        $data['display_hook'] = $usergui->displayhook(
+            [
                 'objectid' => $itemid,
                 'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype, 'itemid' => $itemid, 'showlabel' => false, 'tpltype' => 'admin'],
             ]

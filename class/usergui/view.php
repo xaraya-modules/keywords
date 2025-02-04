@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,11 +11,10 @@
 
 namespace Xaraya\Modules\Keywords\UserGui;
 
-
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\UserApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarVar;
 use xarModVars;
@@ -24,7 +23,7 @@ use xarController;
 use sys;
 use Exception;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords user view function
@@ -60,14 +59,16 @@ class ViewMethod extends MethodClass
 
         if (!empty($keyword)) {
             $items_per_page = $this->mod()->getVar('items_per_page', 20);
-            $total = $wordsapi->countitems([
+            $total = $wordsapi->countitems(
+                [
                     //'module_id' => $module_id,
                     //'itemtype' => $itemtype,
                     'keyword' => $keyword,
                     'skip_restricted' => true,
                 ]
             );
-            $items = $wordsapi->getitems([
+            $items = $wordsapi->getitems(
+                [
                     //'module_id' => $module_id,
                     //'itemtype' => $itemtype,
                     'keyword' => $keyword,
@@ -77,7 +78,8 @@ class ViewMethod extends MethodClass
                 ]
             );
 
-            $modlist = $wordsapi->getmodulecounts([
+            $modlist = $wordsapi->getmodulecounts(
+                [
                     'skip_restricted' => true,
                 ]
             );
@@ -164,11 +166,13 @@ class ViewMethod extends MethodClass
                 default:
                     $cols_per_page = $this->mod()->getVar('cols_per_page', 2);
                     $items_per_page = $this->mod()->getVar('words_per_page', 50);
-                    $total = $wordsapi->countwords([
+                    $total = $wordsapi->countwords(
+                        [
                             'skip_restricted' => true,
                         ]
                     );
-                    $items = $wordsapi->getwordcounts([
+                    $items = $wordsapi->getwordcounts(
+                        [
                             'startnum' => $startnum,
                             'numitems' => $items_per_page,
                             'skip_restricted' => true,
@@ -181,7 +185,8 @@ class ViewMethod extends MethodClass
                     $data['items'] = $items;
                     break;
                 case 'cloud':
-                    $items = $wordsapi->getwordcounts([
+                    $items = $wordsapi->getwordcounts(
+                        [
                             'skip_restricted' => true,
                         ]
                     );
@@ -219,6 +224,13 @@ class ViewMethod extends MethodClass
         $data['keyword'] = $keyword;
 
         return $data;
+    }
+
+    private function _legacy()
+    {
+        // dummy values to stop IDE from complaining
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         $this->var()->check('keyword', $keyword, 'str', '');
         $this->var()->check('id', $id, 'id', '');
@@ -232,7 +244,8 @@ class ViewMethod extends MethodClass
 
         if (empty($keyword)) {
             // get the list of keywords that are in use
-            $words = $userapi->getlist(['count' => 1,
+            $words = $userapi->getlist(
+                ['count' => 1,
                     'tab' => $tab, ]
             );
 
@@ -264,7 +277,8 @@ class ViewMethod extends MethodClass
                 $keyword = str_replace('_', ' ', $keyword);
             }
             // get the list of items to which this keyword is assigned
-            $items = $userapi->getitems(['keyword' => $keyword]
+            $items = $userapi->getitems(
+                ['keyword' => $keyword]
             );
 
             if (!isset($items)) {
@@ -355,7 +369,8 @@ class ViewMethod extends MethodClass
         // if we're given an id we redirect to item display?
         // we already got a link pointing to the item display url, why isn't that used
         // in the template instead of pointing here?
-        $items = $userapi->getitems(['keyword' => $keyword,
+        $items = $userapi->getitems(
+            ['keyword' => $keyword,
                 'id' => $id, ]
         );
         if (!isset($items)) {

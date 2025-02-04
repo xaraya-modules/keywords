@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,16 +11,15 @@
 
 namespace Xaraya\Modules\Keywords\AdminApi;
 
-
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\IndexApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarMod;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords adminapi removehook function
@@ -68,7 +67,8 @@ class RemovehookMethod extends MethodClass
         }
 
         // delete all words associated with this module
-        if (!$wordsapi->deleteitems([
+        if (!$wordsapi->deleteitems(
+            [
                 'module_id' => $modid,
             ]
         )) {
@@ -76,7 +76,8 @@ class RemovehookMethod extends MethodClass
         }
 
         // delete all indexes for this module
-        if (!$indexapi->deleteitems([
+        if (!$indexapi->deleteitems(
+            [
                 'module_id' => $modid,
             ]
         )) {

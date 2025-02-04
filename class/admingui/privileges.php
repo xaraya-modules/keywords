@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,10 +11,9 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
-
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\HooksApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarVar;
 use xarMod;
@@ -23,7 +22,7 @@ use xarController;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords admin privileges function
@@ -140,7 +139,7 @@ class PrivilegesMethod extends MethodClass
                 $extcomponent,
                 $newinstance,
                 $extlevel,
-                $pparentid
+                //$pparentid
             );
             if (empty($pid)) {
                 return; // throw back
@@ -198,8 +197,17 @@ class PrivilegesMethod extends MethodClass
         $data['applylabel'] = $this->ml('Finish and Apply to Privilege');
 
         return $data;
+    }
 
-
+    private function _legacy()
+    {
+        // dummy values to stop IDE from complaining
+        $extpid = 0;
+        $extname = '';
+        $extrealm = [];
+        $extmodule = null;
+        $extcomponent = null;
+        $extlevel = null;
 
         // Get the list of all modules currently hooked to categories
         $hookedmodlist = $this->mod()->apiFunc(

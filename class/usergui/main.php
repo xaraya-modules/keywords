@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,9 +11,8 @@
 
 namespace Xaraya\Modules\Keywords\UserGui;
 
-
 use Xaraya\Modules\Keywords\UserGui;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarModVars;
 use xarServer;
@@ -22,7 +21,7 @@ use xarController;
 use sys;
 use BadParameterException;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords user main function
@@ -50,7 +49,7 @@ class MainMethod extends MethodClass
             $urldata = $this->mod()->apiFunc('roles', 'user', 'parseuserhome', ['url' => $redirect,'truecurrenturl' => $truecurrenturl]);
             $this->ctl()->redirect($urldata['redirecturl']);
         } else {
-            $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', $args));
+            $this->ctl()->redirect($this->mod()->getURL('user', 'view', $args));
         }
         return true;
     }

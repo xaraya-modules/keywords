@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,10 +11,9 @@
 
 namespace Xaraya\Modules\Keywords\UserGui;
 
-
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\UserApi;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarVar;
 use xarMod;
@@ -22,7 +21,7 @@ use xarController;
 use sys;
 use Exception;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords user display function
@@ -54,7 +53,8 @@ class DisplayMethod extends MethodClass
         if (empty($itemid)) {
             return [];
         }
-        $items = $userapi->getitems(['id' => $itemid]
+        $items = $userapi->getitems(
+            ['id' => $itemid]
         );
         if (!isset($items)) {
             return;

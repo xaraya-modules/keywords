@@ -3,7 +3,7 @@
 /**
  * @package modules\keywords
  * @category Xaraya Web Applications Framework
- * @version 2.5.7
+ * @version 2.6.2
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -11,11 +11,10 @@
 
 namespace Xaraya\Modules\Keywords\AdminGui;
 
-
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\HooksGui;
-use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Keywords\MethodClass;
 use xarSecurity;
 use xarVar;
 use xarModVars;
@@ -25,7 +24,7 @@ use xarHooks;
 use sys;
 use Exception;
 
-sys::import('xaraya.modules.method');
+sys::import('modules.keywords.class.method');
 
 /**
  * keywords admin view function
@@ -106,7 +105,8 @@ class ViewMethod extends MethodClass
 
         $data = [];
 
-        $modlist = $wordsapi->getmodulecounts([
+        $modlist = $wordsapi->getmodulecounts(
+            [
                 'skip_restricted' => true,
             ]
         );
@@ -137,14 +137,16 @@ class ViewMethod extends MethodClass
             }
         }
 
-        $total = $wordsapi->countitems([
+        $total = $wordsapi->countitems(
+            [
                 'module_id' => $module_id,
                 'itemtype' => $itemtype,
                 'keyword' => $keyword,
                 'skip_restricted' => true,
             ]
         );
-        $items = $wordsapi->getitemcounts([
+        $items = $wordsapi->getitemcounts(
+            [
                 'module_id' => $module_id,
                 'itemtype' => $itemtype,
                 'keyword' => $keyword,
@@ -218,8 +220,18 @@ class ViewMethod extends MethodClass
         $data['use_icons'] = $this->mod()->getVar('use_module_icons');
 
         return $data;
+    }
 
-
+    private function _legacy(array $args = [])
+    {
+        // dummy values to stop IDE from complaining
+        $data = [];
+        $modname = null;
+        $itemtype = null;
+        /** @var WordsApi $wordsapi */
+        $wordsapi = $this->wordsapi();
+        /** @var HooksGui $hooksgui */
+        $hooksgui = $this->hooksgui();
 
         switch ($data['tab']) {
             case 'list':
@@ -228,7 +240,8 @@ class ViewMethod extends MethodClass
                 if (!empty($data['keyword'])) {
                     // list items by keyword
                     // get a list of items associated with this keyword
-                    $data['items'] = $wordsapi->getitems([
+                    $data['items'] = $wordsapi->getitems(
+                        [
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -238,7 +251,8 @@ class ViewMethod extends MethodClass
                 } else {
                     // list keywords
                     // get a list of keywords (with counts)
-                    $data['items'] = $wordsapi->getwordcounts([
+                    $data['items'] = $wordsapi->getwordcounts(
+                        [
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -330,7 +344,8 @@ class ViewMethod extends MethodClass
                 if (!empty($data['keyword'])) {
                     // list items by keyword
                     // get a list of items associated with this keyword
-                    $data['items'] = $wordsapi->getitems([
+                    $data['items'] = $wordsapi->getitems(
+                        [
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -340,7 +355,8 @@ class ViewMethod extends MethodClass
                 } else {
                     // list keywords
                     // get a list of keywords (with counts)
-                    $data['items'] = $wordsapi->getwordcounts([
+                    $data['items'] = $wordsapi->getwordcounts(
+                        [
                             'module' => $modname,
                             'itemtype' => $itemtype,
                             'skip_restricted' => true,
@@ -351,7 +367,8 @@ class ViewMethod extends MethodClass
             case 'assoc':
                 // list items
                 // get a list of item associations
-                $data['items'] = $wordsapi->getitems([
+                $data['items'] = $wordsapi->getitems(
+                    [
                         'module' => $modname,
                         'itemtype' => $itemtype,
                         'skip_restricted' => true,
@@ -363,7 +380,8 @@ class ViewMethod extends MethodClass
                 // list keywords
                 // same as list but with weighting applied
                 // get a list of keywords (with counts)
-                $data['items'] = $wordsapi->getwordcounts([
+                $data['items'] = $wordsapi->getwordcounts(
+                    [
                         'module' => $modname,
                         'itemtype' => $itemtype,
                         'skip_restricted' => true,
@@ -405,7 +423,8 @@ class ViewMethod extends MethodClass
                 break;
             case 'config':
                 // config is supplied by our modifyconfig hook
-                $data['config'] = $hooksgui->modulemodifyconfig([
+                $data['config'] = $hooksgui->modulemodifyconfig(
+                    [
                         'objectid' => $modname,
                         'extrainfo' => ['module' => $modname, 'itemtype' => $itemtype],
                     ]
