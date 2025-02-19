@@ -34,5 +34,10 @@ sys::import('xaraya.modules.userapi');
 class WordsApi extends UserApiClass
 {
     use OtherApiTrait;
-    // ...
+
+    public function configure()
+    {
+        $this->setModType('words');
+        // don't call xarMod:apiLoad() for keywords words API
+    }
 }

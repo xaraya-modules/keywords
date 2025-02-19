@@ -28,5 +28,10 @@ sys::import('xaraya.modules.userapi');
 class HooksApi extends UserApiClass
 {
     use OtherApiTrait;
-    // ...
+
+    public function configure()
+    {
+        $this->setModType('hooks');
+        // don't call xarMod:apiLoad() for keywords hooks API
+    }
 }

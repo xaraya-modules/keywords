@@ -32,5 +32,10 @@ sys::import('xaraya.modules.userapi');
 class IndexApi extends UserApiClass
 {
     use OtherApiTrait;
-    // ...
+
+    public function configure()
+    {
+        $this->setModType('index');
+        // don't call xarMod:apiLoad() for keywords index API
+    }
 }
