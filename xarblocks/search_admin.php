@@ -33,8 +33,8 @@ class Keywords_SearchBlockAdmin extends Keywords_SearchBlock implements iBlock
 
     public function update($data = [])
     {
-        $this->var()->fetch('module_id', 'str:1:', $vars['module_id'], $this->module_id, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('itemtype', 'str:1:', $vars['itemtype'], $this->itemtype, xarVar::NOT_REQUIRED);
+        $this->var()->find('module_id', $vars['module_id'], 'str:1:', $this->module_id);
+        $this->var()->find('itemtype', $vars['itemtype'], 'str:1:', $this->itemtype);
         $this->setContent($vars);
         return true;
     }

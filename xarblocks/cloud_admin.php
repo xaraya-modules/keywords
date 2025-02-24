@@ -38,11 +38,11 @@ class Keywords_CloudBlockAdmin extends Keywords_CloudBlock implements iBlock
     public function update($data = [])
     {
         // Get the cloud type
-        $this->var()->fetch('cloudtype', 'int', $vars['cloudtype'], $this->cloudtype, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('color', 'str:1:', $vars['color'], $this->color, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('background', 'str:1:', $vars['background'], $this->background, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('module_id', 'str:1:', $vars['module_id'], $this->module_id, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('itemtype', 'str:1:', $vars['itemtype'], $this->itemtype, xarVar::NOT_REQUIRED);
+        $this->var()->find('cloudtype', $vars['cloudtype'], 'int', $this->cloudtype);
+        $this->var()->find('color', $vars['color'], 'str:1:', $this->color);
+        $this->var()->find('background', $vars['background'], 'str:1:', $this->background);
+        $this->var()->find('module_id', $vars['module_id'], 'str:1:', $this->module_id);
+        $this->var()->find('itemtype', $vars['itemtype'], 'str:1:', $this->itemtype);
         $this->setContent($vars);
         return true;
     }

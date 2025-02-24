@@ -38,10 +38,10 @@ class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock
 
     public function update($data = [])
     {
-        $this->var()->fetch('ptid', 'id', $vars['ptid'], $this->ptid, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('cid', 'int:1:', $vars['cid'], $this->cid, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('status', 'str:1:', $vars['status'], $this->status, xarVar::NOT_REQUIRED);
-        $this->var()->fetch('refreshtime', 'int:1:', $vars['refreshtime'], 1, xarVar::NOT_REQUIRED);
+        $this->var()->find('ptid', $vars['ptid'], 'id', $this->ptid);
+        $this->var()->find('cid', $vars['cid'], 'int:1:', $this->cid);
+        $this->var()->find('status', $vars['status'], 'str:1:', $this->status);
+        $this->var()->find('refreshtime', $vars['refreshtime'], 'int:1:', 1);
         $this->setContent($vars);
         return true;
     }
