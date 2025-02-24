@@ -642,11 +642,11 @@ class Installer extends InstallerClass
                 }
             }
         }
-        xarModVars::delete('keywords', 'restricted');
-        xarModVars::delete('keywords', 'useitemtype');
+        $this->mod('keywords')->delVar('restricted');
+        $this->mod('keywords')->delVar('useitemtype');
 
         $cols_per_page = $this->mod()->getVar('displaycolumns') ?? 2;
-        xarModVars::delete('keywords', 'displaycolumns');
+        $this->mod('keywords')->delVar('displaycolumns');
 
         // new modvars
         $this->mod()->setVar('stats_per_page', 100);

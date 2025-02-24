@@ -43,15 +43,9 @@ class SearchMethod extends MethodClass
             return '';
         }
 
-        if (!$this->var()->check('search', $data['search'])) {
-            return;
-        }
-        if (!$this->var()->check('bool', $bool)) {
-            return;
-        }
-        if (!$this->var()->check('sort', $sort)) {
-            return;
-        }
+        $this->var()->check('search', $data['search']);
+        $this->var()->check('bool', $bool);
+        $this->var()->check('sort', $sort);
 
         $data['keys'] = [];
         if ($data['search'] == '') {

@@ -49,42 +49,18 @@ class PrivilegesMethod extends MethodClass
 
         extract($args);
 
-        if (!$this->var()->check('moduleid', $moduleid, 'id')) {
-            return;
-        }
-        if (!$this->var()->check('itemtype', $itemtype, 'int:1:')) {
-            return;
-        }
-        if (!$this->var()->check('itemid', $itemid, 'id')) {
-            return;
-        }
-        if (!$this->var()->check('apply', $apply)) {
-            return;
-        }
-        if (!$this->var()->check('extpid', $extpid)) {
-            return;
-        }
-        if (!$this->var()->check('extname', $extname)) {
-            return;
-        }
-        if (!$this->var()->check('extrealm', $extrealm)) {
-            return;
-        }
-        if (!$this->var()->check('extmodule', $extmodule)) {
-            return;
-        }
-        if (!$this->var()->check('extcomponent', $extcomponent)) {
-            return;
-        }
-        if (!$this->var()->check('extinstance', $extinstance)) {
-            return;
-        }
-        if (!$this->var()->check('extlevel', $extlevel)) {
-            return;
-        }
-        if (!$this->var()->check('pparentid', $pparentid)) {
-            return;
-        }
+        $this->var()->check('moduleid', $moduleid, 'id');
+        $this->var()->check('itemtype', $itemtype, 'int:1:');
+        $this->var()->check('itemid', $itemid, 'id');
+        $this->var()->check('apply', $apply);
+        $this->var()->check('extpid', $extpid);
+        $this->var()->check('extname', $extname);
+        $this->var()->check('extrealm', $extrealm);
+        $this->var()->check('extmodule', $extmodule);
+        $this->var()->check('extcomponent', $extcomponent);
+        $this->var()->check('extinstance', $extinstance);
+        $this->var()->check('extlevel', $extlevel);
+        $this->var()->check('pparentid', $pparentid);
 
         if (!empty($extinstance)) {
             $parts = explode(':', $extinstance);

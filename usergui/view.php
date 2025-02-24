@@ -48,12 +48,8 @@ class ViewMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->check('keyword', $keyword, 'pre:trim:str:1:')) {
-            return;
-        }
-        if (!$this->var()->find('startnum', $startnum, 'int:1:')) {
-            return;
-        }
+        $this->var()->check('keyword', $keyword, 'pre:trim:str:1:');
+        $this->var()->find('startnum', $startnum, 'int:1:');
 
         $data = [];
 

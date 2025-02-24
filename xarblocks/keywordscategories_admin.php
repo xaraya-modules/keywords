@@ -27,9 +27,7 @@ class Keywords_KeywordscategoriesBlockAdmin extends Keywords_KeywordscategoriesB
 
     public function update($data = [])
     {
-        if (!$this->var()->fetch('refreshtime', 'int:1:', $vars['refreshtime'], 1, xarVar::NOT_REQUIRED)) {
-            return;
-        }
+        $this->var()->fetch('refreshtime', 'int:1:', $vars['refreshtime'], 1, xarVar::NOT_REQUIRED);
         $this->setContent($vars);
         return true;
     }

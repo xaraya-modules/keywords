@@ -56,18 +56,10 @@ class ModifyconfigMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->check('module_id', $module_id, 'id')) {
-            return;
-        }
-        if (!$this->var()->check('itemtype', $itemtype, 'int:0:')) {
-            return;
-        }
-        if (!$this->var()->find('phase', $phase, 'pre:trim:lower:enum:update', 'form')) {
-            return;
-        }
-        if (!$this->var()->find('return_url', $return_url, 'pre:trim:str:1:', '')) {
-            return;
-        }
+        $this->var()->check('module_id', $module_id, 'id');
+        $this->var()->check('itemtype', $itemtype, 'int:0:');
+        $this->var()->find('phase', $phase, 'pre:trim:lower:enum:update', 'form');
+        $this->var()->find('return_url', $return_url, 'pre:trim:str:1:', '');
 
         $data = [];
 
@@ -92,42 +84,24 @@ class ModifyconfigMethod extends MethodClass
                 $isvalid = $data['module_settings']->checkInput();
                 if ($isvalid) {
                     $itemid = $data['module_settings']->updateItem();
-                    if (!$this->var()->find('delimiters', $delimiters, 'pre:trim:str:1:', $this->mod()->getVar('delimiters') ?? ',')) {
-                        return;
-                    }
-                    if (!$this->var()->find('stats_per_page', $stats_per_page, 'int:0:', $this->mod()->getVar('stats_per_page') ?? 100)) {
-                        return;
-                    }
-                    if (!$this->var()->find('items_per_page', $items_per_page, 'int:0:', $this->mod()->getVar('items_per_page') ?? 20)) {
-                        return;
-                    }
-                    if (!$this->var()->find('user_layout', $user_layout, 'pre:trim:lower:enum:list:cloud', $this->mod()->getVar('user_layout') ?? 'list')) {
-                        return;
-                    }
+                    $this->var()->find('delimiters', $delimiters, 'pre:trim:str:1:', $this->mod()->getVar('delimiters') ?? ',');
+                    $this->var()->find('stats_per_page', $stats_per_page, 'int:0:', $this->mod()->getVar('stats_per_page') ?? 100);
+                    $this->var()->find('items_per_page', $items_per_page, 'int:0:', $this->mod()->getVar('items_per_page') ?? 20);
+                    $this->var()->find('user_layout', $user_layout, 'pre:trim:lower:enum:list:cloud', $this->mod()->getVar('user_layout') ?? 'list');
                     $this->mod()->setVar('delimiters', $delimiters);
                     $this->mod()->setVar('stats_per_page', $stats_per_page);
                     $this->mod()->setVar('items_per_page', $items_per_page);
                     $this->mod()->setVar('user_layout', $user_layout);
                     //if ($user_layout == 'list') {
-                    if (!$this->var()->find('cols_per_page', $cols_per_page, 'int:0:', $this->mod()->getVar('cols_per_page') ?? 2)) {
-                        return;
-                    }
-                    if (!$this->var()->find('words_per_page', $words_per_page, 'int:0:', $this->mod()->getVar('words_per_page') ?? 50)) {
-                        return;
-                    }
+                    $this->var()->find('cols_per_page', $cols_per_page, 'int:0:', $this->mod()->getVar('cols_per_page') ?? 2);
+                    $this->var()->find('words_per_page', $words_per_page, 'int:0:', $this->mod()->getVar('words_per_page') ?? 50);
                     $this->mod()->setVar('cols_per_page', $cols_per_page);
                     $this->mod()->setVar('words_per_page', $words_per_page);
                     //} else {
                     // the cloudy stuff
-                    if (!$this->var()->find('cloud_font_min', $cloud_font_min, 'int:1:', $this->mod()->getVar('cloud_font_min') ?? 1)) {
-                        return;
-                    }
-                    if (!$this->var()->find('cloud_font_max', $cloud_font_max, 'int:1:', $this->mod()->getVar('cloud_font_max') ?? 1)) {
-                        return;
-                    }
-                    if (!$this->var()->find('cloud_font_unit', $cloud_font_unit, 'pre:trim:lower:enum:em:pt:px:%', $this->mod()->getVar('cloud_font_unit') ?? 'em')) {
-                        return;
-                    }
+                    $this->var()->find('cloud_font_min', $cloud_font_min, 'int:1:', $this->mod()->getVar('cloud_font_min') ?? 1);
+                    $this->var()->find('cloud_font_max', $cloud_font_max, 'int:1:', $this->mod()->getVar('cloud_font_max') ?? 1);
+                    $this->var()->find('cloud_font_unit', $cloud_font_unit, 'pre:trim:lower:enum:em:pt:px:%', $this->mod()->getVar('cloud_font_unit') ?? 'em');
                     $this->mod()->setVar('cloud_font_min', $cloud_font_min);
                     $this->mod()->setVar('cloud_font_max', $cloud_font_max);
                     $this->mod()->setVar('cloud_font_unit', $cloud_font_unit);

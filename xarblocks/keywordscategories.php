@@ -42,9 +42,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
         $vars = $this->getContent();
 
         // Allow refresh by setting refreshrandom variable
-        if (!$this->var()->fetch('refreshrandom', 'int:1:1', $vars['refreshtime'], 0, xarVar::DONT_SET)) {
-            return;
-        }
+        $this->var()->fetch('refreshrandom', 'int:1:1', $vars['refreshtime'], 0, xarVar::DONT_SET);
 
         // Check cache
         $refresh = (time() - ($vars['refreshtime'] * 60));

@@ -38,21 +38,11 @@ class Keywords_CloudBlockAdmin extends Keywords_CloudBlock implements iBlock
     public function update($data = [])
     {
         // Get the cloud type
-        if (!$this->var()->fetch('cloudtype', 'int', $vars['cloudtype'], $this->cloudtype, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('color', 'str:1:', $vars['color'], $this->color, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('background', 'str:1:', $vars['background'], $this->background, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('module_id', 'str:1:', $vars['module_id'], $this->module_id, xarVar::NOT_REQUIRED)) {
-            return;
-        }
-        if (!$this->var()->fetch('itemtype', 'str:1:', $vars['itemtype'], $this->itemtype, xarVar::NOT_REQUIRED)) {
-            return;
-        }
+        $this->var()->fetch('cloudtype', 'int', $vars['cloudtype'], $this->cloudtype, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('color', 'str:1:', $vars['color'], $this->color, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('background', 'str:1:', $vars['background'], $this->background, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('module_id', 'str:1:', $vars['module_id'], $this->module_id, xarVar::NOT_REQUIRED);
+        $this->var()->fetch('itemtype', 'str:1:', $vars['itemtype'], $this->itemtype, xarVar::NOT_REQUIRED);
         $this->setContent($vars);
         return true;
     }

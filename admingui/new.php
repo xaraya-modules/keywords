@@ -42,9 +42,7 @@ class NewMethod extends MethodClass
     {
         extract($args);
 
-        if (!$this->var()->find('confirm', $confirm)) {
-            return;
-        }
+        $this->var()->find('confirm', $confirm);
         if (!$this->sec()->checkAccess('AdminKeywords')) {
             return;
         }
