@@ -95,7 +95,7 @@ class ViewMethod extends MethodClass
         )) {
             return;
         }
-        $items_per_page = $this->mod()->getVar('stats_per_page', 100);
+        $items_per_page = $this->mod()->getVar('stats_per_page') ?? 100;
 
         if (empty($module_id)) {
             $modname = $itemtype = null;

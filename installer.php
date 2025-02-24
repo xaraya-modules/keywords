@@ -645,7 +645,7 @@ class Installer extends InstallerClass
         xarModVars::delete('keywords', 'restricted');
         xarModVars::delete('keywords', 'useitemtype');
 
-        $cols_per_page = $this->mod()->getVar('displaycolumns', 2);
+        $cols_per_page = $this->mod()->getVar('displaycolumns') ?? 2;
         xarModVars::delete('keywords', 'displaycolumns');
 
         // new modvars

@@ -58,7 +58,7 @@ class ViewMethod extends MethodClass
         $data = [];
 
         if (!empty($keyword)) {
-            $items_per_page = $this->mod()->getVar('items_per_page', 20);
+            $items_per_page = $this->mod()->getVar('items_per_page') ?? 20;
             $total = $wordsapi->countitems(
                 [
                     //'module_id' => $module_id,
@@ -159,13 +159,13 @@ class ViewMethod extends MethodClass
             $data['items'] = $items;
             $data['use_icons'] = $this->mod()->getVar('use_module_icons');
         } else {
-            $user_layout = $this->mod()->getVar('user_layout', 'list');
+            $user_layout = $this->mod()->getVar('user_layout') ?? 'list';
 
             switch ($user_layout) {
                 case 'list':
                 default:
-                    $cols_per_page = $this->mod()->getVar('cols_per_page', 2);
-                    $items_per_page = $this->mod()->getVar('words_per_page', 50);
+                    $cols_per_page = $this->mod()->getVar('cols_per_page') ?? 2;
+                    $items_per_page = $this->mod()->getVar('words_per_page') ?? 50;
                     $total = $wordsapi->countwords(
                         [
                             'skip_restricted' => true,
