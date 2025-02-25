@@ -172,7 +172,7 @@ class Installer extends InstallerClass
         // Defined Instances are: module_id, itemtype and itemid
         $instances = [
             ['header' => 'external', // this keyword indicates an external "wizard"
-                'query'  => xarController::URL($module, 'admin', 'privileges'),
+                'query'  => $this->ctl()->getModuleURL($module, 'admin', 'privileges'),
                 'limit'  => 0,
             ],
         ];

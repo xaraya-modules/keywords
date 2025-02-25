@@ -19,7 +19,7 @@ use xarModVars;
 use sys;
 use BadParameterException;
 
-sys::import('modules.keywords.method
+sys::import('modules.keywords.method');
 
 /**
  * keywords userapi getwordslimited function

@@ -46,7 +46,7 @@ class MainMethod extends MethodClass
             return;
         }
 
-        if ($this->mod('modules')->getVar('disableoverview') == 0) {
+        if (!$this->mod()->disableOverview()) {
             return [];
         } else {
             $redirect = $this->mod()->getVar('defaultbackpage');
