@@ -90,7 +90,7 @@ class DisplayhookMethod extends MethodClass
         }
 
         // @todo: replace this with access prop
-        if (!xarSecurity::check('ReadKeywords', 0, 'Item', "$modid:$itemtype:$itemid")) {
+        if (!$this->sec()->check('ReadKeywords', 0, 'Item', "$modid:$itemtype:$itemid")) {
             return '';
         }
 

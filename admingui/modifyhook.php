@@ -93,7 +93,7 @@ class ModifyhookMethod extends MethodClass
         }
 
         // no permission, no worries, just don't display the form
-        if (!xarSecurity::check('AddKeywords', 0, 'Item', "$modid:$itemtype:$itemid")) {
+        if (!$this->sec()->check('AddKeywords', 0, 'Item', "$modid:$itemtype:$itemid")) {
             return '';
         }
 
@@ -178,7 +178,7 @@ class ModifyhookMethod extends MethodClass
             // see if managers are allowed to add to restricted list
             if (!empty($data['allow_manager_add'])) {
                 // see if current user is a manager
-                $data['is_manager'] = xarSecurity::check('ManageKeywords', 0, 'Item', "$modid:$itemtype:$itemid");
+                $data['is_manager'] = $this->sec()->check('ManageKeywords', 0, 'Item', "$modid:$itemtype:$itemid");
                 if (!empty($data['is_manager'])) {
                     // see if keywords were passed to hook call
                     if (!empty($extrainfo['restricted_extra'])) {

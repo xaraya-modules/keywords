@@ -80,7 +80,7 @@ class ModuleupdateconfigMethod extends MethodClass
             $itemtype = 0;
         }
 
-        if (!xarSecurity::check('AdminKeywords', 0, 'Item', "$modid:$itemtype:All")) {
+        if (!$this->sec()->check('AdminKeywords', 0, 'Item', "$modid:$itemtype:All")) {
             return $extrainfo;
         }
 

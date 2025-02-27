@@ -92,7 +92,7 @@ class CreatehookMethod extends MethodClass
 
         // @todo: replace this with access prop
         // chris: amazingly, this is the only function that didn't call this originally ?
-        //if (!xarSecurity::check('AddKeywords',0,'Item', "$modid:$itemtype:$itemid"))
+        //if (!$this->sec()->check('AddKeywords',0,'Item', "$modid:$itemtype:$itemid"))
         //    return $extrainfo;
 
         // get settings currently in force for this module/itemtype

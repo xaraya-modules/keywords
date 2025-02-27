@@ -87,7 +87,7 @@ class NewhookMethod extends MethodClass
         }
 
         // @todo: replace this with access prop
-        if (!xarSecurity::check('AddKeywords', 0, 'Item', "$modid:$itemtype:All")) {
+        if (!$this->sec()->check('AddKeywords', 0, 'Item', "$modid:$itemtype:All")) {
             return '';
         }
 

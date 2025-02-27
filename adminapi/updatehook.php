@@ -130,7 +130,7 @@ class UpdatehookMethod extends MethodClass
                 return;
             }
             // keywords from form input, check current user has permission to add keywords here
-            if (!empty($keywords) && !xarSecurity::check('AddKeywords', 0, 'Item', "$modid:$itemtype:$itemid")) {
+            if (!empty($keywords) && !$this->sec()->check('AddKeywords', 0, 'Item', "$modid:$itemtype:$itemid")) {
                 return $extrainfo;
             }  // no permission, no worries
         }
@@ -172,7 +172,7 @@ class UpdatehookMethod extends MethodClass
             // see if managers are allowed to add to restricted list
             if (!empty($settings['allow_manager_add'])) {
                 // see if current user is a manager
-                $data['is_manager'] = xarSecurity::check('ManageKeywords', 0, 'Item', "$modid:$itemtype:$itemid");
+                $data['is_manager'] = $this->sec()->check('ManageKeywords', 0, 'Item', "$modid:$itemtype:$itemid");
                 if (!empty($data['is_manager'])) {
                     // see if keywords were passed to hook call
                     if (!empty($extrainfo['restricted_extra'])) {
