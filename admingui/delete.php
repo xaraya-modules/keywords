@@ -138,6 +138,7 @@ class DeleteMethod extends MethodClass
             }
             if ($cancel) {
                 $this->ctl()->redirect($return_url);
+                return true;
             }
             if (!$this->sec()->confirmAuthKey()) {
                 return $this->ctl()->badRequest('bad_author');
@@ -160,6 +161,7 @@ class DeleteMethod extends MethodClass
                 return;
             }
             $this->ctl()->redirect($return_url);
+            return true;
         }
 
         try {

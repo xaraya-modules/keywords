@@ -149,6 +149,7 @@ class ModifyMethod extends MethodClass
                     ]
                 );
                 $this->ctl()->redirect($delete_url);
+                return true;
             }
             $adminapi->updatehook(
                 [
@@ -168,6 +169,7 @@ class ModifyMethod extends MethodClass
                 );
             }
             $this->ctl()->redirect($return_url);
+            return true;
         }
 
         try {

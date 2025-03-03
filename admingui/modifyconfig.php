@@ -127,6 +127,7 @@ class ModifyconfigMethod extends MethodClass
                 );
             }
             $this->ctl()->redirect($return_url);
+            return true;
         }
 
         // form phase
