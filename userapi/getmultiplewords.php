@@ -74,7 +74,7 @@ class GetmultiplewordsMethod extends MethodClass
                 return;
             }
 
-            for (; !$result->EOF; $result->MoveNext()) {
+            while ($result->next()) {
                 [$id, $keyword] = $result->fields;
                 $keywords[$item][] = ['id'      => $id,
                     'keyword' => $keyword, ];

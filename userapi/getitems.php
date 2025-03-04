@@ -119,7 +119,7 @@ class GetitemsMethod extends MethodClass
             $result->Close();
             return $items;
         }
-        while (!$result->EOF) {
+        while ($result->next()) {
             $item = [];
             [$item['id'],
                 $item['itemid'],
@@ -127,7 +127,6 @@ class GetitemsMethod extends MethodClass
                 $item['module_id'],
                 $item['itemtype']] = $result->fields;
             $items[$item['id']] = $item;
-            $result->MoveNext();
         }
         $result->Close();
         return $items;

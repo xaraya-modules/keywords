@@ -89,11 +89,10 @@ class GetwordslimitedMethod extends MethodClass
 
         $keywords = [];
 
-        while (!$result->EOF) {
+        while ($result->next()) {
             [$id,
                 $word] = $result->fields;
             $keywords[$id] = $word;
-            $result->MoveNext();
         }
         $result->Close();
 

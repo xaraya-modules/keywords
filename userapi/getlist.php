@@ -94,10 +94,9 @@ class GetlistMethod extends MethodClass
                 $result->Close();
                 return $items;
             }
-            while (!$result->EOF) {
+            while ($result->next()) {
                 [$word, $count] = $result->fields;
                 $items[$word] = $count;
-                $result->MoveNext();
             }
             $result->Close();
             return $items;
@@ -118,10 +117,9 @@ class GetlistMethod extends MethodClass
             $result->Close();
             return $items;
         }
-        while (!$result->EOF) {
+        while ($result->next()) {
             [$word] = $result->fields;
             $items[$word] = $word;
-            $result->MoveNext();
         }
         $result->Close();
         return $items;
