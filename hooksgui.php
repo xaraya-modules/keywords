@@ -27,4 +27,10 @@ class HooksGui extends UserGuiClass
 {
     use OtherApiTrait;
     // ...
+
+    public function configure()
+    {
+        $this->setModType('hooks');
+        // don't call xarMod:load() for keywords hooks GUI
+    }
 }
