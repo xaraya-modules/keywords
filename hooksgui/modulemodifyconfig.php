@@ -16,8 +16,6 @@ use Xaraya\Modules\Keywords\HooksGui;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use BadParameterException;
-use xarMod;
-use xarTpl;
 use sys;
 
 sys::import('modules.keywords.method');

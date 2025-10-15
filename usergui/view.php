@@ -15,11 +15,7 @@ use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSecurity;
-use xarVar;
-use xarModVars;
 use xarMod;
-use xarController;
 use sys;
 use Exception;
 

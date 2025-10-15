@@ -16,8 +16,6 @@ use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\AdminApi;
 use BadParameterException;
 use SQLException;
-use xarDB;
-use xarMod;
 use sys;
 
 sys::import('modules.keywords.method');

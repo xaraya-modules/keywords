@@ -13,7 +13,6 @@ namespace Xaraya\Modules\Keywords\HooksApi;
 
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\HooksApi;
-use xarMod;
 use Keywords;
 use sys;
 

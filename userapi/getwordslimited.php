@@ -13,9 +13,6 @@ namespace Xaraya\Modules\Keywords\UserApi;
 
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSecurity;
-use xarDB;
-use xarModVars;
 use sys;
 use BadParameterException;
 

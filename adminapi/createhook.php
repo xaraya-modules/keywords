@@ -16,10 +16,7 @@ use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarMod;
-use xarSecurity;
 use xarVar;
-use xarModVars;
 use sys;
 use BadParameterException;
 

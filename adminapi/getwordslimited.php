@@ -13,8 +13,6 @@ namespace Xaraya\Modules\Keywords\AdminApi;
 
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarDB;
-use xarModVars;
 use sys;
 use BadParameterException;
 

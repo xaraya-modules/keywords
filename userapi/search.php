@@ -14,12 +14,8 @@ namespace Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSecurity;
-use xarMod;
-use xarDB;
 use Query;
 use sys;
-use BadParameterException;
 
 sys::import('modules.keywords.method');
 

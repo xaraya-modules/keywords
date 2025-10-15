@@ -15,14 +15,7 @@ use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\HooksGui;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSecurity;
-use xarVar;
-use xarMod;
-use xarSec;
-use xarController;
-use xarModVars;
 use sys;
-use BadParameterException;
 
 sys::import('modules.keywords.method');
 

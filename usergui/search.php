@@ -14,11 +14,7 @@ namespace Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSecurity;
-use xarVar;
-use xarMod;
 use sys;
-use BadParameterException;
 
 sys::import('modules.keywords.method');
 

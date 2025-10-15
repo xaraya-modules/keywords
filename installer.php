@@ -14,16 +14,12 @@
 namespace Xaraya\Modules\Keywords;
 
 use Xaraya\Modules\InstallerClass;
-use xarDB;
 use xarMod;
-use xarModVars;
 use xarHooks;
-use xarController;
 use xarPrivileges;
 use xarMasks;
 use xarTableDDL;
 use xarModHooks;
-use xarSystemVars;
 use Query;
 use sys;
 use SQLException;

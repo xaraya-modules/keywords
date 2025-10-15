@@ -13,10 +13,7 @@ namespace Xaraya\Modules\Keywords\UserApi;
 
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSecurity;
-use xarDB;
 use sys;
-use BadParameterException;
 
 sys::import('modules.keywords.method');
 

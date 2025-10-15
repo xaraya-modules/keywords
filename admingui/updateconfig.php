@@ -14,15 +14,7 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSec;
-use xarSecurity;
-use xarVar;
-use xarModVars;
-use xarMod;
-use xarTpl;
-use xarController;
 use sys;
-use BadParameterException;
 
 sys::import('modules.keywords.method');
 

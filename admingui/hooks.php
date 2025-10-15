@@ -13,9 +13,7 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarSecurity;
 use sys;
-use BadParameterException;
 
 sys::import('modules.keywords.method');
 

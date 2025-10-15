@@ -17,9 +17,6 @@ use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use xarVar;
-use xarMod;
-use xarSecurity;
-use xarModVars;
 use sys;
 use BadParameterException;
 

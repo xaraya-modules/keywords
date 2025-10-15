@@ -14,8 +14,6 @@ namespace Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\WordsApi;
 use BadParameterException;
-use xarDB;
-use xarMod;
 use sys;
 
 sys::import('modules.keywords.method');

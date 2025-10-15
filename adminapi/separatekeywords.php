@@ -13,10 +13,7 @@ namespace Xaraya\Modules\Keywords\AdminApi;
 
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarModVars;
-use xarVar;
 use sys;
-use BadParameterException;
 
 sys::import('modules.keywords.method');
 
