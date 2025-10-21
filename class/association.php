@@ -13,8 +13,8 @@
  */
 
 sys::import('xaraya.structures.query');
-sys::import('xaraya.facades.database');
-use Xaraya\Facades\xarDB3;
+sys::import('xaraya.services.xar');
+use Xaraya\Services\xar;
 
 class Keyword_Association extends xarObject
 {
@@ -23,7 +23,7 @@ class Keyword_Association extends xarObject
     public function __construct()
     {
         xarMod::apiLoad('keywords');
-        $this->tables = xarDB3::getTables();
+        $this->tables = xar::db()->getTables();
     }
 
     /**
