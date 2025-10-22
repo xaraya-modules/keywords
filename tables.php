@@ -14,8 +14,6 @@
 
 namespace Xaraya\Modules\Keywords;
 
-use xarDB;
-
 class Tables
 {
     /**
@@ -27,11 +25,10 @@ class Tables
      * @access private
      * @return array
      */
-    public function __invoke(?string $prefix = null)
+    public function __invoke(string $prefix = 'xar')
     {
         // Initialise table array
         $xarTables = [];
-        $prefix ??= xarDB::getPrefix();
         $xarTables['keywords'] = $prefix . '_keywords';
         $xarTables['keywords_restr'] = $prefix . '_keywords_restr';
         $xarTables['keywords_index'] = $prefix . '_keywords_index';
