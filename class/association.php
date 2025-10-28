@@ -22,7 +22,7 @@ class Keyword_Association extends xarObject
 
     public function __construct()
     {
-        xarMod::apiLoad('keywords');
+        xar::mod()->loadDbInfo('keywords');
         $this->tables = xar::db()->getTables();
     }
 

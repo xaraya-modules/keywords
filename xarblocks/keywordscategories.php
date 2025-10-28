@@ -58,9 +58,9 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
             fclose($fp);
         } else {
             //Get the keywords related categories
-            if ($this->var()->isCached('Blocks.articles', 'cids')) {
+            if ($this->mem()->has('Blocks.articles', 'cids')) {
                 $vars['modid'] = $this->mod()->getRegID('categories');
-                $vars['cids'] = $this->var()->getCached('Blocks.articles', 'cids');
+                $vars['cids'] = $this->mem()->get('Blocks.articles', 'cids');
                 if (empty($vars['cids']) || !is_array($vars['cids']) || count($vars['cids']) == 0) {
                     return '';
                 }

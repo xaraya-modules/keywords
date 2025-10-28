@@ -78,7 +78,7 @@ class ViewMethod extends MethodClass
             $modtypes = [];
             $modules = [];
             foreach ($modlist as $module => $itemtypes) {
-                $modules[$module] = xarMod::getBaseInfo($module);
+                $modules[$module] = $this->mod()->getBaseInfo($module);
                 $modules[$module]['itemtypes'] = $itemtypes;
                 if (!isset($modtypes[$module])) {
                     try {

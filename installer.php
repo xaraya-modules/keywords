@@ -111,7 +111,7 @@ class Installer extends InstallerClass
          * Set up Module Vars (common configuration)
          *********************************************************************/
 
-        $module_settings = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => $module]);
+        $module_settings = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => $module]);
         $module_settings->initialize();
 
 
@@ -135,7 +135,7 @@ class Installer extends InstallerClass
          *********************************************************************/
 
         $objects = ['keywords_keywords'];
-        if (!xarMod::apiFunc(
+        if (!$this->mod()->apiFunc(
             'modules',
             'admin',
             'standardinstall',
@@ -272,7 +272,7 @@ class Installer extends InstallerClass
                 }
 
                 // Register blocks
-                if (!xarMod::apiFunc(
+                if (!$this->mod()->apiFunc(
                     'blocks',
                     'admin',
                     'register_block_type',
@@ -281,7 +281,7 @@ class Installer extends InstallerClass
                 )) {
                     return false;
                 }
-                if (!xarMod::apiFunc(
+                if (!$this->mod()->apiFunc(
                     'blocks',
                     'admin',
                     'register_block_type',
@@ -323,8 +323,7 @@ class Installer extends InstallerClass
         // hooks are removed automatically
         // blocks are removed automatically
         sys::import('xaraya.structures.query');
-        $dbconn = $this->db()->getConn();
-        $tables = & $this->db()->getTables();
+        $tables = $this->db()->getTables();
         $indextable = $tables['keywords_index'];
         $keywordstable = $tables['keywords'];
 
@@ -343,7 +342,7 @@ class Installer extends InstallerClass
         xarMasks::removemasks('keywords');
         xarPrivileges::removeInstances('keywords');
 
-        return xarMod::apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'keywords']);
+        return $this->mod()->apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'keywords']);
     }
 
     public function upgrade_200()
@@ -579,11 +578,11 @@ class Installer extends InstallerClass
         $restricted = $this->mod()->getVar('restricted');
         if ($restricted) {
             $useitemtype = $this->mod()->getVar('useitemtype');
-            $subjects = xarMod::apiFunc('keywords', 'hooks', 'getsubjects');
+            $subjects = $this->mod()->apiFunc('keywords', 'hooks', 'getsubjects');
             if (!empty($subjects)) {
                 foreach (array_keys($subjects) as $hookedto) {
                     // get the modules default settings
-                    $settings = xarMod::apiFunc(
+                    $settings = $this->mod()->apiFunc(
                         'keywords',
                         'hooks',
                         'getsettings',
@@ -603,7 +602,7 @@ class Installer extends InstallerClass
                                 if (empty($itemtype)) {
                                     continue;
                                 }
-                                $typesettings = xarMod::apiFunc(
+                                $typesettings = $this->mod()->apiFunc(
                                     'keywords',
                                     'hooks',
                                     'getsettings',
@@ -613,7 +612,7 @@ class Installer extends InstallerClass
                                     ]
                                 );
                                 $typesettings['restrict_words'] = true;
-                                xarMod::apiFunc(
+                                $this->mod()->apiFunc(
                                     'keywords',
                                     'hooks',
                                     'updatesettings',
@@ -626,7 +625,7 @@ class Installer extends InstallerClass
                             }
                         }
                     }
-                    xarMod::apiFunc(
+                    $this->mod()->apiFunc(
                         'keywords',
                         'hooks',
                         'updatesettings',

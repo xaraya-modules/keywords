@@ -14,7 +14,7 @@ namespace Xaraya\Modules\Keywords;
 use Xaraya\Modules\ModuleClass;
 
 /**
- * Get keywords module classes via xarMod::getModule()
+ * Get keywords module classes via xar::mod()->getModule()
  */
 class Module extends ModuleClass
 {

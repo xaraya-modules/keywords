@@ -1,5 +1,8 @@
 <?php
 
+sys::import('xaraya.services.xar');
+use Xaraya\Services\xar;
+
 class Keywords extends xarObject
 {
     public const CONFIG_MODVAR = 'keywords_config';
@@ -28,13 +31,13 @@ class Keywords extends xarObject
             $config = self::$configs[$hash];
         }
         if (empty($config) && !empty($itemtype)) { // try for module itemtype specific settings
-            $config = @unserialize((string) xarModVars::get($module, self::CONFIG_MODVAR . '_' . $itemtype));
+            $config = @unserialize((string) xar::mod($module)->getVar(self::CONFIG_MODVAR . '_' . $itemtype));
         }
         if (empty($config)) { // fall back on module specific defaults
-            $config =  @unserialize((string) xarModVars::get($module, self::CONFIG_MODVAR));
+            $config =  @unserialize((string) xar::mod($module)->getVar(self::CONFIG_MODVAR));
         }
         if (empty($config)) { // fall back on keywords defaults
-            $config =  @unserialize((string) xarModVars::get('keywords', self::CONFIG_MODVAR));
+            $config =  @unserialize((string) xar::mod('keywords')->getVar(self::CONFIG_MODVAR));
         }
         if (empty($config)) {
             // first run ever or keywords defaults modvar deleted manually, re create using object defaults
@@ -66,7 +69,7 @@ class Keywords extends xarObject
         } else {
             $modvar = self::CONFIG_MODVAR;
         }
-        xarModVars::set($module, $modvar, serialize($config->getPublicProperties()));
+        xar::mod($module)->setVar($modvar, serialize($config->getPublicProperties()));
         return true;
     }
 }

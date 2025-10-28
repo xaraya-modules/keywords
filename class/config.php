@@ -1,5 +1,7 @@
 <?php
 
+use Xaraya\Services\xar;
+
 class KeywordsConfig extends ObjectDescriptor
 {
     public $module;
@@ -27,7 +29,7 @@ class KeywordsConfig extends ObjectDescriptor
 
     public function __wakeup()
     {
-        $this->index_id = xarMod::apiFunc(
+        $this->index_id = xar::mod()->apiFunc(
             'keywords',
             'index',
             'getid',

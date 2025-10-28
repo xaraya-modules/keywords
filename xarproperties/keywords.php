@@ -99,7 +99,7 @@ class KeywordsProperty extends TextAreaProperty
         }
 
         // Make sure we have the keywords table
-        $this->mod()->apiLoad('keywords');
+        $this->mod()->loadDbInfo('keywords');
 
         $table = & $this->db()->getTables();
         $q = new Query('SELECT');
@@ -152,7 +152,7 @@ class KeywordsProperty extends TextAreaProperty
         }
 
         // Make sure we have the keywords table
-        $this->mod()->apiLoad('keywords');
+        $this->mod()->loadDbInfo('keywords');
 
         $table = & $this->db()->getTables();
         $q = new Query('SELECT', $table['keywords']);
@@ -237,9 +237,7 @@ class KeywordsProperty extends TextAreaProperty
         $primary_source = $this->objectref->properties[$primary]->source;
 
         // Assemble the links to the object's table
-        //$this->mod()->load('keywords');
-        $this->mod()->apiLoad('keywords');
-        //$this->mod()->load('dam');
+        $this->mod()->loadDbInfo('keywords');
         $tables = $this->db()->getTables();
 
         $q->addtable($tables['dam_resources'], 'resource');

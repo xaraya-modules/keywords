@@ -142,7 +142,7 @@ class DisplayhookMethod extends MethodClass
         // @checkme: cache a cumultive list of keywords encountered during this request ?
         // @fixme: find some way to identify and cache the 'real' current main module/itemtype/item keywords
         $keys = implode(',', $keywords);
-        $this->var()->setCached('Blocks.keywords', 'keys', $keys);
+        $this->mem()->set('Blocks.keywords', 'keys', $keys);
 
         // see if we're handling dynamic keywords
         if (!empty($data['meta_keywords'])) {

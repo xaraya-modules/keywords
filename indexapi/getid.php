@@ -66,8 +66,8 @@ class GetidMethod extends MethodClass
         }
 
         $cacheKey = "$module_id:$itemtype:$itemid";
-        if ($this->var()->isCached('Keywords.Index', $cacheKey)) {
-            return $this->var()->getCached('Keywords.Index', $cacheKey);
+        if ($this->mem()->has('Keywords.Index', $cacheKey)) {
+            return $this->mem()->get('Keywords.Index', $cacheKey);
         }
 
         if (!$item = $indexapi->getitem(
@@ -86,7 +86,7 @@ class GetidMethod extends MethodClass
             );
         }
 
-        $this->var()->setCached('Keywords.Index', $cacheKey, $item['id']);
+        $this->mem()->set('Keywords.Index', $cacheKey, $item['id']);
 
         return $item['id'];
     }

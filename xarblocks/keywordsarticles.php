@@ -63,9 +63,9 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
             fclose($fp);
         } else {
             //Get the keywords related articles
-            if ($this->var()->isCached('Blocks.articles', 'aid')) {
-                $vars['itemid'] = $this->var()->getCached('Blocks.articles', 'aid');
-                $itemtype = $this->var()->getCached('Blocks.articles', 'ptid');
+            if ($this->mem()->has('Blocks.articles', 'aid')) {
+                $vars['itemid'] = $this->mem()->get('Blocks.articles', 'aid');
+                $itemtype = $this->mem()->get('Blocks.articles', 'ptid');
                 if (!empty($itemtype) && is_numeric($itemtype)) {
                     $vars['itemtype'] = $itemtype;
                 } else {
