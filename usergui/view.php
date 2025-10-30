@@ -252,7 +252,7 @@ class ViewMethod extends MethodClass
                         'view',
                         ['keyword' => $word]
                     ),
-                    'label' => $this->var()->prep($word),
+                    'label' => \xarVarPrep::forDisplay($word),
                     'count' => $count,
                 ];
             }
@@ -353,7 +353,7 @@ class ViewMethod extends MethodClass
 
             return ['status' => 1,
                 'displaycolumns' => $displaycolumns,
-                'keyword' => $this->var()->prep($keyword),
+                'keyword' => \xarVarPrep::forDisplay($keyword),
                 'items' => $items, ];
         }
 

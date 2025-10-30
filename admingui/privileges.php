@@ -161,7 +161,7 @@ class PrivilegesMethod extends MethodClass
             'extlevel'     => $extlevel,
             'extlevels'    => $extlevels,
             'pparentid'    => $pparentid,
-            'extinstance'  => $this->var()->prep(join(':', $newinstance)),
+            'extinstance'  => \xarVarPrep::forDisplay(join(':', $newinstance)),
         ];
 
         $data['refreshlabel'] = $this->ml('Refresh');
@@ -252,7 +252,7 @@ class PrivilegesMethod extends MethodClass
             'extmodule'    => $extmodule,
             'extcomponent' => $extcomponent,
             'extlevel'     => $extlevel,
-            'extinstance'  => $this->var()->prep(join(':', $newinstance)),
+            'extinstance'  => \xarVarPrep::forDisplay(join(':', $newinstance)),
         ];
 
         $data['refreshlabel'] = $this->ml('Refresh');
