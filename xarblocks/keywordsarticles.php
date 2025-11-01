@@ -94,7 +94,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                 $vars['items'] = [];
                 foreach ($keywords as $id => $word) {
                     //$item['id'] = $id;
-                    //$item['keyword'] = \xarVarPrep::forDisplay($word);
+                    //$item['keyword'] = $this->prep()->text($word);
                     // get the list of items to which this keyword is assigned
                     //TODO Make itemtype / modid dependant
                     $items = $items + $this->mod()->apiMethod(
