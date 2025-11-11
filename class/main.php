@@ -1,6 +1,5 @@
 <?php
 
-sys::import('xaraya.services.xar');
 use Xaraya\Services\xar;
 
 class Keywords extends xarObject
@@ -22,7 +21,6 @@ class Keywords extends xarObject
 
     public static function getConfig($module, $itemtype = 0, $args = [])
     {
-        sys::import('modules.keywords.class.config');
         $hash = "$module:$itemtype";
         if (isset(self::$configs[$hash])) {
             if (empty($args)) {

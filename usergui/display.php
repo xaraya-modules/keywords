@@ -14,10 +14,7 @@ namespace Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
 use Exception;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords user display function

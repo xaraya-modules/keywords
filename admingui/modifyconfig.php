@@ -15,9 +15,6 @@ use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\HooksGui;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords admin modifyconfig function

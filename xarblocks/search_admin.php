@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -10,7 +11,6 @@
  * @link http://xaraya.com/index.php/release/187.html
  * @author Marc Lutolf <mfl@netspan.ch>
  */
-sys::import('modules.keywords.xarblocks.search');
 
 class Keywords_SearchBlockAdmin extends Keywords_SearchBlock implements iBlock
 {

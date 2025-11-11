@@ -13,10 +13,7 @@ namespace Xaraya\Modules\Keywords\UserApi;
 
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
 use Exception;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords userapi getitems function

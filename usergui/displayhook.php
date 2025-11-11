@@ -16,10 +16,7 @@ use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords user displayhook function

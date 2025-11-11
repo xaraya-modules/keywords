@@ -12,9 +12,6 @@
 namespace Xaraya\Modules\Keywords;
 
 use Xaraya\Modules\AdminApiClass;
-use sys;
-
-sys::import('xaraya.modules.adminapi');
 
 /**
  * Handle the keywords admin API

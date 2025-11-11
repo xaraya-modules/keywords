@@ -17,10 +17,7 @@ use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use xarVar;
-use sys;
 use BadParameterException;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords admin newhook function

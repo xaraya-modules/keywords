@@ -13,9 +13,6 @@ namespace Xaraya\Modules\Keywords\UserApi;
 
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords userapi getmenulinks function

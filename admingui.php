@@ -12,10 +12,6 @@
 namespace Xaraya\Modules\Keywords;
 
 use Xaraya\Modules\AdminGuiClass;
-use sys;
-
-sys::import('xaraya.modules.admingui');
-sys::import('modules.keywords.adminapi');
 
 /**
  * Handle the keywords admin GUI

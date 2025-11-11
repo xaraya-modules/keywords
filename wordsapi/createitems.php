@@ -15,9 +15,6 @@ use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\WordsApi;
 use BadParameterException;
 use SQLException;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords wordsapi createitems function
@@ -44,8 +41,8 @@ class CreateitemsMethod extends MethodClass
 
         if (isset($keyword)) {
             if (is_string($keyword)) {
-                $keyword = (strpos($keyword, ',') !== false) ?
-                    array_map('trim', explode(',', $keyword)) : [trim($keyword)];
+                $keyword = (strpos($keyword, ',') !== false)
+                    ? array_map('trim', explode(',', $keyword)) : [trim($keyword)];
             }
             if (is_array($keyword)) {
                 $keyword = array_unique(array_filter($keyword));

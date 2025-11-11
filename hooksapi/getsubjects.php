@@ -15,9 +15,6 @@ use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\HooksApi;
 use Exception;
 use xarHooks;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords hooksapi getsubjects function

@@ -22,7 +22,7 @@ trait OtherApiTrait
     /**
      * Get module hooks API class for this module
      */
-    public function hooksapi(): UserApiInterface|null
+    public function hooksapi(): ?UserApiInterface
     {
         $component = $this->getModule()->getComponent('HooksApi');
         assert($component instanceof UserApiInterface);
@@ -32,7 +32,7 @@ trait OtherApiTrait
     /**
      * Get module hooks GUI class for this module
      */
-    public function hooksgui(): UserGuiInterface|null
+    public function hooksgui(): ?UserGuiInterface
     {
         $component = $this->getModule()->getComponent('HooksGui');
         assert($component instanceof UserGuiInterface);
@@ -42,7 +42,7 @@ trait OtherApiTrait
     /**
      * Get module index API class for this module
      */
-    public function indexapi(): UserApiInterface|null
+    public function indexapi(): ?UserApiInterface
     {
         $component = $this->getModule()->getComponent('IndexApi');
         assert($component instanceof UserApiInterface);
@@ -52,7 +52,7 @@ trait OtherApiTrait
     /**
      * Get module words API class for this module
      */
-    public function wordsapi(): UserApiInterface|null
+    public function wordsapi(): ?UserApiInterface
     {
         $component = $this->getModule()->getComponent('WordsApi');
         assert($component instanceof UserApiInterface);

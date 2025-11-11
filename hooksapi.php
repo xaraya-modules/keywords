@@ -12,9 +12,6 @@
 namespace Xaraya\Modules\Keywords;
 
 use Xaraya\Modules\UserApiClass;
-use sys;
-
-sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the keywords hooks API

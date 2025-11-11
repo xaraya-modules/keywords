@@ -15,9 +15,6 @@ use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use Query;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords userapi search function
@@ -53,7 +50,6 @@ class SearchMethod extends MethodClass
         $words = $adminapi->separatekeywords(['keywords' => $args['search']]);
 
         // Get item
-        sys::import('xaraya.structures.query');
         $tables = & $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($tables['keywords'], 'k');

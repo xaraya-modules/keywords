@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use Query;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords userapi getkeywordhits function
@@ -48,7 +45,6 @@ class GetkeywordhitsMethod extends MethodClass
             return [];
         }
 
-        sys::import('xaraya.structures.query');
 
         $dbconn = $this->db()->getConn();
         $xartable = & $this->db()->getTables();

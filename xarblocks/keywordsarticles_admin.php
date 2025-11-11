@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -14,7 +15,6 @@
  * Original Author of file: Camille Perinel
  * Mostly taken from the topitems.php block of the articles module.(See credits)
  */
-sys::import('modules.keywords.xarblocks.keywordsarticles');
 
 class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock implements iBlock
 {
@@ -24,12 +24,12 @@ class Keywords_KeywordsarticlesBlockAdmin extends Keywords_KeywordsarticlesBlock
         $vars['pubtypes'] = $this->mod()->apiFunc('articles', 'user', 'getpubtypes');
         $vars['categorylist'] = $this->mod()->apiFunc('categories', 'user', 'getcat');
         $vars['statusoptions'] = [['id' => '3,2',
-                                         'name' => $this->ml('All Published'), ],
-                                   ['id' => '3',
-                                         'name' => $this->ml('Frontpage'), ],
-                                   ['id' => '2',
-                                         'name' => $this->ml('Approved'), ],
-                                  ];
+            'name' => $this->ml('All Published'), ],
+            ['id' => '3',
+                'name' => $this->ml('Frontpage'), ],
+            ['id' => '2',
+                'name' => $this->ml('Approved'), ],
+        ];
 
         $vars['blockid'] = $this->block_id;
         // Return output

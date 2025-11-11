@@ -26,7 +26,7 @@ class MethodClass extends CoreMethodClass
     /**
      * Get module hooks API class for this module
      */
-    public function hooksapi(): UserApiInterface|null
+    public function hooksapi(): ?UserApiInterface
     {
         return $this->getParent()->hooksapi();
     }
@@ -34,7 +34,7 @@ class MethodClass extends CoreMethodClass
     /**
      * Get module hooks GUI class for this module
      */
-    public function hooksgui(): UserGuiInterface|null
+    public function hooksgui(): ?UserGuiInterface
     {
         return $this->getParent()->hooksgui();
     }
@@ -42,7 +42,7 @@ class MethodClass extends CoreMethodClass
     /**
      * Get module index API class for this module
      */
-    public function indexapi(): UserApiInterface|null
+    public function indexapi(): ?UserApiInterface
     {
         return $this->getParent()->indexapi();
     }
@@ -50,7 +50,7 @@ class MethodClass extends CoreMethodClass
     /**
      * Get module words API class for this module
      */
-    public function wordsapi(): UserApiInterface|null
+    public function wordsapi(): ?UserApiInterface
     {
         return $this->getParent()->wordsapi();
     }

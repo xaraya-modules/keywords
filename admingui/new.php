@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\MethodClass;
 use xarModHooks;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords admin new function

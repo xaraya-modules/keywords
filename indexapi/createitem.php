@@ -15,9 +15,6 @@ use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\IndexApi;
 use BadParameterException;
 use SQLException;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords indexapi createitem function

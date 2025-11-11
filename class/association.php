@@ -12,8 +12,6 @@
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 
-sys::import('xaraya.structures.query');
-sys::import('xaraya.services.xar');
 use Xaraya\Services\xar;
 
 class Keyword_Association extends xarObject

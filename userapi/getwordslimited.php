@@ -13,10 +13,7 @@ namespace Xaraya\Modules\Keywords\UserApi;
 
 use Xaraya\Modules\Keywords\UserApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords userapi getwordslimited function

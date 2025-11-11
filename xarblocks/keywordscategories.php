@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -15,7 +16,6 @@
  * Mostly taken from the topitems.php block of the articles module.(See credits)
  * @TODO : Add multi categories support with + - ...
  */
-sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
 {
@@ -49,8 +49,8 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
         $varDir = sys::varpath();
         $cacheKey = md5($blockinfo['bid']);
         $cachedFileName = $varDir . '/cache/templates/' . $cacheKey;
-        if ((file_exists($cachedFileName)) &&
-           (filemtime($cachedFileName) > $refresh)) {
+        if ((file_exists($cachedFileName))
+           && (filemtime($cachedFileName) > $refresh)) {
             $fp = @fopen($cachedFileName, 'r');
 
             // Read From Our Cache
@@ -74,7 +74,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                         'user',
                         'getwords',
                         ['itemid' => $cid,
-                                            'modid' => $vars['modid'], ]
+                            'modid' => $vars['modid'], ]
                     );
                 }
                 if (empty($keywords) || !is_array($keywords) || count($keywords) == 0) {
@@ -91,7 +91,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                         'user',
                         'getitems',
                         ['keyword' => $word,
-                                        'modid' => $vars['modid'], ]
+                            'modid' => $vars['modid'], ]
                     );
                 }
                 //make itemid unique (worst ever code)
@@ -115,18 +115,18 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                         //'aid','title','summary','authorid', 'pubdate','pubtypeid','notes','status','body'
                         //if the related article already exist do not add it
                         $vars['items'][] = [
-                                'keyword' => $item['keyword'],
-                                'modid' =>  $item['moduleid'],
-                                'itemtype' => $item['itemtype'],
-                                'itemid' => $item['itemid'],
-                                'name' => $categories['name'],
-                                'description' => $categories['description'],
-                                'image' => $categories['image'],
-                                'parent' => $categories['parent'],
-                                'left' => $categories['left'],
-                                'right' => $categories['right'],
-                                'link' => $this->ctl()->getModuleURL('articles', 'user', 'view', ['cids' => [0 => $item['itemid']]]),
-                                ];
+                            'keyword' => $item['keyword'],
+                            'modid' =>  $item['moduleid'],
+                            'itemtype' => $item['itemtype'],
+                            'itemid' => $item['itemid'],
+                            'name' => $categories['name'],
+                            'description' => $categories['description'],
+                            'image' => $categories['image'],
+                            'parent' => $categories['parent'],
+                            'left' => $categories['left'],
+                            'right' => $categories['right'],
+                            'link' => $this->ctl()->getModuleURL('articles', 'user', 'view', ['cids' => [0 => $item['itemid']]]),
+                        ];
                     }
                 }
             }

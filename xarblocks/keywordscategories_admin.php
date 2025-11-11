@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -14,7 +15,6 @@
  * Original Author of file: Camille Perinel
  * Mostly taken from the topitems.php block of the articles module.(See credits)
  */
-sys::import('modules.keywords.xarblocks.keywordscategories');
 
 class Keywords_KeywordscategoriesBlockAdmin extends Keywords_KeywordscategoriesBlock implements iBlock
 {

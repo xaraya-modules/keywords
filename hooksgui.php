@@ -12,10 +12,6 @@
 namespace Xaraya\Modules\Keywords;
 
 use Xaraya\Modules\UserGuiClass;
-use sys;
-
-sys::import('xaraya.modules.usergui');
-sys::import('modules.keywords.hooksapi');
 
 /**
  * Handle the keywords hooks GUI

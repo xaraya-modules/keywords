@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -10,7 +11,6 @@
  * @link http://xaraya.com/index.php/release/187.html
  * @author Marc Lutolf <mfl@netspan.ch>
  */
-sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class Keywords_CloudBlock extends BasicBlock
 {

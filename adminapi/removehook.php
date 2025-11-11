@@ -15,10 +15,7 @@ use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords adminapi removehook function

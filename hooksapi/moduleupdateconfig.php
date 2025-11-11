@@ -17,9 +17,6 @@ use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use BadParameterException;
 use xarVar;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords hooksapi moduleupdateconfig function

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -11,7 +12,6 @@
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 
-sys::import('modules.base.xarproperties.textarea');
 
 class KeywordsProperty extends TextAreaProperty
 {
@@ -194,7 +194,6 @@ class KeywordsProperty extends TextAreaProperty
         // Check if we are in an object or not
         $moduleid = $this->objectref->moduleid ?? null;
         if (!empty($moduleid) && !empty($itemid)) {
-            sys::import('modules.keywords.class.association');
             $association = new Keyword_Association();
             $association->sync_associations($moduleid, $this->objectref->itemtype, $itemid, $keyword_ids);
         }
@@ -210,13 +209,12 @@ class KeywordsProperty extends TextAreaProperty
         // Check if we are in an object or not
         $moduleid = $this->objectref->moduleid ?? null;
         if (!empty($moduleid) && !empty($itemid)) {
-            sys::import('modules.keywords.class.association');
             $association = new Keyword_Association();
             $args = [
-                    'module_id'    => $moduleid,
-                    'itemtype'     => $this->objectref->itemtype,
-                    'property_id'  => (int) $this->id,
-                    'itemid'       => $itemid,
+                'module_id'    => $moduleid,
+                'itemtype'     => $this->objectref->itemtype,
+                'property_id'  => (int) $this->id,
+                'itemid'       => $itemid,
             ];
             $associations = $association->get_associations($args);
         }
@@ -269,14 +267,13 @@ class KeywordsProperty extends TextAreaProperty
         // Check if we are in an object or not
         $moduleid = $this->objectref->moduleid ?? null;
         if (!empty($moduleid) && !empty($itemid)) {
-            sys::import('modules.keywords.class.association');
             $association = new Keyword_Association();
             $args = [
-                    'keyword_id'  => $keyword_id,
-                    'module_id'    => $moduleid,
-                    'itemtype'     => $this->objectref->itemtype,
-                    'property_id'  => (int) $this->id,
-                    'itemid'       => $itemid,
+                'keyword_id'  => $keyword_id,
+                'module_id'    => $moduleid,
+                'itemtype'     => $this->objectref->itemtype,
+                'property_id'  => (int) $this->id,
+                'itemid'       => $itemid,
             ];
             $association->add_association($args);
         }

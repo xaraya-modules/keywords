@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\IndexApi;
 use EmptyParameterException;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords indexapi getitem function

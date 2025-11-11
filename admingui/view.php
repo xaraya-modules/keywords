@@ -16,12 +16,8 @@ use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\HooksGui;
 use Xaraya\Modules\Keywords\MethodClass;
 use xarVar;
-use xarMod;
 use xarHooks;
-use sys;
 use Exception;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords admin view function
@@ -413,8 +409,8 @@ class ViewMethod extends MethodClass
                 $max_ems = 3;
                 $num_tags = count($data['items']);
                 foreach ($data['items'] as $k => $item) {
-                    $item['weight'] = $item['count'] == 1 ? $min_ems :
-                        round((($item['count'] / $num_tags) * ($max_ems - $min_ems)) + $min_ems, 2);
+                    $item['weight'] = $item['count'] == 1 ? $min_ems
+                        : round((($item['count'] / $num_tags) * ($max_ems - $min_ems)) + $min_ems, 2);
                     $data['items'][$k] = $item;
                 }
                 break;

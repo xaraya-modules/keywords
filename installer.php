@@ -14,18 +14,14 @@
 namespace Xaraya\Modules\Keywords;
 
 use Xaraya\Modules\InstallerClass;
-use xarMod;
 use xarHooks;
 use xarPrivileges;
 use xarMasks;
 use xarTableDDL;
 use xarModHooks;
 use Query;
-use sys;
 use SQLException;
 use Exception;
-
-sys::import('xaraya.modules.installer');
 
 /**
  * Handle module installer functions
@@ -322,7 +318,6 @@ class Installer extends InstallerClass
     {
         // hooks are removed automatically
         // blocks are removed automatically
-        sys::import('xaraya.structures.query');
         $tables = $this->db()->getTables();
         $indextable = $tables['keywords_index'];
         $keywordstable = $tables['keywords'];
@@ -348,7 +343,6 @@ class Installer extends InstallerClass
     public function upgrade_200()
     {
         // upgrade to 2.0.0, normalise tables
-        sys::import('xaraya.structures.query');
         $dbconn = $this->db()->getConn();
         $tables = & $this->db()->getTables();
         $prefix = $this->db()->getPrefix();

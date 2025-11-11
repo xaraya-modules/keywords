@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Keywords Module
  *
@@ -17,7 +18,6 @@
  * Mostly taken from the topitems.php block of the articles module.(See credits)
  * @return bool true on success
  */
-sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
 {
@@ -54,8 +54,8 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
         $varDir = sys::varpath();
         $cacheKey = md5($blockinfo['bid']);
         $cachedFileName = $varDir . '/cache/templates/' . $cacheKey;
-        if ((file_exists($cachedFileName)) &&
-           (filemtime($cachedFileName) > $refresh)) {
+        if ((file_exists($cachedFileName))
+           && (filemtime($cachedFileName) > $refresh)) {
             $fp = @fopen($cachedFileName, 'r');
 
             // Read From Our Cache
@@ -83,8 +83,8 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                     'user',
                     'getwords',
                     ['itemid' => $vars['itemid'],
-                                            'itemtype' => $vars['itemtype'],
-                                            'modid' => $vars['modid'], ]
+                        'itemtype' => $vars['itemtype'],
+                        'modid' => $vars['modid'], ]
                 );
                 if (empty($keywords) || !is_array($keywords) || count($keywords) == 0) {
                     return '';
@@ -102,7 +102,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                         'user',
                         'getitems',
                         ['keyword' => $word,
-                                        'itemtype' => $vars['ptid'], ]
+                            'itemtype' => $vars['ptid'], ]
                     );
                 }
                 //make itemid unique (worst ever code)
@@ -128,18 +128,18 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                             //if the related article already exist do not add it
                             if (stristr($vars['status'], $articles['status'])) {
                                 $vars['items'][] = [
-                                        'keyword' => $item['keyword'],
-                                        'modid' =>  $item['moduleid'],
-                                        'itemtype' => $item['itemtype'],
-                                        'itemid' => $item['itemid'],
-                                        'title' => $articles['title'],
-                                        'summary' => $articles['summary'],
-                                        'authorid' => $articles['authorid'],
-                                        'pubdate' => $articles['pubdate'],
-                                        'pubtypeid' => $articles['pubtypeid'],
-                                        'status' => $articles['status'],
-                                        'link' => $this->ctl()->getModuleURL('articles', 'user', 'display', ['aid' => $articles['aid'], 'ptid' => $articles['pubtypeid']]),
-                                        ];
+                                    'keyword' => $item['keyword'],
+                                    'modid' =>  $item['moduleid'],
+                                    'itemtype' => $item['itemtype'],
+                                    'itemid' => $item['itemid'],
+                                    'title' => $articles['title'],
+                                    'summary' => $articles['summary'],
+                                    'authorid' => $articles['authorid'],
+                                    'pubdate' => $articles['pubdate'],
+                                    'pubtypeid' => $articles['pubtypeid'],
+                                    'status' => $articles['status'],
+                                    'link' => $this->ctl()->getModuleURL('articles', 'user', 'display', ['aid' => $articles['aid'], 'ptid' => $articles['pubtypeid']]),
+                                ];
                             }
                         }
                     }

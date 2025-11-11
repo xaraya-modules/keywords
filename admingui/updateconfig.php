@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords admin updateconfig function

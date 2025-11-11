@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\HooksApi;
 use Keywords;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords hooksapi updatesettings function

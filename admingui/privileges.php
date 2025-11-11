@@ -15,9 +15,6 @@ use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use xarPrivileges;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords admin privileges function

@@ -17,12 +17,8 @@ use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\MethodClass;
 use xarVar;
-use xarMod;
-use sys;
 use EmptyParameterException;
 use Exception;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords admin delete function

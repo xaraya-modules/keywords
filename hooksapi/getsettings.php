@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\MethodClass;
 use Xaraya\Modules\Keywords\HooksApi;
 use Keywords;
-use sys;
-
-sys::import('modules.keywords.method');
 
 /**
  * keywords hooksapi getsettings function
@@ -46,7 +43,6 @@ class GetsettingsMethod extends MethodClass
             $itemtype = 0;
         }
 
-        sys::import('modules.keywords.class.main');
         // keywords module config requested or per module config is disabled, return defaults
         if ($module == 'keywords' || !empty(Keywords::getConfig('keywords')->global_config)) {
             return Keywords::getConfig('keywords', 0, ['config_state' => 'default'])->getPublicProperties();
