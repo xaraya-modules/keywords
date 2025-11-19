@@ -30,7 +30,7 @@
                    </div>
                 <div class="xar-col">
                     <xar:data-input id="use_module_alias" property="$properties['use_module_alias']" onchange="toggle(\'aliaslink\',\'aliascheckbox\')"/>&#160;
-                    <xar:set name="info">xarController::$request->getInfo()</xar:set>
+                    <xar:set name="info">xarController::getRequest()->getInfo()</xar:set>
                     <a href="#xarController::URL('modules','admin','aliases',array('name' => $info[0]))#">Manage Aliases</a>
                 </div>
             </div>
