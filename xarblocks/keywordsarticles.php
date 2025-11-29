@@ -80,7 +80,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                 $vars['modid'] = $this->mod()->getRegID('articles');
                 $keywords = $this->mod()->apiMethod(
                     'keywords',
-                    'user',
+                    'userapi',
                     'getwords',
                     ['itemid' => $vars['itemid'],
                         'itemtype' => $vars['itemtype'],
@@ -99,7 +99,7 @@ class Keywords_KeywordsarticlesBlock extends BasicBlock implements iBlock
                     //TODO Make itemtype / modid dependant
                     $items = $items + $this->mod()->apiMethod(
                         'keywords',
-                        'user',
+                        'userapi',
                         'getitems',
                         ['keyword' => $word,
                             'itemtype' => $vars['ptid'], ]

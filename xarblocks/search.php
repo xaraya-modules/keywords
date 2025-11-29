@@ -42,7 +42,7 @@ class Keywords_SearchBlock extends BasicBlock
                 break;
                 case 2:
                 case 3:
-                    $vars['tags'] = $this->mod()->apiMethod('keywords','user','getkeywordhits',array('cloudtype' => $vars['cloudtype']));
+                    $vars['tags'] = $this->mod()->apiMethod('keywords','userapi','getkeywordhits',array('cloudtype' => $vars['cloudtype']));
                 break;
             }
             return $vars;

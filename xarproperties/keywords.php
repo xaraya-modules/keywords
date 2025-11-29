@@ -39,7 +39,7 @@ class KeywordsProperty extends TextAreaProperty
             return false;
         }
 
-        $words = $this->mod()->apiMethod('keywords', 'admin', 'separatekeywords', ['keywords' => $value]);
+        $words = $this->mod()->apiMethod('keywords', 'adminapi', 'separatekeywords', ['keywords' => $value]);
         $cleanwords = [];
         foreach ($words as $word) {
             if (empty($word)) {

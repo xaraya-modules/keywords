@@ -71,7 +71,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                     $cid = str_replace('_', '', $cid);
                     $keywords = $this->mod()->apiMethod(
                         'keywords',
-                        'user',
+                        'userapi',
                         'getwords',
                         ['itemid' => $cid,
                             'modid' => $vars['modid'], ]
@@ -88,7 +88,7 @@ class Keywords_KeywordscategoriesBlock extends BasicBlock implements iBlock
                     //TODO Make itemtype / modid dependant
                     $items = $items + $this->mod()->apiMethod(
                         'keywords',
-                        'user',
+                        'userapi',
                         'getitems',
                         ['keyword' => $word,
                             'modid' => $vars['modid'], ]

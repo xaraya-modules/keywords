@@ -57,7 +57,7 @@ class UpdateconfigMethod extends MethodClass
         if (isset($keywords) && is_array($keywords)) {
             $this->mod()->apiMethod(
                 'keywords',
-                'admin',
+                'adminapi',
                 'resetlimited'
             );
             foreach ($keywords as $modname => $value) {
