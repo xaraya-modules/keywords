@@ -12,13 +12,13 @@
 namespace Xaraya\Modules\Keywords;
 
 use Xaraya\Modules\MethodClass as CoreMethodClass;
-use Xaraya\Modules\ModuleServicesInterface;
+use Xaraya\Modules\ModuleClassInterface;
 use Xaraya\Modules\UserApiInterface;
 use Xaraya\Modules\UserGuiInterface;
 
 /**
  * Handle single module function as method from api/gui module class
- * @template TComponent of ModuleServicesInterface
+ * @template TComponent of ModuleClassInterface
  * @extends CoreMethodClass<TComponent>
  */
 class MethodClass extends CoreMethodClass
