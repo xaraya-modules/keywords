@@ -31,7 +31,7 @@
                    </div>
                 <div class="xar-col">
                     {{ xar_data_input({id: "use_module_alias", property: properties['use_module_alias'], onchange: "toggle('aliaslink','aliascheckbox')"}) }}&#160;
-                    {% set info = xarController..request.getInfo() %}
+                    {% set info = xar_coremethod('xarController', 'getRequest').getInfo() %}
                     <a href="{{ xar_moduleurl('modules','admin','aliases',{'name': info[0]}) }}">Manage Aliases</a>
                 </div>
             </div>

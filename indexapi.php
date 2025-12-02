@@ -33,6 +33,6 @@ class IndexApi extends UserApiClass
     public function configure()
     {
         $this->setModType('index');
-        // don't call xarMod:apiLoad() for keywords index API
+        // don't call xar::mod()->apiLoad() for keywords index API
     }
 }

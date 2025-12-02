@@ -16,7 +16,7 @@ use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use BadParameterException;
-use xarVar;
+use ixarVar;
 
 /**
  * keywords hooksapi moduleupdateconfig function
@@ -103,7 +103,7 @@ class ModuleupdateconfigMethod extends MethodClass
             'checkbox',
             $global_config,
             false,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -112,7 +112,7 @@ class ModuleupdateconfigMethod extends MethodClass
             'pre:trim:str:1:',
             $auto_tag_create,
             '',
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -121,7 +121,7 @@ class ModuleupdateconfigMethod extends MethodClass
             'checkbox',
             $auto_tag_persist,
             false,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -131,7 +131,7 @@ class ModuleupdateconfigMethod extends MethodClass
             'int:0:2',
             $meta_keywords,
             0,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -141,7 +141,7 @@ class ModuleupdateconfigMethod extends MethodClass
             'checkbox',
             $restrict_words,
             false,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -160,7 +160,7 @@ class ModuleupdateconfigMethod extends MethodClass
                 'pre:trim:lower:str:1:',
                 $meta_lang,
                 $settings['meta_lang'],
-                xarVar::NOT_REQUIRED
+                ixarVar::NOT_REQUIRED
             )) {
                 return;
             }
@@ -175,7 +175,7 @@ class ModuleupdateconfigMethod extends MethodClass
                 'pre:trim:str:1:',
                 $restricted_list,
                 '',
-                xarVar::NOT_REQUIRED
+                ixarVar::NOT_REQUIRED
             )) {
                 return;
             }
@@ -184,7 +184,7 @@ class ModuleupdateconfigMethod extends MethodClass
                 'checkbox',
                 $allow_manager_add,
                 false,
-                xarVar::NOT_REQUIRED
+                ixarVar::NOT_REQUIRED
             )) {
                 return;
             }

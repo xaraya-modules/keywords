@@ -29,6 +29,6 @@ class HooksApi extends UserApiClass
     public function configure()
     {
         $this->setModType('hooks');
-        // don't call xarMod:apiLoad() for keywords hooks API
+        // don't call xar::mod()->apiLoad() for keywords hooks API
     }
 }

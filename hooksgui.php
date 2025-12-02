@@ -27,6 +27,6 @@ class HooksGui extends UserGuiClass
     public function configure()
     {
         $this->setModType('hooks');
-        // don't call xarMod:load() for keywords hooks GUI
+        // don't call xar::mod()->load() for keywords hooks GUI
     }
 }

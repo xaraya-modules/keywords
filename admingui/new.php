@@ -13,7 +13,6 @@ namespace Xaraya\Modules\Keywords\AdminGui;
 
 use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarModHooks;
 
 /**
  * keywords admin new function
@@ -69,7 +68,7 @@ class NewMethod extends MethodClass
         }
         $item = [];
         $item['module'] = 'keywords';
-        $hooks = xarModHooks::call('item', 'new', '', $item);
+        $hooks = $this->mod()->callHooks('item', 'new', '', $item);
         if (empty($hooks)) {
             $data['hooks'] = '';
         } elseif (is_array($hooks)) {

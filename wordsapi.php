@@ -35,6 +35,6 @@ class WordsApi extends UserApiClass
     public function configure()
     {
         $this->setModType('words');
-        // don't call xarMod:apiLoad() for keywords words API
+        // don't call xar::mod()->apiLoad() for keywords words API
     }
 }

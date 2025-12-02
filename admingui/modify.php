@@ -16,7 +16,7 @@ use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarVar;
+use ixarVar;
 use EmptyParameterException;
 use Exception;
 
@@ -60,7 +60,7 @@ class ModifyMethod extends MethodClass
             'id',
             $module_id,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -69,7 +69,7 @@ class ModifyMethod extends MethodClass
             'id',
             $itemtype,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -78,7 +78,7 @@ class ModifyMethod extends MethodClass
             'id',
             $itemid,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -87,7 +87,7 @@ class ModifyMethod extends MethodClass
             'pre:trim:str:1:',
             $return_url,
             '',
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -110,7 +110,7 @@ class ModifyMethod extends MethodClass
             'pre:trim:lower:enum:update',
             $phase,
             'form',
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -127,7 +127,7 @@ class ModifyMethod extends MethodClass
                 'isset',
                 $keywords,
                 null,
-                xarVar::DONT_SET
+                ixarVar::DONT_SET
             )) {
                 return;
             }

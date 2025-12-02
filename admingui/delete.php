@@ -16,7 +16,7 @@ use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\UserGui;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarVar;
+use ixarVar;
 use EmptyParameterException;
 use Exception;
 
@@ -51,7 +51,7 @@ class DeleteMethod extends MethodClass
             'id',
             $module_id,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -60,7 +60,7 @@ class DeleteMethod extends MethodClass
             'id',
             $itemtype,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -69,7 +69,7 @@ class DeleteMethod extends MethodClass
             'id',
             $itemid,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -78,7 +78,7 @@ class DeleteMethod extends MethodClass
             'pre:trim:str:1:',
             $return_url,
             '',
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -112,7 +112,7 @@ class DeleteMethod extends MethodClass
             'pre:trim:lower:enum:confirm',
             $phase,
             'form',
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -125,7 +125,7 @@ class DeleteMethod extends MethodClass
                 'checkbox',
                 $cancel,
                 false,
-                xarVar::NOT_REQUIRED
+                ixarVar::NOT_REQUIRED
             )) {
                 return;
             }

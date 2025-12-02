@@ -17,7 +17,7 @@ use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\AdminApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarVar;
+use ixarVar;
 use BadParameterException;
 
 /**
@@ -117,7 +117,7 @@ class ModifyhookMethod extends MethodClass
                 'isset',
                 $keywords,
                 null,
-                xarVar::DONT_SET
+                ixarVar::DONT_SET
             )) {
                 return;
             }
@@ -183,7 +183,7 @@ class ModifyhookMethod extends MethodClass
                             'isset',
                             $toadd,
                             [],
-                            xarVar::NOT_REQUIRED
+                            ixarVar::NOT_REQUIRED
                         )) {
                             return;
                         }

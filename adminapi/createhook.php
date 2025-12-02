@@ -16,7 +16,7 @@ use Xaraya\Modules\Keywords\HooksApi;
 use Xaraya\Modules\Keywords\IndexApi;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarVar;
+use ixarVar;
 use BadParameterException;
 
 /**
@@ -116,7 +116,7 @@ class CreatehookMethod extends MethodClass
                 'isset',
                 $keywords,
                 null,
-                xarVar::DONT_SET
+                ixarVar::DONT_SET
             )) {
                 return;
             }

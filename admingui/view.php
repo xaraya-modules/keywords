@@ -15,7 +15,7 @@ use Xaraya\Modules\Keywords\AdminGui;
 use Xaraya\Modules\Keywords\WordsApi;
 use Xaraya\Modules\Keywords\HooksGui;
 use Xaraya\Modules\Keywords\MethodClass;
-use xarVar;
+use ixarVar;
 use xarHooks;
 use Exception;
 
@@ -47,7 +47,7 @@ class ViewMethod extends MethodClass
             'id',
             $module_id,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -56,7 +56,7 @@ class ViewMethod extends MethodClass
             'int:0:',
             $itemtype,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -65,7 +65,7 @@ class ViewMethod extends MethodClass
             'pre:trim:str:1:',
             $keyword,
             null,
-            xarVar::DONT_SET
+            ixarVar::DONT_SET
         )) {
             return;
         }
@@ -75,7 +75,7 @@ class ViewMethod extends MethodClass
             'pre:trim:str:1',
             $sort,
             null,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -84,7 +84,7 @@ class ViewMethod extends MethodClass
             'int:1',
             $startnum,
             null,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -270,7 +270,7 @@ class ViewMethod extends MethodClass
             'pre:trim:lower:str:1:',
             $modname,
             null,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -279,7 +279,7 @@ class ViewMethod extends MethodClass
             'int:1:',
             $itemtype,
             null,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -288,7 +288,7 @@ class ViewMethod extends MethodClass
             'int:1:',
             $itemid,
             null,
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -298,7 +298,7 @@ class ViewMethod extends MethodClass
             'pre:trim:lower:str:1:',
             $data['tab'],
             'list',
-            xarVar::NOT_REQUIRED
+            ixarVar::NOT_REQUIRED
         )) {
             return;
         }
@@ -330,7 +330,7 @@ class ViewMethod extends MethodClass
                     'pre:trim:str:1:',
                     $data['keyword'],
                     null,
-                    xarVar::NOT_REQUIRED
+                    ixarVar::NOT_REQUIRED
                 )) {
                     return;
                 }

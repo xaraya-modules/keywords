@@ -38,7 +38,7 @@ class Keyword_Association extends xarObject
         }
 
         // (try to) check if we're previewing or not
-        xarVar::fetch('preview', 'isset', $preview, false, xarVar::NOT_REQUIRED);
+        xar::var()->fetch('preview', 'isset', $preview, false, ixarVar::NOT_REQUIRED);
         if (!empty($preview)) {
             return;
         }
@@ -180,10 +180,10 @@ class Keyword_Association extends xarObject
     {
         $q = new Query('INSERT', $this->tables['keywords_index']);
         if (!isset($args['keyword_id'])) {
-            throw new Exception(xarMLS::translate('Missing parameter [#(1)]', 'keyword_id'));
+            throw new Exception(xar::mls()->translate('Missing parameter [#(1)]', 'keyword_id'));
         }
         if (!isset($args['module_id'])) {
-            throw new Exception(xarMLS::translate('Missing parameter [#(1)]', 'module_id'));
+            throw new Exception(xar::mls()->translate('Missing parameter [#(1)]', 'module_id'));
         }
         if (!isset($args['itemtype'])) {
             $args['itemtype'] = 0;
