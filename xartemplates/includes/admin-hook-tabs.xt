@@ -4,7 +4,7 @@
         <xar:style scope="module" module="base" file="navtabs"/>
         <div>
             <ul class="xar-tabs xar-alt xar-norm-outline">
-                <li class="xar-tabs-label help" title="#xarML('Choose a module to view keywords for')#">Configure:</li>
+                <li class="xar-tabs-label help" title="#$xar->ml('Choose a module to view keywords for')#">Configure:</li>
                 <xar:set name="activetab">'xar-tab-active'</xar:set>
                 <xar:set name="activelink">'xar-accent xar-accent-outline'</xar:set>
                 <xar:set name="inactivetab">'xar-tab'</xar:set>
@@ -13,7 +13,7 @@
                 <xar:set name="tabclass">empty($modname)||$modname=='keywords'?$activetab:$inactivetab</xar:set>
                 <xar:set name="linkclass">empty($modname)||$modname=='keywords'?$activelink:$inactivelink</xar:set>
                 <li class="#$tabclass#">
-                    <a href="#xarServer::getCurrentURL(array('module_id' => null, 'itemtype' => null))#" title="#xarML('Module Configuration')#" class="#$linkclass#">
+                    <a href="#$xar->ctl()->getCurrentURL(array('module_id' => null, 'itemtype' => null))#" title="#$xar->ml('Module Configuration')#" class="#$linkclass#">
                     Defaults</a>
                 </li>
                 <xar:if condition="!empty($subjects)">
@@ -21,7 +21,7 @@
                         <xar:set name="tabclass">$modname==$hookedto?$activetab:$inactivetab</xar:set>
                         <xar:set name="linkclass">$modname==$hookedto?$activelink:$inactivelink</xar:set>
                         <li class="#$tabclass#">
-                            <a href="#xarServer::getCurrentURL(array('module_id' => $modinfo['regid'], 'itemtype' => null))#" title="#xarML('View module keywords')#" class="#$linkclass#">
+                            <a href="#$xar->ctl()->getCurrentURL(array('module_id' => $modinfo['regid'], 'itemtype' => null))#" title="#$xar->ml('View module keywords')#" class="#$linkclass#">
                             #$modinfo['displayname']#</a>
                         </li>
                     </xar:foreach>
@@ -31,12 +31,12 @@
         <xar:if condition="$modname ne 'keywords'">
         <div>
             <ul class="xar-tabs xar-alt xar-norm-outline">
-                <li class="xar-tabs-label help" title="#xarML('Choose a module itemtype to view keywords for')#">Itemtype:</li>
+                <li class="xar-tabs-label help" title="#$xar->ml('Choose a module itemtype to view keywords for')#">Itemtype:</li>
 
                 <xar:set name="tabclass">empty($itemtype)?$activetab:$inactivetab</xar:set>
                 <xar:set name="linkclass">empty($itemtype)?$activelink:$inactivelink</xar:set>
                 <li class="#$tabclass#">
-                    <a href="#xarServer::getCurrentURL(array('itemtype' => null))#" title="#xarML('View all keywords for current module selection')#" class="#$linkclass#">
+                    <a href="#$xar->ctl()->getCurrentURL(array('itemtype' => null))#" title="#$xar->ml('View all keywords for current module selection')#" class="#$linkclass#">
                     All</a>
                 </li>
                 <xar:if condition="!empty($subjects[$modname]['itemtypes'])">
@@ -44,7 +44,7 @@
                         <xar:set name="tabclass">$itemtype==$typeid?$activetab:$inactivetab</xar:set>
                         <xar:set name="linkclass">$itemtype==$typeid?$activelink:$inactivelink</xar:set>
                         <li class="#$tabclass#">
-                            <a href="#xarServer::getCurrentURL(array('itemtype' => $typeid))#" title="#xarML('View module itemtype keywords')#" class="#$linkclass#">
+                            <a href="#$xar->ctl()->getCurrentURL(array('itemtype' => $typeid))#" title="#$xar->ml('View module itemtype keywords')#" class="#$linkclass#">
                             #$typeinfo['label']#</a>
                         </li>
                     </xar:foreach>

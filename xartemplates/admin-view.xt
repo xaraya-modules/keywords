@@ -6,7 +6,7 @@
         <div class="xar-mod-page-head">
             <h2>Overview of Keyword Associations</h2>
             <xar:template type="module" module="keywords" file="admin-module-tabs"/>
-            <form method="get" action="#xarServer::getCurrentURL()#">
+            <form method="get" action="#$xar->ctl()->getCurrentURL()#">
                 <input type="hidden" name="module" id="module_name" value="keywords"/>
                 <input type="hidden" name="type" id="module_type" value="admin"/>
                 <input type="hidden" name="func" id="func" value="view"/>
@@ -36,9 +36,9 @@
             <xar:var name="displaylabel">Display</xar:var>
             <xar:var name="displaytitle">Display module item</xar:var>
             <xar:if condition="!empty($use_icons)">
-                <xar:set name="modifyicon">xarTpl::getImage('icons/modify.png','theme')</xar:set>
-                <xar:set name="deleteicon">xarTpl::getImage('icons/delete.png','theme')</xar:set>
-                <xar:set name="displayicon">xarTpl::getImage('icons/display.png','theme')</xar:set>
+                <xar:set name="modifyicon">$xar->tpl()->getImage('icons/modify.png','theme')</xar:set>
+                <xar:set name="deleteicon">$xar->tpl()->getImage('icons/delete.png','theme')</xar:set>
+                <xar:set name="displayicon">$xar->tpl()->getImage('icons/display.png','theme')</xar:set>
             </xar:if>
 
             <xar:pager startnum="$startnum" itemsperpage="$items_per_page" total="$total"/>
@@ -89,15 +89,15 @@
                                     #$item['numwords']#
                                 </td>
                                 <td class="xar-align-right">
-                                    <xar:set name="return_url">urlencode(xarServer::getCurrentURL())</xar:set>
+                                    <xar:set name="return_url">urlencode($xar->ctl()->getCurrentURL())</xar:set>
                                     <xar:if condition="empty($use_icons)">
                                     <a href="#$modules[$item['module']]['itemlinks'][$item['itemtype']][$item['itemid']]['url']#" title="#$displaytitle#: #$modules[$item['module']]['itemlinks'][$item['itemtype']][$item['itemid']]['title']#">#$displaylabel#</a>&#160;
-                                    <a href="#xarController::URL('keywords', 'admin', 'modify', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" title="#$modifytitle#">#$modifylabel#</a>&#160;
-                                    <a href="#xarController::URL('keywords', 'admin', 'delete', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" title="#$deletetitle#">#$deletelabel#</a>
+                                    <a href="#$xar->ctl()->URL('keywords', 'admin', 'modify', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" title="#$modifytitle#">#$modifylabel#</a>&#160;
+                                    <a href="#$xar->ctl()->URL('keywords', 'admin', 'delete', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" title="#$deletetitle#">#$deletelabel#</a>
                                     <xar:else/>
                                     <a href="#$modules[$item['module']]['itemlinks'][$item['itemtype']][$item['itemid']]['url']#" title="#$displaytitle#: #$modules[$item['module']]['itemlinks'][$item['itemtype']][$item['itemid']]['title']#" class="xar-icon"><img src="#$displayicon#" alt="#$displaylabel#" class="xar-icon"/></a>&#160;
-                                    <a href="#xarController::URL('keywords', 'admin', 'modify', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" class="xar-icon" title="#$modifytitle#"><img src="#$modifyicon#" alt="#$modifylabel#" class="xar-icon"/></a>&#160;
-                                    <a href="#xarController::URL('keywords', 'admin', 'delete', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" class="xar-icon" title="#$deletetitle#"><img src="#$deleteicon#" alt="#$deletelabel#" class="xar-icon"/></a>
+                                    <a href="#$xar->ctl()->URL('keywords', 'admin', 'modify', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" class="xar-icon" title="#$modifytitle#"><img src="#$modifyicon#" alt="#$modifylabel#" class="xar-icon"/></a>&#160;
+                                    <a href="#$xar->ctl()->URL('keywords', 'admin', 'delete', array('module_id' => $item['module_id'], 'itemtype' => $item['itemtype'], 'itemid' => $item['itemid'], 'return_url' => $return_url))#" class="xar-icon" title="#$deletetitle#"><img src="#$deleteicon#" alt="#$deletelabel#" class="xar-icon"/></a>
                                     </xar:if>
                                 </td>
                             </tr>

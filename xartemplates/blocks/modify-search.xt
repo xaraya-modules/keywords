@@ -4,7 +4,7 @@
     <div class="xar-row">
         <div class="xar-col">
             <xar:set name="idvalue">'module_id' .$blockid</xar:set>
-            <label for="#$idvalue#" class="xar-form-label" title="#xarML('Choose the module for this block')#">
+            <label for="#$idvalue#" class="xar-form-label" title="#$xar->ml('Choose the module for this block')#">
                 Module:
             </label>
         </div>
@@ -17,7 +17,7 @@
     <div class="xar-row">
         <div class="xar-col">
             <xar:set name="idvalue">'itemtype' .$blockid</xar:set>
-            <label for="#$idvalue#" class="xar-form-label" title="#xarML('Choose the itemtype for this block')#">
+            <label for="#$idvalue#" class="xar-form-label" title="#$xar->ml('Choose the itemtype for this block')#">
                 Itemtype:
             </label>
         </div>

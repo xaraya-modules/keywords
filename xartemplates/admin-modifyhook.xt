@@ -4,7 +4,7 @@
     <xar:if condition="$restrict_words eq 0">
         <div class="xar-row">
             <div class="xar-col">
-                <xar:set name="keywordsTitle">xarML('Use one of the delimiters #(1) to separate multiple keywords. Use SPACE to delete the keywords for this item.', $delimiters)</xar:set>
+                <xar:set name="keywordsTitle">$xar->ml('Use one of the delimiters #(1) to separate multiple keywords. Use SPACE to delete the keywords for this item.', $delimiters)</xar:set>
                 <label for="keywords" title="#$keywordsTitle#">Keywords:</label>
             </div>
             <div class="xar-col">

@@ -4,7 +4,7 @@
     <div class="xar-row">
         <div class="xar-col">
             <xar:set name="idvalue">'color' .$blockid</xar:set>
-            <label for="#$idvalue#" class="xar-form-label" title="#xarML('Light Row (add in hexadecimal format ex. F0F0F0)')#">
+            <label for="#$idvalue#" class="xar-form-label" title="#$xar->ml('Light Row (add in hexadecimal format ex. F0F0F0)')#">
                 Text color:
             </label>
         </div>
@@ -15,7 +15,7 @@
     <div class="xar-row">
         <div class="xar-col">
             <xar:set name="idvalue">'background' .$blockid</xar:set>
-            <label for="#$idvalue#" class="xar-form-label" title="#xarML('Dark Row (add in hexadecimal format ex. F0F0F0)')#">
+            <label for="#$idvalue#" class="xar-form-label" title="#$xar->ml('Dark Row (add in hexadecimal format ex. F0F0F0)')#">
                 Background color:
             </label>
         </div>
@@ -25,7 +25,7 @@
     </div>
     <div class="xar-row">
         <div class="xar-col">
-            <label for="cloudtype" title="#xarML('What type of cloud to show in the block')#" class="xar-form-label">
+            <label for="cloudtype" title="#$xar->ml('What type of cloud to show in the block')#" class="xar-form-label">
                 <xar:mlstring>
                     Cloud Type:
                 </xar:mlstring>
@@ -45,7 +45,7 @@
     <div class="xar-row">
         <div class="xar-col">
             <xar:set name="idvalue">'module_id' .$blockid</xar:set>
-            <label for="#$idvalue#" class="xar-form-label" title="#xarML('Choose the module for this block')#">
+            <label for="#$idvalue#" class="xar-form-label" title="#$xar->ml('Choose the module for this block')#">
                 Module:
             </label>
         </div>
@@ -58,7 +58,7 @@
     <div class="xar-row">
         <div class="xar-col">
             <xar:set name="idvalue">'itemtype' .$blockid</xar:set>
-            <label for="#$idvalue#" class="xar-form-label" title="#xarML('Choose the itemtype for this block')#">
+            <label for="#$idvalue#" class="xar-form-label" title="#$xar->ml('Choose the itemtype for this block')#">
                 Itemtype:
             </label>
         </div>
