@@ -150,7 +150,6 @@ class DisplayhookMethod extends MethodClass
 
         $data['keywords'] = $keywords;
         $data['showlabel'] = $extrainfo['showlabel'] ?? true;
-        $data['context'] ??= $this->getContext();
 
         $tpltype = $extrainfo['tpltype'] ?? 'user';
         return $this->tpl()->module('keywords', $tpltype, 'displayhook', $data);

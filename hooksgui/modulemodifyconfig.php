@@ -98,7 +98,6 @@ class ModulemodifyconfigMethod extends MethodClass
         $data['module_id'] = $modid;
         $data['itemtype'] = $itemtype;
 
-        $data['context'] ??= $this->getContext();
         return $this->tpl()->module('keywords', 'hooks', 'modulemodifyconfig', $data);
     }
 }

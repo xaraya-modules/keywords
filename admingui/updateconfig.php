@@ -106,8 +106,7 @@ class UpdateconfigMethod extends MethodClass
 
         $isvalid = $data['module_settings']->checkInput();
         if (!$isvalid) {
-            $data['context'] ??= $this->getContext();
-            return $this->mod()->template('modifyconfig', $data);
+            return $this->render('modifyconfig', $data);
         } else {
             $itemid = $data['module_settings']->updateItem();
         }

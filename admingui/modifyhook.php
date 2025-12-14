@@ -203,7 +203,6 @@ class ModifyhookMethod extends MethodClass
         }
         $data['delimiters'] = $delimiters;
 
-        $data['context'] ??= $this->getContext();
-        return $this->mod()->template('modifyhook', $data);
+        return $this->render('modifyhook', $data);
     }
 }
