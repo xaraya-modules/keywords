@@ -50,7 +50,7 @@ class ModuleupdateconfigMethod extends MethodClass
             if (!empty($extrainfo['module']) && is_string($extrainfo['module'])) {
                 $objectid = $extrainfo['module'];
             } else {
-                $objectid = $this->mod()->getName();
+                $objectid = $this->req()->getModule();
             }
         }
 

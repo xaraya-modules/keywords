@@ -36,7 +36,7 @@ class GetsettingsMethod extends MethodClass
             $module = $this->mod()->getName($module_id);
         }
         if (empty($module)) {
-            $module = $this->mod()->getName();
+            $module = $this->req()->getModule();
         }
 
         if (empty($itemtype)) {

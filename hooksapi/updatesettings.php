@@ -39,7 +39,7 @@ class UpdatesettingsMethod extends MethodClass
             $module = $this->mod()->getName($module_id);
         }
         if (!isset($module)) {
-            $module = $this->mod()->getName();
+            $module = $this->req()->getModule();
         }
 
         if (empty($itemtype)) {

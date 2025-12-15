@@ -57,7 +57,7 @@ class DisplayhookMethod extends MethodClass
 
         // When called via hooks, the module name may be empty. Get it from current module.
         if (empty($extrainfo['module'])) {
-            $modname = $this->mod()->getName();
+            $modname = $this->req()->getModule();
         } else {
             $modname = $extrainfo['module'];
         }
